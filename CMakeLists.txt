@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+﻿cmake_minimum_required(VERSION 3.16)
 
 project(MusicPlayer VERSION 0.1 LANGUAGES CXX)
 
@@ -19,8 +19,10 @@ set(PROJECT_SOURCES
         widget.cpp
         widget.h
         widget.ui
+        BasicWidget.cpp
+        BasicWidget.h
         ${TS_FILES}
-)
+ "includeFiles.h")
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(MusicPlayer
@@ -43,7 +45,7 @@ else()
     else()
         add_executable(MusicPlayer
             ${PROJECT_SOURCES}
-        )
+         "includeFiles.h")
     endif()
 
     qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})

@@ -1,23 +1,24 @@
-#ifndef WIDGET_H
+﻿#ifndef WIDGET_H
 #define WIDGET_H
 
 #include <QWidget>
+#include "BasicWidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
-class Widget;
+class MainWidget;
 }
 QT_END_NAMESPACE
 
-class Widget : public QWidget
+class MainWidget : public BasicWidget
 {
     Q_OBJECT
 
 public:
-    Widget(QWidget *parent = nullptr);
-    ~Widget();
+    MainWidget(QWidget *parent = nullptr);
+    ~MainWidget();
 
 private:
-    Ui::Widget *ui;
+    Ui::MainWidget *ui;
 };
 #endif // WIDGET_H

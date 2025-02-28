@@ -1,14 +1,14 @@
-#include "widget.h"
+﻿#include "widget.h"
 #include "./ui_widget.h"
 
-Widget::Widget(QWidget *parent)
-    : QWidget(parent)
-    , ui(new Ui::Widget)
+MainWidget::MainWidget(QWidget *parent)
+    : BasicWidget(parent)
+    , ui(new Ui::MainWidget)
 {
     ui->setupUi(this);
 }
 
-Widget::~Widget()
+MainWidget::~MainWidget()
 {
     delete ui;
 }
