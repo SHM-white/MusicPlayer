@@ -1,0 +1,3 @@
+[submodule "libs/QWindowKit"]
+	path = libs/QWindowKit
+	url = https://github.com/stdware/qwindowkit.git
