@@ -12,6 +12,7 @@ public:
 	BasicWidget(QWidget *parent);
 	~BasicWidget();
 	void paintEvent(QPaintEvent* event) override;
+
 private:
 	QColor m_backgroundColor;
 };

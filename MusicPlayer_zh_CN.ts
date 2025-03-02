@@ -4,18 +4,150 @@
 <context>
     <name>MainWidget</name>
     <message>
-        <location filename="widget.ui" line="14"/>
+        <location filename="src/widget.ui" line="14"/>
         <location filename="out/build/debug/MusicPlayer_autogen/include/ui_widget.h" line="35"/>
         <source>Widget</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>Widget</name>
+    <name>MainWindow</name>
     <message>
-        <location filename="build/Desktop_Qt_6_8_1_MinGW_64_bit-Debug/MusicPlayer_autogen/include/ui_widget.h" line="35"/>
-        <location filename="build/Desktop_Qt_6_8_1_MSVC2022_64bit-Debug/MusicPlayer_autogen/include/ui_widget.h" line="35"/>
-        <source>Widget</source>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="63"/>
+        <source>Example MainWindow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="144"/>
+        <source>File(&amp;F)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="145"/>
+        <source>New(&amp;N)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="146"/>
+        <source>Open(&amp;O)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="149"/>
+        <source>Edit(&amp;E)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="150"/>
+        <source>Undo(&amp;U)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="151"/>
+        <source>Redo(&amp;R)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="154"/>
+        <source>Enable dark theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="164"/>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="169"/>
+        <source>Enable DWM blur</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="173"/>
+        <source>Enable acrylic material</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="177"/>
+        <source>Enable mica</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="181"/>
+        <source>Enable mica alt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="213"/>
+        <source>Dark blur</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="225"/>
+        <source>Light blur</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="237"/>
+        <source>No blur</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="256"/>
+        <source>Settings(&amp;S)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>main</name>
+    <message>
+        <location filename="libs/QWindowKit/examples/qml/main.qml" line="12"/>
+        <source>Hello, world!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/qml/main.qml" line="158"/>
+        <source>Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/qml/main.qml" line="166"/>
+        <source>Light</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/qml/main.qml" line="172"/>
+        <source>Dark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/qml/main.qml" line="181"/>
+        <source>Special effect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/qml/main.qml" line="190"/>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/qml/main.qml" line="204"/>
+        <source>DWM blur</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/qml/main.qml" line="217"/>
+        <source>Acrylic material</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/qml/main.qml" line="230"/>
+        <source>Mica</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/qml/main.qml" line="243"/>
+        <source>Mica Alt</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
