@@ -1,7 +1,7 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>MainWidget</class>
- <widget class="QWidget" name="MainWidget">
+ <widget class="QMainWindow" name="MainWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,8 +11,20 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Widget</string>
+   <string>MainWidget</string>
   </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>33</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

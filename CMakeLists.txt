@@ -6,8 +6,8 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(QWINDOWKIT_BUILD_EXAMPLES ON CACHE BOOL "")
-# set(QWINDOWKIT_BUILD_EXAMPLES OFF CACHE BOOL "")
+#set(QWINDOWKIT_BUILD_EXAMPLES ON CACHE BOOL "")
+set(QWINDOWKIT_BUILD_EXAMPLES OFF CACHE BOOL "")
 
 set(QWINDOWKIT_BUILD_STATIC ON CACHE BOOL "")
 
@@ -36,6 +36,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(MusicPlayer
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        skin/skin.qrc
+        skin/shared.qrc
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET MusicPlayer APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -47,12 +49,16 @@ else()
     if(ANDROID)
         add_library(MusicPlayer SHARED
             ${PROJECT_SOURCES}
+            skin/skin.qrc
+            skin/shared.qrc
         )
 # Define properties for Android with Qt 5 after find_package() calls as:
 #    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     else()
         add_executable(MusicPlayer
             ${PROJECT_SOURCES}
+            skin/skin.qrc
+            skin/shared.qrc
         )
     endif()
 
@@ -76,6 +82,11 @@ set_target_properties(MusicPlayer PROPERTIES
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
+)
+
+qm_configure_target(${CMAKE_PROJECT_NAME}
+    QT_LINKS Widgets
+    LINKS QWKCore QWKWidgets WidgetFrame
 )
 
 include(GNUInstallDirs)

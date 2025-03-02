@@ -5,8 +5,94 @@
     <name>MainWidget</name>
     <message>
         <location filename="src/widget.ui" line="14"/>
-        <location filename="out/build/debug/MusicPlayer_autogen/include/ui_widget.h" line="35"/>
-        <source>Widget</source>
+        <location filename="out/build/debug/MusicPlayer_autogen/include/ui_widget.h" line="51"/>
+        <source>MainWidget</source>
+        <oldsource>Widget</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/widget.cpp" line="12"/>
+        <source>Music Player</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/widget.cpp" line="67"/>
+        <source>File(&amp;F)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/widget.cpp" line="68"/>
+        <source>New(&amp;N)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/widget.cpp" line="69"/>
+        <source>Open(&amp;O)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/widget.cpp" line="72"/>
+        <source>Edit(&amp;E)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/widget.cpp" line="73"/>
+        <source>Undo(&amp;U)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/widget.cpp" line="74"/>
+        <source>Redo(&amp;R)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/widget.cpp" line="77"/>
+        <source>Enable dark theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/widget.cpp" line="87"/>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/widget.cpp" line="92"/>
+        <source>Enable DWM blur</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/widget.cpp" line="96"/>
+        <source>Enable acrylic material</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/widget.cpp" line="100"/>
+        <source>Enable mica</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/widget.cpp" line="104"/>
+        <source>Enable mica alt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/widget.cpp" line="137"/>
+        <source>Dark blur</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/widget.cpp" line="149"/>
+        <source>Light blur</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/widget.cpp" line="161"/>
+        <source>No blur</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/widget.cpp" line="180"/>
+        <source>Settings(&amp;S)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
