@@ -15,14 +15,15 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
 set(TS_FILES MusicPlayer_zh_CN.ts)
 
 set(PROJECT_SOURCES
-        main.cpp
-        widget.cpp
-        widget.h
-        widget.ui
-        BasicWidget.cpp
-        BasicWidget.h
+        src/main.cpp
+        src/widget.cpp
+        src/widget.h
+        src/widget.ui
+        src/BasicWidget.cpp
+        src/BasicWidget.h
+        src/includeFiles.h
         ${TS_FILES}
- "includeFiles.h")
+        )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(MusicPlayer
@@ -45,7 +46,7 @@ else()
     else()
         add_executable(MusicPlayer
             ${PROJECT_SOURCES}
-         "includeFiles.h")
+        )
     endif()
 
     qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
