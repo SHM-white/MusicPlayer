@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+﻿cmake_minimum_required(VERSION 3.16)
 
 project(MusicPlayer VERSION 0.1 LANGUAGES CXX)
 
@@ -15,12 +15,15 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
 set(TS_FILES MusicPlayer_zh_CN.ts)
 
 set(PROJECT_SOURCES
-        main.cpp
-        widget.cpp
-        widget.h
-        widget.ui
+        src/main.cpp
+        src/widget.cpp
+        src/widget.h
+        src/widget.ui
+        src/BasicWidget.cpp
+        src/BasicWidget.h
+        src/includeFiles.h
         ${TS_FILES}
-)
+        )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(MusicPlayer
