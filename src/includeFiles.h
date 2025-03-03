@@ -3,7 +3,7 @@
 //DEBUG
 #ifdef _DEBUG
 //#undef _WIN32
-
+#define DEBUG
 #endif // 
 
 
@@ -33,6 +33,7 @@
 #include <QtCore/QTimer>
 #include <QtGui/QPainter>
 #include <QtGui/QWindow>
+#include <QtWidgets/qslider.h>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QStyle>
 #include <QtWidgets/QPushButton>

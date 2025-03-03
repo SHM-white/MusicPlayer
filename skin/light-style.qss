@@ -1,13 +1,13 @@
 ﻿/* Window bar */
 
 QWK--WindowBar[bar-active=true] {
-    /* background-color: #195bbece; */
-    background-color: transparent; 
+    background-color: rgba(19, 169, 255, 0.598); 
+    /*background-color: transparent; */
 }
 
 QWK--WindowBar[bar-active=false] {
-    /*background-color: #195bbece; */
-    background-color: transparent; 
+    background-color: rgba(19, 169, 255, 0.598); 
+    /*background-color: transparent; */
 }
 
 
@@ -87,7 +87,7 @@ QWK--WindowBar>QAbstractButton#icon-button {
 /* Menu Bar */
 
 QMenuBar {
-    background-color: #0191ff90;
+    background-color: transparent;
     border: none;
 }
 
@@ -165,4 +165,81 @@ QWidget#clock-widget {
     color: #333333;
     font-weight: bold;
     background-color: transparent;
+}
+
+QSlider {
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    color: #ECECEC;
+    font-size: 20px;
+    padding: 10px;
+}
+
+QSlider::groove:horizontal {
+    background-color: #ededed;
+    height: 10px;
+    border-radius: 5px;
+}
+
+QSlider::handle:horizontal {
+    background-color: #FFFFFF;
+    border: none;
+    width: 20px;
+    height: 20px;
+    margin-top: -5px;
+    margin-bottom: -5px;
+    border-radius: 10px;
+}
+
+QSlider::sub-page:horizontal {
+    background-color: #0060C0;
+    border-radius: 5px;
+}
+
+
+QLabel {
+    color: #080808;
+    font-size: 20px;
+}
+
+QPushButton {
+    background-color: #ffffff;
+    border: transparent;
+    border-radius: 5px;
+    padding: 10px;
+    color: #080808;
+}
+
+QPushButton:hover {
+    background-color: #ededed;
+}
+
+QPushButton:pressed {
+    background-color: #9fcfff;
+}
+
+QListWidget {
+    background-color: rgba(255, 255, 255, 10%);
+    border: none;
+    border-radius: 5px;
+    color: #080808;
+    font-size: 20px;
+    padding: 10px;
+}
+QToolButton {
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    color: #080808;
+    font-size: 20px;
+    padding: 10px;
+}
+
+QToolButton:hover {
+    background-color: #dfdfdf;
+}
+
+QToolButton:pressed {
+    background-color: #0060C0;
 }

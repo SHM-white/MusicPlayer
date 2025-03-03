@@ -21,7 +21,7 @@
        <widget class="QWidget" name="widget" native="true">
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
-          <widget class="QWidget" name="widget_2" native="true">
+          <widget class="QWidget" name="widget_MusicDetail" native="true">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -31,7 +31,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QSlider" name="horizontalSlider">
+          <widget class="QSlider" name="horizontalSlider_Progress">
            <property name="orientation">
             <enum>Qt::Orientation::Horizontal</enum>
            </property>
@@ -96,7 +96,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QToolButton" name="toolButton_5">
+            <widget class="QToolButton" name="toolButton_ShowPlayList">
              <property name="text">
               <string>...</string>
              </property>
@@ -108,7 +108,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QListWidget" name="listWidget">
+       <widget class="QListWidget" name="listWidget_PlayList">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
           <horstretch>0</horstretch>

@@ -37,6 +37,8 @@ private:
     void installWindowAgent();
     void loadStyleSheet(Theme theme);
     bool event(QEvent* event) override;
+    void paintEvent(QPaintEvent* event) override;
     Ui::MainWidget *ui;
+    bool paintTransparentBackground{ true };
 };
 #endif // WIDGET_H

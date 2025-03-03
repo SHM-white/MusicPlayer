@@ -5,9 +5,39 @@
     <name>MainWidget</name>
     <message>
         <location filename="src/widget.ui" line="14"/>
-        <location filename="out/build/debug/MusicPlayer_autogen/include/ui_widget.h" line="51"/>
+        <location filename="out/build/debug/MusicPlayer_autogen/include/ui_widget.h" line="165"/>
         <source>MainWidget</source>
         <oldsource>Widget</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/widget.ui" line="45"/>
+        <location filename="src/widget.ui" line="52"/>
+        <location filename="src/widget.ui" line="59"/>
+        <location filename="src/widget.ui" line="66"/>
+        <location filename="src/widget.ui" line="101"/>
+        <location filename="out/build/debug/MusicPlayer_autogen/include/ui_widget.h" line="166"/>
+        <location filename="out/build/debug/MusicPlayer_autogen/include/ui_widget.h" line="167"/>
+        <location filename="out/build/debug/MusicPlayer_autogen/include/ui_widget.h" line="168"/>
+        <location filename="out/build/debug/MusicPlayer_autogen/include/ui_widget.h" line="169"/>
+        <location filename="out/build/debug/MusicPlayer_autogen/include/ui_widget.h" line="174"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/widget.ui" line="73"/>
+        <location filename="src/widget.ui" line="94"/>
+        <location filename="out/build/debug/MusicPlayer_autogen/include/ui_widget.h" line="170"/>
+        <location filename="out/build/debug/MusicPlayer_autogen/include/ui_widget.h" line="173"/>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/widget.ui" line="80"/>
+        <location filename="src/widget.ui" line="87"/>
+        <location filename="out/build/debug/MusicPlayer_autogen/include/ui_widget.h" line="171"/>
+        <location filename="out/build/debug/MusicPlayer_autogen/include/ui_widget.h" line="172"/>
+        <source>PushButton</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -16,82 +46,82 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/widget.cpp" line="67"/>
+        <location filename="src/widget.cpp" line="69"/>
         <source>File(&amp;F)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/widget.cpp" line="68"/>
+        <location filename="src/widget.cpp" line="70"/>
         <source>New(&amp;N)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/widget.cpp" line="69"/>
+        <location filename="src/widget.cpp" line="71"/>
         <source>Open(&amp;O)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/widget.cpp" line="72"/>
+        <location filename="src/widget.cpp" line="74"/>
         <source>Edit(&amp;E)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/widget.cpp" line="73"/>
+        <location filename="src/widget.cpp" line="75"/>
         <source>Undo(&amp;U)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/widget.cpp" line="74"/>
+        <location filename="src/widget.cpp" line="76"/>
         <source>Redo(&amp;R)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/widget.cpp" line="77"/>
+        <location filename="src/widget.cpp" line="79"/>
         <source>Enable dark theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/widget.cpp" line="87"/>
+        <location filename="src/widget.cpp" line="89"/>
         <source>None</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/widget.cpp" line="92"/>
+        <location filename="src/widget.cpp" line="94"/>
         <source>Enable DWM blur</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/widget.cpp" line="96"/>
+        <location filename="src/widget.cpp" line="98"/>
         <source>Enable acrylic material</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/widget.cpp" line="100"/>
+        <location filename="src/widget.cpp" line="103"/>
         <source>Enable mica</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/widget.cpp" line="104"/>
+        <location filename="src/widget.cpp" line="107"/>
         <source>Enable mica alt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/widget.cpp" line="137"/>
+        <location filename="src/widget.cpp" line="140"/>
         <source>Dark blur</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/widget.cpp" line="149"/>
+        <location filename="src/widget.cpp" line="152"/>
         <source>Light blur</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/widget.cpp" line="161"/>
+        <location filename="src/widget.cpp" line="164"/>
         <source>No blur</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/widget.cpp" line="180"/>
+        <location filename="src/widget.cpp" line="183"/>
         <source>Settings(&amp;S)</source>
         <translation type="unfinished"></translation>
     </message>

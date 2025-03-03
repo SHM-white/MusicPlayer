@@ -11,6 +11,8 @@ MainWidget::MainWidget(QWidget *parent)
     installWindowAgent();
     setWindowTitle(tr("Music Player"));
     loadStyleSheet(Dark);
+    setObjectName(QStringLiteral("main-window"));
+    windowAgent->setWindowAttribute(QStringLiteral("acrylic-material"), true);
 }
 
 MainWidget::~MainWidget()
@@ -87,7 +89,7 @@ void MainWidget::installWindowAgent()
         auto noneAction = new QAction(tr("None"), menuBar);
         noneAction->setData(QStringLiteral("none"));
         noneAction->setCheckable(true);
-        noneAction->setChecked(true);
+        //noneAction->setChecked(true);
 
         auto dwmBlurAction = new QAction(tr("Enable DWM blur"), menuBar);
         dwmBlurAction->setData(QStringLiteral("dwm-blur"));
@@ -96,6 +98,7 @@ void MainWidget::installWindowAgent()
         auto acrylicAction = new QAction(tr("Enable acrylic material"), menuBar);
         acrylicAction->setData(QStringLiteral("acrylic-material"));
         acrylicAction->setCheckable(true);
+        acrylicAction->setChecked(true);
 
         auto micaAction = new QAction(tr("Enable mica"), menuBar);
         micaAction->setData(QStringLiteral("mica"));
@@ -125,10 +128,12 @@ void MainWidget::installWindowAgent()
                 const QString data = action->data().toString();
                 if (data == QStringLiteral("none")) {
                     setProperty("custom-style", false);
+                    paintTransparentBackground = false;
                 }
                 else if (!data.isEmpty()) {
                     windowAgent->setWindowAttribute(data, true);
                     setProperty("custom-style", true);
+                    paintTransparentBackground = true;
                 }
                 style()->polish(this);
             });
@@ -181,10 +186,10 @@ void MainWidget::installWindowAgent()
         settings->addAction(darkAction);
 
 #ifdef Q_OS_WIN
-        //settings->addSeparator();
-        //settings->addAction(noneAction);
-        //settings->addAction(dwmBlurAction);
-        //settings->addAction(acrylicAction);
+        settings->addSeparator();
+        settings->addAction(noneAction);
+        settings->addAction(dwmBlurAction);
+        settings->addAction(acrylicAction);
         //settings->addAction(micaAction);
         //settings->addAction(micaAltAction);
 #elif defined(Q_OS_MAC)
@@ -302,11 +307,15 @@ void MainWidget::loadStyleSheet(Theme theme)
         qss.open(QIODevice::ReadOnly | QIODevice::Text)) {
         setStyleSheet(QString::fromUtf8(qss.readAll()));
         windowAgent->setWindowAttribute(QStringLiteral("none"), false);
-        windowAgent->setWindowAttribute(theme != Dark ? QStringLiteral("dwm-blur") : QStringLiteral("acrylic-material"), false);
-        windowAgent->setWindowAttribute(theme == Dark ? QStringLiteral("dwm-blur") : QStringLiteral("acrylic-material"), true);
+#ifdef DEBUG
+        //windowAgent->setWindowAttribute(theme != Dark ? QStringLiteral("dwm-blur") : QStringLiteral("acrylic-material"), false);
+        //windowAgent->setWindowAttribute(theme == Dark ? QStringLiteral("dwm-blur") : QStringLiteral("acrylic-material"), true);
+
+#endif // DEBUG
         setProperty("custom-style", true);
         style()->polish(this);
         Q_EMIT themeChanged();
+        update();
     }
 }
 
@@ -335,4 +344,21 @@ bool MainWidget::event(QEvent* event)
         break;
     }
     return QMainWindow::event(event);
+}
+
+void MainWidget::paintEvent(QPaintEvent* event)
+{
+    QPainter painter(this);
+    if(currentTheme == Dark)
+    {
+        painter.setBrush(QBrush(QColor(0, 0, 0, paintTransparentBackground ? 128 : 255)));
+        painter.drawRect(this->rect());
+    }
+    else
+    {
+        painter.setBrush(QColor(255, 255, 255, paintTransparentBackground ? 128 : 255));
+        painter.drawRect(this->rect());
+    }
+    painter.end();
+    QMainWindow::paintEvent(event);
 }

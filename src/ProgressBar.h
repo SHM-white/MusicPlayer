@@ -8,6 +8,7 @@ class ProgressBar  : public QSlider
 	Q_OBJECT
 
 public:
-	ProgressBar(QObject *parent);
+	ProgressBar(QWidget *parent);
 	~ProgressBar();
+
 };

@@ -159,7 +159,11 @@ MainWindow {
 }
 
 MainWindow[custom-style=true] {
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0.705);
+}
+
+QWidget#main-window{
+    color: rgba(255, 255, 255, 50%);
 }
 
 QWidget#clock-widget {
@@ -168,3 +172,80 @@ QWidget#clock-widget {
     font-weight: bold;
     background-color: transparent;
 }
+
+QLabel {
+    color: #ECECEC;
+    font-size: 20px;
+}
+
+QPushButton {
+    background-color: #1E1E1E;
+    border: transparent;
+    border-radius: 5px;
+    padding: 10px;
+    color: #ECECEC;
+}
+
+QPushButton:hover {
+    background-color: #303030;
+}
+
+QPushButton:pressed {
+    background-color: #0060C0;
+}
+
+QListWidget {
+    background-color: rgba(26, 26, 26, 0.5);
+    border: none;
+    border-radius: 5px;
+    color: #ECECEC;
+    font-size: 20px;
+    padding: 10px;
+}
+QToolButton {
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    color: #ECECEC;
+    font-size: 20px;
+    padding: 10px;
+}
+
+QToolButton:hover {
+    background-color: #303030;
+}
+
+QToolButton:pressed {
+    background-color: #0060C0;
+}
+
+QSlider {
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    color: #ECECEC;
+    font-size: 20px;
+    padding: 10px;
+}
+
+QSlider::groove:horizontal {
+    background-color: #303030;
+    height: 10px;
+    border-radius: 5px;
+}
+
+QSlider::handle:horizontal {
+    background-color: #FFFFFF;
+    border: none;
+    width: 20px;
+    height: 20px;
+    margin-top: -5px;
+    margin-bottom: -5px;
+    border-radius: 10px;
+}
+
+QSlider::sub-page:horizontal {
+    background-color: #0060C0;
+    border-radius: 5px;
+}
+

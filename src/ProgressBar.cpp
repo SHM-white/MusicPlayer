@@ -1,6 +1,6 @@
 ﻿#include "ProgressBar.h"
 
-ProgressBar::ProgressBar(QObject *parent)
+ProgressBar::ProgressBar(QWidget *parent)
 	: QSlider(parent)
 {}
 

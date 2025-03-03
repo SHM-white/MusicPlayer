@@ -31,6 +31,8 @@ set(PROJECT_SOURCES
         src/includeFiles.h
         src/ProgressBar.h
         src/ProgressBar.cpp
+        src/PlayPauseButton.h
+        src/PlayPauseButton.cpp
         ${TS_FILES}
         )
 
