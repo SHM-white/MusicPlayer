@@ -12,7 +12,7 @@ MainWidget::MainWidget(QWidget *parent)
     setWindowTitle(tr("Music Player"));
     loadStyleSheet(Dark);
     setObjectName(QStringLiteral("main-window"));
-    windowAgent->setWindowAttribute(QStringLiteral("acrylic-material"), true);
+    windowAgent->setWindowAttribute(QStringLiteral("dwm-blur"), true);
 }
 
 MainWidget::~MainWidget()
@@ -94,11 +94,12 @@ void MainWidget::installWindowAgent()
         auto dwmBlurAction = new QAction(tr("Enable DWM blur"), menuBar);
         dwmBlurAction->setData(QStringLiteral("dwm-blur"));
         dwmBlurAction->setCheckable(true);
+        dwmBlurAction->setChecked(true);
 
         auto acrylicAction = new QAction(tr("Enable acrylic material"), menuBar);
         acrylicAction->setData(QStringLiteral("acrylic-material"));
         acrylicAction->setCheckable(true);
-        acrylicAction->setChecked(true);
+        //acrylicAction->setChecked(true);
 
         auto micaAction = new QAction(tr("Enable mica"), menuBar);
         micaAction->setData(QStringLiteral("mica"));

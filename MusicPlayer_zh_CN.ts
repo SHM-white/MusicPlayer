@@ -106,22 +106,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/widget.cpp" line="140"/>
+        <location filename="src/widget.cpp" line="142"/>
         <source>Dark blur</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/widget.cpp" line="152"/>
+        <location filename="src/widget.cpp" line="154"/>
         <source>Light blur</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/widget.cpp" line="164"/>
+        <location filename="src/widget.cpp" line="166"/>
         <source>No blur</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/widget.cpp" line="183"/>
+        <location filename="src/widget.cpp" line="185"/>
         <source>Settings(&amp;S)</source>
         <translation type="unfinished"></translation>
     </message>
