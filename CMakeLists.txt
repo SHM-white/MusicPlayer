@@ -29,6 +29,8 @@ set(PROJECT_SOURCES
         src/BasicWidget.cpp
         src/BasicWidget.h
         src/includeFiles.h
+        src/ProgressBar.h
+        src/ProgressBar.cpp
         ${TS_FILES}
         )
 

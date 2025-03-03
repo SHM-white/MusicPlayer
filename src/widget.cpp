@@ -10,7 +10,7 @@ MainWidget::MainWidget(QWidget *parent)
     setAttribute(Qt::WA_TranslucentBackground);
     installWindowAgent();
     setWindowTitle(tr("Music Player"));
-    loadStyleSheet(Light);
+    loadStyleSheet(Dark);
 }
 
 MainWidget::~MainWidget()
@@ -181,12 +181,12 @@ void MainWidget::installWindowAgent()
         settings->addAction(darkAction);
 
 #ifdef Q_OS_WIN
-        settings->addSeparator();
-        settings->addAction(noneAction);
-        settings->addAction(dwmBlurAction);
-        settings->addAction(acrylicAction);
-        settings->addAction(micaAction);
-        settings->addAction(micaAltAction);
+        //settings->addSeparator();
+        //settings->addAction(noneAction);
+        //settings->addAction(dwmBlurAction);
+        //settings->addAction(acrylicAction);
+        //settings->addAction(micaAction);
+        //settings->addAction(micaAltAction);
 #elif defined(Q_OS_MAC)
         settings->addAction(darkBlurAction);
         settings->addAction(lightBlurAction);
@@ -301,6 +301,11 @@ void MainWidget::loadStyleSheet(Theme theme)
         : QStringLiteral(":/light-style.qss"));
         qss.open(QIODevice::ReadOnly | QIODevice::Text)) {
         setStyleSheet(QString::fromUtf8(qss.readAll()));
+        windowAgent->setWindowAttribute(QStringLiteral("none"), false);
+        windowAgent->setWindowAttribute(theme != Dark ? QStringLiteral("dwm-blur") : QStringLiteral("acrylic-material"), false);
+        windowAgent->setWindowAttribute(theme == Dark ? QStringLiteral("dwm-blur") : QStringLiteral("acrylic-material"), true);
+        setProperty("custom-style", true);
+        style()->polish(this);
         Q_EMIT themeChanged();
     }
 }
