@@ -1,4 +1,4 @@
-﻿cmake_minimum_required(VERSION 3.16)
+﻿cmake_minimum_required(VERSION 3.18)
 
 project(MusicPlayer VERSION 0.1 LANGUAGES CXX)
 
@@ -74,11 +74,29 @@ else()
     # qt_create_translation(QM_FILES ${TS_FILES} ${PROJECT_SOURCES})
 endif()
 
-set_source_files_properties(${TS_FILES} PROPERTIES OUTPUT_LOCATION ${CMAKE_CURRENT_SOURCE_DIR})
-qt_create_translation(QM_FILES ${TS_FILES} ${PROJECT_SOURCES})
-add_custom_target(lupdate_task DEPENDS ${TS_FILES})
-add_custom_target(lrelease_task DEPENDS ${QM_FILES})
-qt_add_resources(${PROJECT_NAME} ${QM_FILES})
+# 添加翻译文件生成规则
+qt_add_lupdate(${PROJECT_NAME}
+    TS_FILES ${TS_FILES}
+    OPTIONS -no-obsolete
+)
+
+qt_add_lrelease(${PROJECT_NAME}
+    TS_FILES ${TS_FILES}
+    QM_FILES_OUTPUT_VARIABLE QM_FILES
+)
+
+# 将生成的 .qm 文件路径转换为相对路径
+set(RELATIVE_QM_FILES)
+foreach(QM_FILE ${QM_FILES})
+    file(RELATIVE_PATH RELATIVE_QM_FILE ${CMAKE_CURRENT_SOURCE_DIR} ${QM_FILE})
+    list(APPEND RELATIVE_QM_FILES ${RELATIVE_QM_FILE})
+endforeach()
+
+# 将生成的 .qm 文件添加到资源文件中
+qt_add_resources(MusicPlayer "translations"
+    PREFIX "/i18n"
+    FILES ${RELATIVE_QM_FILES}
+)
 
 target_link_libraries(MusicPlayer PRIVATE 
 Qt${QT_VERSION_MAJOR}::Widgets 

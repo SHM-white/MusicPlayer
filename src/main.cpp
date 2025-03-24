@@ -3,6 +3,7 @@
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
+#include <QDebug>
 
 int main(int argc, char *argv[])
 {
@@ -13,15 +14,15 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_DontCreateNativeWidgetSiblings);
     QApplication a(argc, argv);
 
+    // 加载翻译文件
     QTranslator translator;
-    const QStringList uiLanguages = QLocale::system().uiLanguages();
-    for (const QString &locale : uiLanguages) {
-        const QString baseName = "MusicPlayer_" + QLocale(locale).name();
-        if (translator.load(":/i18n/" + baseName)) {
-            a.installTranslator(&translator);
-            break;
-        }
+    if (translator.load(QLocale(), "MusicPlayer", "_", ":/i18n")) {
+        a.installTranslator(&translator);
+        qDebug() << "Translation loaded successfully.";
+    } else {
+        qDebug() << "Failed to load translation.";
     }
+
     MainWidget w;
     w.show();
     return a.exec();
