@@ -184,7 +184,8 @@ QSlider::groove:horizontal {
 
 QSlider::handle:horizontal {
     background-color: #FFFFFF;
-    border: none;
+    border-color: #CCCCCC ;
+    border-width: 4px;
     width: 20px;
     height: 20px;
     margin-top: -5px;
@@ -220,7 +221,7 @@ QPushButton:pressed {
 }
 
 QListWidget {
-    background-color: rgba(255, 255, 255, 10%);
+    background-color: rgba(255, 255, 255, 50%);
     border: none;
     border-radius: 5px;
     color: #080808;

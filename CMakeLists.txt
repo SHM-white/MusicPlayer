@@ -43,12 +43,12 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         skin/skin.qrc
         skin/shared.qrc
     )
-# Define target properties for Android with Qt 6 as:
+    # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET MusicPlayer APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
 #                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
 # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
-
-    qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+    # 修复翻译文件生成路径
+    qt_create_translation(QM_FILES ${CMAKE_CURRENT_SOURCE_DIR} ${TS_FILES})
 else()
     if(ANDROID)
         add_library(MusicPlayer SHARED
@@ -66,7 +66,8 @@ else()
         )
     endif()
 
-    qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+    # 修复翻译文件生成路径
+    qt5_create_translation(QM_FILES ${CMAKE_CURRENT_SOURCE_DIR} ${TS_FILES})
 endif()
 
 target_link_libraries(MusicPlayer PRIVATE 

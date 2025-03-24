@@ -137,6 +137,7 @@ void MainWidget::installWindowAgent()
                     paintTransparentBackground = true;
                 }
                 style()->polish(this);
+                update();
             });
 
 #elif defined(Q_OS_MAC)
@@ -317,6 +318,7 @@ void MainWidget::loadStyleSheet(Theme theme)
         style()->polish(this);
         Q_EMIT themeChanged();
         update();
+        //repaint();
     }
 }
 
@@ -357,7 +359,7 @@ void MainWidget::paintEvent(QPaintEvent* event)
     }
     else
     {
-        painter.setBrush(QColor(255, 255, 255, paintTransparentBackground ? 128 : 255));
+        painter.setBrush(QColor(240, 240, 240, paintTransparentBackground ? 128 : 255));
         painter.drawRect(this->rect());
     }
     painter.end();
