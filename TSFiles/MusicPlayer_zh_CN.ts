@@ -22,13 +22,13 @@
         <location filename="../src/widget.ui" line="73"/>
         <location filename="../src/widget.ui" line="94"/>
         <source>TextLabel</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/widget.ui" line="80"/>
         <location filename="../src/widget.ui" line="87"/>
         <source>PushButton</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/widget.cpp" line="12"/>

@@ -11,7 +11,7 @@ BasicWidget::BasicWidget(QWidget *parent)
 #ifdef _WIN32
 
 	HWND hWnd = HWND(this->winId());
-	HMODULE hUser = GetModuleHandle("user32.dll");
+	HMODULE hUser = GetModuleHandle(TEXT("user32.dll"));
 	if (hUser)
 	{
 

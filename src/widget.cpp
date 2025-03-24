@@ -351,16 +351,19 @@ bool MainWidget::event(QEvent* event)
 
 void MainWidget::paintEvent(QPaintEvent* event)
 {
+    QRect newRect = this->rect();
+    newRect.setBottomRight(this->rect().bottomRight() + QPoint{ 2, 2 });
+    newRect.setTopLeft(QPoint{ -1, -1 });
     QPainter painter(this);
     if(currentTheme == Dark)
     {
         painter.setBrush(QBrush(QColor(0, 0, 0, paintTransparentBackground ? 128 : 255)));
-        painter.drawRect(this->rect());
+        painter.drawRect(newRect);
     }
     else
     {
         painter.setBrush(QColor(240, 240, 240, paintTransparentBackground ? 128 : 255));
-        painter.drawRect(this->rect());
+        painter.drawRect(newRect);
     }
     painter.end();
     QMainWindow::paintEvent(event);

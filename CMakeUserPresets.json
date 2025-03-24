@@ -1,4 +1,4 @@
-{
+﻿{
   "version": 3,
   "configurePresets": [
     {
@@ -10,7 +10,7 @@
         "CMAKE_CXX_FLAGS": "-DQT_QML_DEBUG"
       },
       "environment": {
-        "QML_DEBUG_ARGS": "-qmljsdebugger=file:{b58a8a4e-2161-476d-9b14-dc77be7aea00},block"
+        "QML_DEBUG_ARGS": "-qmljsdebugger=file:{3ff366b6-5bed-40fc-b505-11651017ba1b},block"
       }
     },
     {
@@ -19,6 +19,16 @@
       "binaryDir": "${sourceDir}/out/build/release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "hidden": true,
+      "name": "Qt-Default",
+      "inherits": "6.8.2_msvc2022_64",
+      "vendor": {
+        "qt-project.org/Default": {
+          "checksum": "dVaXqt7vT7P6yO+8E9fl9WciXD4="
+        }
       }
     },
     {
@@ -41,6 +51,24 @@
     },
     {
       "hidden": true,
+      "name": "6.8.2_msvc2022_64",
+      "inherits": "Qt",
+      "environment": {
+        "QTDIR": "E:/Qt/6.8.2/msvc2022_64"
+      },
+      "architecture": {
+        "strategy": "external",
+        "value": "x64"
+      },
+      "generator": "Ninja",
+      "vendor": {
+        "qt-project.org/Version": {
+          "checksum": "VatoQaQiletzW30x2TFs00p1nqM="
+        }
+      }
+    },
+    {
+      "hidden": true,
       "name": "QtDesignStudio_qt6_design_studio_reduced_version",
       "inherits": "Qt",
       "environment": {
@@ -56,39 +84,11 @@
           "checksum": "vn8+2NxsiVAMVAnbxnAlHRKqaVU="
         }
       }
-    },
-    {
-      "hidden": true,
-      "name": "Qt-Default",
-      "inherits": "5.15.2_msvc2019_64",
-      "vendor": {
-        "qt-project.org/Default": {
-          "checksum": "hFHqn7KAkQOhAQUh9kbJbv7R0NY="
-        }
-      }
-    },
-    {
-      "hidden": true,
-      "name": "6.8.1_msvc2022_64",
-      "inherits": "Qt",
-      "environment": {
-        "QTDIR": "E:/Qt/6.8.1/msvc2022_64"
-      },
-      "architecture": {
-        "strategy": "external",
-        "value": "x64"
-      },
-      "generator": "Ninja",
-      "vendor": {
-        "qt-project.org/Version": {
-          "checksum": "6vEGmLWriq3AUQ0l04TNIi366+U="
-        }
-      }
     }
   ],
   "vendor": {
     "qt-project.org/Presets": {
-      "checksum": "meSGr8OUHSqAB3EU9oA8Jpx2MuM="
+      "checksum": "AaJ1Nu3agvI7k/kywh9wO+1Vo2A="
     }
   }
 }

@@ -14,6 +14,8 @@ set(QWINDOWKIT_BUILD_STATIC ON CACHE BOOL "")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(CMAKE_PREFIX_PATH "E:/Qt/6.8.2/msvc2022_64")
+
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
 
@@ -72,7 +74,11 @@ else()
     # qt_create_translation(QM_FILES ${TS_FILES} ${PROJECT_SOURCES})
 endif()
 
+set_source_files_properties(${TS_FILES} PROPERTIES OUTPUT_LOCATION ${CMAKE_CURRENT_SOURCE_DIR})
 qt_create_translation(QM_FILES ${TS_FILES} ${PROJECT_SOURCES})
+add_custom_target(lupdate_task DEPENDS ${TS_FILES})
+add_custom_target(lrelease_task DEPENDS ${QM_FILES})
+qt_add_resources(${PROJECT_NAME} ${QM_FILES})
 
 target_link_libraries(MusicPlayer PRIVATE 
 Qt${QT_VERSION_MAJOR}::Widgets 
