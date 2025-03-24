@@ -45,7 +45,12 @@
 
 // #include <QtWebEngineWidgets/QWebEngineView>
 
+//#include <QWKWidgets/widgetwindowagent.h>
 #include <QWKWidgets/widgetwindowagent.h>
-
+#include "../libs/QWindowKit/src/widgets/widgetwindowagent.h"
+//#include <QWKCore/qwindowkit_windows.h>
 #include <widgetframe/windowbar.h>
 #include <widgetframe/windowbutton.h>
+#include <QWKWidgets/qwkwidgetsglobal.h>
+#include <QWKCore/qwkglobal.h>
+#include <QWKCore/windowagentbase.h>

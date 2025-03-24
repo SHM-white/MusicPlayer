@@ -18,8 +18,9 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/libs/QWindowKit)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/widgetframe)
 
-set(TS_FILES MusicPlayer_zh_CN.ts)
+set(TS_FILES TSFiles/MusicPlayer_zh_CN.ts)
 
 set(PROJECT_SOURCES
         src/main.cpp
@@ -33,8 +34,9 @@ set(PROJECT_SOURCES
         src/ProgressBar.cpp
         src/PlayPauseButton.h
         src/PlayPauseButton.cpp
-        ${TS_FILES}
+        # ${TS_FILES}
         )
+# qt_create_translation(QM_FILES ${TS_FILES} ${PROJECT_SOURCES})
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(MusicPlayer
@@ -48,7 +50,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 #                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
 # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
     # 修复翻译文件生成路径
-    qt_create_translation(QM_FILES ${CMAKE_CURRENT_SOURCE_DIR} ${TS_FILES})
+    # qt_create_translation(QM_FILES ${TS_FILES} ${PROJECT_SOURCES})
 else()
     if(ANDROID)
         add_library(MusicPlayer SHARED
@@ -67,8 +69,10 @@ else()
     endif()
 
     # 修复翻译文件生成路径
-    qt5_create_translation(QM_FILES ${CMAKE_CURRENT_SOURCE_DIR} ${TS_FILES})
+    # qt_create_translation(QM_FILES ${TS_FILES} ${PROJECT_SOURCES})
 endif()
+
+qt_create_translation(QM_FILES ${TS_FILES} ${PROJECT_SOURCES})
 
 target_link_libraries(MusicPlayer PRIVATE 
 Qt${QT_VERSION_MAJOR}::Widgets 
