@@ -249,3 +249,10 @@ QSlider::sub-page:horizontal {
     border-radius: 5px;
 }
 
+QPushButton#playPauseButton {
+    border-color: transparent;
+    background-color: transparent;
+    color: #FFFFFF;
+    font-size: 20px;
+    font-family: 'Segoe Fluent Icons';
+}

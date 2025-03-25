@@ -54,3 +54,40 @@
 #include <QWKWidgets/qwkwidgetsglobal.h>
 #include <QWKCore/qwkglobal.h>
 #include <QWKCore/windowagentbase.h>
+
+
+namespace Icons {
+	//Icons in Segoe Fluent Icons font
+	enum Icons {
+		Play = 0xe768,
+		Pause = 0xe769,
+		Cancel = 0xe711,
+		Refresh = 0xe72c,
+		EndPoint = 0xe81b,
+		MapLayers = 0xe81e,
+		Recent = 0xe823,
+		ChromeBack = 0xe830,
+		Previous = 0xe892,
+		Next = 0xe893,
+		Clear = 0xe894,
+		Sync = 0xe895,
+		Download = 0xe896,
+		Help = 0xe897,
+		Upload = 0xe898,
+		OpenInNewWindow = 0xe8a7,
+		Switch = 0xe8ab,
+		Shuffle = 0xe8b1,
+		Import = 0xe8b5,
+		Folder = 0xe8b7,
+		ChromeClose = 0xe8bb,
+		Sort = 0xe8cb,
+		Audio = 0xe8d6,
+		Unfavorite = 0xe8d9,
+		OpenFile = 0xe8e5,
+		RepeatOne = 0xe8ed,
+		RepeatAll = 0xe8ee,
+		FavoriteStar = 0xe734,
+		FavoriteStarFill = 0xe735,
+		FavoriteList = 0xe728,
+	};
+};

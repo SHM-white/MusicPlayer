@@ -75,11 +75,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_2">
-             <property name="text">
-              <string>PushButton</string>
-             </property>
-            </widget>
+            <widget class="PlayPauseButton" name="playPauseButton"/>
            </item>
            <item>
             <widget class="QPushButton" name="pushButton">
@@ -133,6 +129,13 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PlayPauseButton</class>
+   <extends>QPushButton</extends>
+   <header location="global">PlayPauseButton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
