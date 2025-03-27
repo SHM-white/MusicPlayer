@@ -12,9 +12,10 @@ public:
 	BasicWidget(QWidget *parent);
 	~BasicWidget();
 	void paintEvent(QPaintEvent* event) override;
-
+	void setBackgtoundColor(const QColor& color);
 private:
 	QColor m_backgroundColor;
+	bool m_enableDWM{ false };
 };
 
 #ifdef _WIN32

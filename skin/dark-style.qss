@@ -235,6 +235,16 @@ QSlider::groove:horizontal {
 }
 
 QSlider::handle:horizontal {
+    background-color: transparent;
+    border: none;
+    width: 20px;
+    height: 20px;
+    margin-top: -5px;
+    margin-bottom: -5px;
+    border-radius: 10px;
+}
+
+QSlider::handle:horizontal:hover{
     background-color: #FFFFFF;
     border: none;
     width: 20px;

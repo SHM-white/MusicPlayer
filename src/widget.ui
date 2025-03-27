@@ -40,61 +40,106 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout">
            <item>
-            <widget class="QToolButton" name="toolButton">
-             <property name="text">
-              <string>...</string>
+            <widget class="QPushButton" name="pushButton_showFileDetails">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QToolButton" name="toolButton_2">
-             <property name="text">
-              <string>...</string>
+            <widget class="QPushButton" name="pushButton_Like">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QToolButton" name="toolButton_4">
-             <property name="text">
-              <string>...</string>
+            <widget class="QPushButton" name="pushButton_LoopMode">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QToolButton" name="toolButton_3">
-             <property name="text">
-              <string>...</string>
+            <widget class="ChangeVolumeButton" name="pushButton_Volume">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_2">
+            <widget class="QLabel" name="label_MusicName">
              <property name="text">
               <string>TextLabel</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="PlayPauseButton" name="playPauseButton"/>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton">
-             <property name="text">
-              <string>PushButton</string>
+            <widget class="QPushButton" name="pushButton_Previous">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label">
+            <widget class="PlayPauseButton" name="playPauseButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_Next">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_PlayTime">
              <property name="text">
               <string>TextLabel</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QToolButton" name="toolButton_ShowPlayList">
-             <property name="text">
-              <string>...</string>
+            <widget class="QPushButton" name="pushButton_Maximize">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_ShowPlayList">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
             </widget>
            </item>
@@ -134,6 +179,11 @@
    <class>PlayPauseButton</class>
    <extends>QPushButton</extends>
    <header location="global">PlayPauseButton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ChangeVolumeButton</class>
+   <extends>QPushButton</extends>
+   <header location="global">ChangeVolumeButton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

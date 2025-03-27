@@ -14,6 +14,22 @@
 #define NOMINMAX
 #endif	// _WIN32
 
+//CPP standard headers
+#include <memory>
+
+//Qt headers
+#include <QtCore/QDebug>
+#include <QtCore/QFile>
+#include <QtCore/QTime>
+#include <QtCore/QTimer>
+#include <QtGui/QPainter>
+#include <QtGui/QWindow>
+#include <QtWidgets/qslider.h>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QStyle>
+#include <QtWidgets/QPushButton>
+
+#include <qwidget.h>
 #include <qpainter.h>
 #include <qmainwindow.h>
 #include <qlabel.h>
@@ -25,30 +41,15 @@
 #include <qmessagebox.h>
 #include <qtimer.h>
 #include <qevent.h>
-
-
-#include <QtCore/QDebug>
-#include <QtCore/QFile>
-#include <QtCore/QTime>
-#include <QtCore/QTimer>
-#include <QtGui/QPainter>
-#include <QtGui/QWindow>
-#include <QtWidgets/qslider.h>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QStyle>
-#include <QtWidgets/QPushButton>
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 #  include <QtGui/QActionGroup>
 #else
 #  include <QtWidgets/QActionGroup>
 #endif
 
-// #include <QtWebEngineWidgets/QWebEngineView>
-
-//#include <QWKWidgets/widgetwindowagent.h>
+//QWindowKit headers
 #include <QWKWidgets/widgetwindowagent.h>
 #include "../libs/QWindowKit/src/widgets/widgetwindowagent.h"
-//#include <QWKCore/qwindowkit_windows.h>
 #include <widgetframe/windowbar.h>
 #include <widgetframe/windowbutton.h>
 #include <QWKWidgets/qwkwidgetsglobal.h>
@@ -56,8 +57,9 @@
 #include <QWKCore/windowagentbase.h>
 
 
+//Icons in Segoe Fluent Icons font
+//Needs set font to "Segoe Fluent Icons"
 namespace Icons {
-	//Icons in Segoe Fluent Icons font
 	enum Icons {
 		Play = 0xe768,
 		Pause = 0xe769,
@@ -89,5 +91,11 @@ namespace Icons {
 		FavoriteStar = 0xe734,
 		FavoriteStarFill = 0xe735,
 		FavoriteList = 0xe728,
+		Add = 0xe710,
+		Volume0 = 0xe992,
+		Volume1 = 0xe993,
+		Volume2 = 0xe994,
+		Volume3 = 0xe995,
+		Mute = 0xe74f,
 	};
 };

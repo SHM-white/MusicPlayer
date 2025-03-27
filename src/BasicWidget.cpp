@@ -10,21 +10,23 @@ BasicWidget::BasicWidget(QWidget *parent)
 
 #ifdef _WIN32
 
-	HWND hWnd = HWND(this->winId());
-	HMODULE hUser = GetModuleHandle(TEXT("user32.dll"));
-	if (hUser)
-	{
-
-
-		pfnSetWindowCompositionAttribute setWindowCompositionAttribute = (pfnSetWindowCompositionAttribute)GetProcAddress(hUser, "SetWindowCompositionAttribute");
-		if (setWindowCompositionAttribute)
+	if (m_enableDWM){
+		HWND hWnd = HWND(this->winId());
+		HMODULE hUser = GetModuleHandle(TEXT("user32.dll"));
+		if (hUser)
 		{
-			ACCENT_POLICY accent = { ACCENT_ENABLE_BLURBEHIND, 0, 0, 0 };
-			WINDOWCOMPOSITIONATTRIBDATA data;
-			data.Attrib = WCA_ACCENT_POLICY;
-			data.pvData = &accent;
-			data.cbData = sizeof(accent);
-			setWindowCompositionAttribute(hWnd, &data);
+
+
+			pfnSetWindowCompositionAttribute setWindowCompositionAttribute = (pfnSetWindowCompositionAttribute)GetProcAddress(hUser, "SetWindowCompositionAttribute");
+			if (setWindowCompositionAttribute)
+			{
+				ACCENT_POLICY accent = { ACCENT_ENABLE_BLURBEHIND, 0, 0, 0 };
+				WINDOWCOMPOSITIONATTRIBDATA data;
+				data.Attrib = WCA_ACCENT_POLICY;
+				data.pvData = &accent;
+				data.cbData = sizeof(accent);
+				setWindowCompositionAttribute(hWnd, &data);
+			}
 		}
 	}
 #endif // _WIN32
@@ -41,4 +43,9 @@ void BasicWidget::paintEvent(QPaintEvent * event)
 {
 	QPainter painter(this);
 	painter.fillRect(this->rect(), m_backgroundColor);
+}
+
+void BasicWidget::setBackgtoundColor(const QColor& color)
+{
+	m_backgroundColor = color;
 }

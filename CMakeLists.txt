@@ -36,6 +36,8 @@ set(PROJECT_SOURCES
         src/ProgressBar.cpp
         src/PlayPauseButton.h
         src/PlayPauseButton.cpp
+        src/ChangeVolumeButton.h
+        src/ChangeVolumeButton.cpp
         # ${TS_FILES}
         )
 # qt_create_translation(QM_FILES ${TS_FILES} ${PROJECT_SOURCES})
