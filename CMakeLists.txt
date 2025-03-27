@@ -38,6 +38,8 @@ set(PROJECT_SOURCES
         src/PlayPauseButton.cpp
         src/ChangeVolumeButton.h
         src/ChangeVolumeButton.cpp
+        src/VolumeFlyoutMenu.cpp
+        src/VolumeFlyoutMenu.h
         # ${TS_FILES}
         )
 # qt_create_translation(QM_FILES ${TS_FILES} ${PROJECT_SOURCES})

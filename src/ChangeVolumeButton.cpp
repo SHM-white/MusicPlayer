@@ -1,11 +1,10 @@
 ﻿#include "ChangeVolumeButton.h"
 
 ChangeVolumeButton::ChangeVolumeButton(QWidget *parent)
-	: QPushButton(parent)
+    : QPushButton(parent)
 {
-    volumeWidget = std::make_unique<ChangeVolumeWidget>(dynamic_cast<QWidget*>(this->parent()));
+    volumeMenu = std::make_unique<VolumeFlyoutMenu>(dynamic_cast<QWidget*>(this->parent()));
     setFont(QFont(QStringLiteral("Segoe Fluent Icons")));
-    volumeWidget->setMouseTracking(true);
     _setVolumeIcon();
 }
 
@@ -56,22 +55,22 @@ void ChangeVolumeButton::_setVolumeIcon()
     this->setText(getVolumeIcon());
 }
 
-void ChangeVolumeButton::mousePressEvent(QMouseEvent* event){
-    if (volumeWidget->isHidden()) {
+void ChangeVolumeButton::mousePressEvent(QMouseEvent* event)
+{
+    if (volumeMenu->isHidden()) {
         // 获取按钮的位置和大小
         QRect buttonRect = this->geometry();
-        // 计算 volumeWidget 的新位置，使其显示在按钮的上方并且中心对齐
-        int x = buttonRect.x() + (buttonRect.width() - volumeWidget->width()) / 2;
-        int y = buttonRect.y() - volumeWidget->height();
-        volumeWidget->move(x, y);
-        volumeWidget->show();
-        volumeWidget->setFocus();
-        volumeWidget->setIgnoreNextFocusOut(); // Ignore the next focus out event
+        // 计算 volumeMenu 的新位置，使其显示在按钮的上方并且中心对齐
+        int x = buttonRect.x() + (buttonRect.width() - volumeMenu->width()) / 2;
+        int y = buttonRect.y() - volumeMenu->height();
+        volumeMenu->move(x, y);
+        volumeMenu->show();
     }
     else
     {
-        volumeWidget->hide();
+        volumeMenu->hide();
     }
+    QPushButton::mousePressEvent(event); // Call the base class implementation
 }
 
 ChangeVolumeWidget::ChangeVolumeWidget(QWidget* parent)
