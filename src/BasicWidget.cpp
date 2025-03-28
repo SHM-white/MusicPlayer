@@ -7,6 +7,7 @@ BasicWidget::BasicWidget(QWidget *parent)
 	//setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::WindowSystemMenuHint | Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint);
 	//setWindowFlags( Qt::FramelessWindowHint);
 	setAttribute(Qt::WA_TranslucentBackground);//背景半透明属性设置   //窗口透明 
+	setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog);
 
 #ifdef _WIN32
 

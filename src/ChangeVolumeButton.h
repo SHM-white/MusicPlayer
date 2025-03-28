@@ -10,20 +10,12 @@ class ChangeVolumeWidget : public BasicWidget {
 public:
 	ChangeVolumeWidget(QWidget* parent);
 	~ChangeVolumeWidget();
-    void setIgnoreNextFocusOut();
+	QTimer _hideTimer;
 protected:
     void focusOutEvent(QFocusEvent* event) override;
-    void mouseMoveEvent(QMouseEvent* event) override;
-
-private slots:
-    void autoHide();
 
 private:
-    QTimer _hideTimer;
-    bool _autoHide{ true };
-    bool _ignoreNextFocusOut{ false };
-    QPoint _lastMousePos;
-    int _hideDistance{ 100 }; // Distance in pixels to trigger auto-hide
+	QSlider *slider;
 };
 
 class ChangeVolumeButton : public QPushButton
@@ -46,6 +38,7 @@ private:
 	void _setVolumeIcon();
     int m_volume;
 	std::unique_ptr<ChangeVolumeWidget> volumeWidget;
+    bool _ignoreNextShow{ false };
 
 protected Q_SLOTS:
 

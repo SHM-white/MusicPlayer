@@ -3,9 +3,11 @@
 ChangeVolumeButton::ChangeVolumeButton(QWidget *parent)
 	: QPushButton(parent)
 {
-    volumeWidget = std::make_unique<ChangeVolumeWidget>(dynamic_cast<QWidget*>(this->parent()));
+    volumeWidget = std::make_unique<ChangeVolumeWidget>(nullptr);
     setFont(QFont(QStringLiteral("Segoe Fluent Icons")));
-    volumeWidget->setMouseTracking(true);
+    //volumeWidget->setMouseTracking(true);
+    volumeWidget->setGeometry(QRect(0, 0, 120, 40));
+    volumeWidget->setAttribute(Qt::WA_DeleteOnClose);
     _setVolumeIcon();
 }
 
@@ -56,17 +58,24 @@ void ChangeVolumeButton::_setVolumeIcon()
     this->setText(getVolumeIcon());
 }
 
-void ChangeVolumeButton::mousePressEvent(QMouseEvent* event){
+void ChangeVolumeButton::mousePressEvent(QMouseEvent* event) {
     if (volumeWidget->isHidden()) {
+        if (volumeWidget->_hideTimer.remainingTime() > 0 && _ignoreNextShow)
+        {
+            _ignoreNextShow = false;
+            return;
+        }
+        // 获取按钮在屏幕上的全局位置
+        QPoint globalPos = this->mapToGlobal(QPoint(0, 0));
         // 获取按钮的位置和大小
         QRect buttonRect = this->geometry();
         // 计算 volumeWidget 的新位置，使其显示在按钮的上方并且中心对齐
-        int x = buttonRect.x() + (buttonRect.width() - volumeWidget->width()) / 2;
-        int y = buttonRect.y() - volumeWidget->height();
+        int x = globalPos.x() + (buttonRect.width() - volumeWidget->width()) / 2;
+        int y = globalPos.y() - volumeWidget->height();
         volumeWidget->move(x, y);
         volumeWidget->show();
         volumeWidget->setFocus();
-        volumeWidget->setIgnoreNextFocusOut(); // Ignore the next focus out event
+        _ignoreNextShow = true; // Ignore the next focus out event
     }
     else
     {
@@ -78,42 +87,27 @@ ChangeVolumeWidget::ChangeVolumeWidget(QWidget* parent)
     : BasicWidget(parent)
 {
     this->hide(); 
-    connect(&_hideTimer, &QTimer::timeout, this, &ChangeVolumeWidget::autoHide);
+    slider = new QSlider(this);
+    slider->setOrientation(Qt::Horizontal);
+    slider->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 ChangeVolumeWidget::~ChangeVolumeWidget()
 {
-}
-
-void ChangeVolumeWidget::setIgnoreNextFocusOut()
-{
-    _ignoreNextFocusOut = true;
+    delete slider;
 }
 
 void ChangeVolumeWidget::focusOutEvent(QFocusEvent* event)
 {
-    if (_ignoreNextFocusOut) {
-        _ignoreNextFocusOut = false; // Reset the flag
-        return; // Ignore this focus out event
+    if (event->reason() == Qt::FocusReason::MouseFocusReason && slider->underMouse()) {
+        BasicWidget::focusOutEvent(event); // Call the base class implementation
+        setFocus();
+        return; // Do not hide if the focus is moving to the slider
     }
     this->hide(); // Hide the widget when it loses focus
+    _hideTimer.setInterval(50);
+    _hideTimer.setSingleShot(true);
+    _hideTimer.start();
     BasicWidget::focusOutEvent(event); // Call the base class implementation
 }
 
-void ChangeVolumeWidget::mouseMoveEvent(QMouseEvent* event)
-{
-    QPoint currentPos = event->globalPos();
-    if (_autoHide && (_lastMousePos - currentPos).manhattanLength() > _hideDistance) {
-        _hideTimer.start(500); // Start the timer to hide the widget after 500ms
-    } else {
-        _hideTimer.stop(); // Stop the timer if the mouse is inside the widget
-    }
-    _lastMousePos = currentPos;
-    BasicWidget::mouseMoveEvent(event); // Call the base class implementation
-}
-
-void ChangeVolumeWidget::autoHide()
-{
-    _autoHide = false;
-    hide();
-}
