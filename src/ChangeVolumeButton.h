@@ -3,7 +3,6 @@
 #include <QPushButton>
 #include "includeFiles.h"
 #include "BasicWidget.h"
-#include "VolumeFlyoutMenu.h"
 
 class ChangeVolumeWidget : public BasicWidget {
 	Q_OBJECT
@@ -32,7 +31,7 @@ class ChangeVolumeButton : public QPushButton
 	Q_OBJECT
 
 public:
-	ChangeVolumeButton(QWidget *parent = nullptr);
+	ChangeVolumeButton(QWidget *parent);
 	~ChangeVolumeButton();
 
     Q_PROPERTY(int volume READ volume WRITE setVolume NOTIFY volumeChanged FINAL);
@@ -47,9 +46,9 @@ private:
 	void _setVolumeIcon();
     int m_volume;
 	std::unique_ptr<ChangeVolumeWidget> volumeWidget;
-    std::unique_ptr<VolumeFlyoutMenu> volumeMenu;
 
-protected:
-    void mousePressEvent(QMouseEvent* event) override;
+protected Q_SLOTS:
+
+	void mousePressEvent(QMouseEvent* event) override;
 };
 
