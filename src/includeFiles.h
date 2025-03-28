@@ -28,7 +28,9 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QStyle>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/qboxlayout.h>
 
+#include <qpainterpath.h>
 #include <qwidget.h>
 #include <qpainter.h>
 #include <qmainwindow.h>

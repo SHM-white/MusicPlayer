@@ -8,6 +8,7 @@ ChangeVolumeButton::ChangeVolumeButton(QWidget *parent)
     //volumeWidget->setMouseTracking(true);
     volumeWidget->setGeometry(QRect(0, 0, 120, 40));
     volumeWidget->setAttribute(Qt::WA_DeleteOnClose);
+    connect(volumeWidget->slider, SIGNAL(valueChanged(int)), this, SLOT(sliderMoved(int)));
     _setVolumeIcon();
 }
 
@@ -28,7 +29,9 @@ void ChangeVolumeButton::setVolume(int newVolume)
     _setVolumeIcon();
     emit volumeChanged();
 }
-
+void ChangeVolumeButton::sliderMoved(int value) {
+    setVolume(value);
+}
 QChar ChangeVolumeButton::getVolumeIcon() const
 {
     if (volume() >= 75)
@@ -75,6 +78,7 @@ void ChangeVolumeButton::mousePressEvent(QMouseEvent* event) {
         volumeWidget->move(x, y);
         volumeWidget->show();
         volumeWidget->setFocus();
+        volumeWidget->slider->setValue(volume());
         _ignoreNextShow = true; // Ignore the next focus out event
     }
     else
@@ -90,11 +94,16 @@ ChangeVolumeWidget::ChangeVolumeWidget(QWidget* parent)
     slider = new QSlider(this);
     slider->setOrientation(Qt::Horizontal);
     slider->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    slider->setObjectName(QStringLiteral("VolumeSlider"));
+    slider->setMaximum(100);
+    verticallayout = new QVBoxLayout(this);
+    verticallayout->addWidget(slider);
 }
 
 ChangeVolumeWidget::~ChangeVolumeWidget()
 {
     delete slider;
+    delete verticallayout;
 }
 
 void ChangeVolumeWidget::focusOutEvent(QFocusEvent* event)
@@ -109,5 +118,14 @@ void ChangeVolumeWidget::focusOutEvent(QFocusEvent* event)
     _hideTimer.setSingleShot(true);
     _hideTimer.start();
     BasicWidget::focusOutEvent(event); // Call the base class implementation
+}
+
+void ChangeVolumeWidget::paintEvent(QPaintEvent* event)
+{
+    QPainter painter(this);
+    QPainterPath path;
+    path.addRoundedRect(rect(), 5, 5);
+    painter.fillPath(path, QBrush(QColor(255, 255, 255, 200)));
+    painter.end();
 }
 

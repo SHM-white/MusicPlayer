@@ -11,11 +11,12 @@ public:
 	ChangeVolumeWidget(QWidget* parent);
 	~ChangeVolumeWidget();
 	QTimer _hideTimer;
+	QSlider* slider;
 protected:
     void focusOutEvent(QFocusEvent* event) override;
-
+	void paintEvent(QPaintEvent* event) override;
 private:
-	QSlider *slider;
+	QVBoxLayout* verticallayout;
 };
 
 class ChangeVolumeButton : public QPushButton
@@ -33,10 +34,12 @@ public:
 	QChar getVolumeIcon() const;
 signals:
     void volumeChanged();
+protected slots:
+	void sliderMoved(int value);
 
 private:
 	void _setVolumeIcon();
-    int m_volume;
+	int m_volume{ 100 };
 	std::unique_ptr<ChangeVolumeWidget> volumeWidget;
     bool _ignoreNextShow{ false };
 
