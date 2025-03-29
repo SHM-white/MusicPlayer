@@ -219,7 +219,7 @@ QToolButton:pressed {
     background-color: #0060C0;
 }
 
-QSlider {
+QSlider#horizontalSlider_Progress {
     background-color: transparent;
     border: none;
     border-radius: 5px;
@@ -228,33 +228,35 @@ QSlider {
     padding: 10px;
 }
 
-QSlider::groove:horizontal {
+QSlider::groove:horizontal#horizontalSlider_Progress {
     background-color: #303030;
     height: 10px;
     border-radius: 5px;
 }
 
-QSlider::handle:horizontal {
+QSlider::handle:horizontal#horizontalSlider_Progress {
     background-color: transparent;
     border: none;
     width: 20px;
     height: 20px;
     margin-top: -5px;
     margin-bottom: -5px;
+    margin-right: -8px;
     border-radius: 10px;
 }
 
-QSlider::handle:horizontal:hover{
+QSlider::handle:horizontal:hover#horizontalSlider_Progress{
     background-color: #FFFFFF;
     border: none;
     width: 20px;
     height: 20px;
     margin-top: -5px;
     margin-bottom: -5px;
+    margin-right: -8px;
     border-radius: 10px;
 }
 
-QSlider::sub-page:horizontal {
+QSlider::sub-page:horizontal#horizontalSlider_Progress {
     background-color: #0060C0;
     border-radius: 5px;
 }
@@ -265,4 +267,32 @@ QPushButton#playPauseButton {
     color: #FFFFFF;
     font-size: 20px;
     font-family: 'Segoe Fluent Icons';
+}
+
+QSlider::groove:horizontal#VolumeSlider {
+    background-color: #303030;
+    height: 5px;
+    border-radius: 2.5px; /* 确保圆角半径与高度一致 */
+}
+
+QSlider::handle#VolumeSlider {
+    background-color: #FFFFFF;
+    border: none;
+    width: 10px; /* 调整为更明显的圆形手柄 */
+    height: 10px;
+    margin-top: -2.5px; /* 确保手柄居中 */
+    margin-bottom: -2.5px;
+    border-radius: 5px; /* 确保手柄为圆形 */
+}
+
+QSlider#VolumeSlider {
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+QSlider::sub-page:horizontal#VolumeSlider {
+    background-color: #0060C0;
+    border-radius: 2.5px; /* 确保圆角与槽一致 */
 }

@@ -29,6 +29,7 @@
 #include <QtWidgets/QStyle>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/qboxlayout.h>
+#include <QtWidgets/qtooltip.h>
 
 #include <qpainterpath.h>
 #include <qwidget.h>

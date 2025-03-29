@@ -36,7 +36,7 @@ signals:
     void volumeChanged();
 protected slots:
 	void sliderMoved(int value);
-
+    void updateTooltip(int value);
 private:
 	void _setVolumeIcon();
 	int m_volume{ 100 };

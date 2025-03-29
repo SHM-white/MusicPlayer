@@ -3,12 +3,12 @@
 ChangeVolumeButton::ChangeVolumeButton(QWidget *parent)
 	: QPushButton(parent)
 {
-    volumeWidget = std::make_unique<ChangeVolumeWidget>(nullptr);
+    volumeWidget = std::make_unique<ChangeVolumeWidget>(dynamic_cast<QWidget*>(this));
     setFont(QFont(QStringLiteral("Segoe Fluent Icons")));
     //volumeWidget->setMouseTracking(true);
-    volumeWidget->setGeometry(QRect(0, 0, 120, 40));
-    volumeWidget->setAttribute(Qt::WA_DeleteOnClose);
+    volumeWidget->setGeometry(QRect(0, 0, 100, 10)); // Adjust the height here
     connect(volumeWidget->slider, SIGNAL(valueChanged(int)), this, SLOT(sliderMoved(int)));
+    connect(volumeWidget->slider, SIGNAL(valueChanged(int)), this, SLOT(updateTooltip(int))); // Add this line
     _setVolumeIcon();
 }
 
@@ -32,6 +32,15 @@ void ChangeVolumeButton::setVolume(int newVolume)
 void ChangeVolumeButton::sliderMoved(int value) {
     setVolume(value);
 }
+
+void ChangeVolumeButton::updateTooltip(int value) {
+    // Calculate the position of the slider handle
+    int sliderPosition = volumeWidget->slider->style()->sliderPositionFromValue(volumeWidget->slider->minimum(), volumeWidget->slider->maximum(), value, volumeWidget->slider->width());
+    QPoint handleGlobalPos = volumeWidget->slider->mapToGlobal(QPoint(sliderPosition, 0));
+    QPoint tooltipPos(handleGlobalPos.x(), handleGlobalPos.y() - 20); // Adjust the y-coordinate to display above the handle
+    QToolTip::showText(tooltipPos, QString::number(value), volumeWidget->slider);
+}
+
 QChar ChangeVolumeButton::getVolumeIcon() const
 {
     if (volume() >= 75)
@@ -74,7 +83,7 @@ void ChangeVolumeButton::mousePressEvent(QMouseEvent* event) {
         QRect buttonRect = this->geometry();
         // 计算 volumeWidget 的新位置，使其显示在按钮的上方并且中心对齐
         int x = globalPos.x() + (buttonRect.width() - volumeWidget->width()) / 2;
-        int y = globalPos.y() - volumeWidget->height();
+        int y = globalPos.y() - volumeWidget->height() - 10;
         volumeWidget->move(x, y);
         volumeWidget->show();
         volumeWidget->setFocus();
@@ -91,12 +100,16 @@ ChangeVolumeWidget::ChangeVolumeWidget(QWidget* parent)
     : BasicWidget(parent)
 {
     this->hide(); 
+    this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint );
+    this->setMinimumHeight(30); // Set minimum height
+    this->setMaximumHeight(30); // Set maximum height to ensure fixed height
     slider = new QSlider(this);
     slider->setOrientation(Qt::Horizontal);
-    slider->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    slider->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed); // Adjust size policy
     slider->setObjectName(QStringLiteral("VolumeSlider"));
     slider->setMaximum(100);
     verticallayout = new QVBoxLayout(this);
+    verticallayout->setContentsMargins(0, 0, 0, 0); // Remove margins
     verticallayout->addWidget(slider);
 }
 
