@@ -37,7 +37,11 @@ void ChangeVolumeButton::updateTooltip(int value) {
     // Calculate the position of the slider handle
     int sliderPosition = volumeWidget->slider->style()->sliderPositionFromValue(volumeWidget->slider->minimum(), volumeWidget->slider->maximum(), value, volumeWidget->slider->width());
     QPoint handleGlobalPos = volumeWidget->slider->mapToGlobal(QPoint(sliderPosition, 0));
-    QPoint tooltipPos(handleGlobalPos.x(), handleGlobalPos.y() - 20); // Adjust the y-coordinate to display above the handle
+    
+    // Calculate the center position above the volumeWidget
+    QPoint widgetGlobalPos = volumeWidget->mapToGlobal(volumeWidget->rect().center());
+    QPoint tooltipPos(widgetGlobalPos.x(), widgetGlobalPos.y() - 20); // Adjust the y-coordinate to display above the volumeWidget
+    
     QToolTip::showText(tooltipPos, QString::number(value), volumeWidget->slider);
 }
 
