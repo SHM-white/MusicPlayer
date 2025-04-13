@@ -86,8 +86,7 @@ void MainWidget::changeMusic(QListWidgetItem* item)
         else
         {
             ui->playPauseButton->setIsPlaying(false);
-        }
-        //on_playPauseButton_clicked();
+        }       
         });
 }
 
