@@ -16,6 +16,7 @@
 
 //CPP standard headers
 #include <memory>
+#include <atomic>
 
 //Qt headers
 #include <QtCore/QDebug>
@@ -54,6 +55,7 @@
 #include <qthread.h>
 #include <qurl.h>
 #include <qmediametadata.h>
+#include <qaudiooutput.h>
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 #  include <QtGui/QActionGroup>
 #else

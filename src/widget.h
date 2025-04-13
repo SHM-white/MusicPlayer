@@ -36,16 +36,20 @@ Q_SIGNALS:
 protected Q_SLOTS:
     void updateMusicList(); 
     void changeMusic(QListWidgetItem* item);
+    void on_volumeChanged(int value);
 private slots:
     void on_pushButton_ShowPlayList_clicked();
-
+    void on_positionChanged(qint64 value);
     void on_playPauseButton_clicked();
+
+    void on_horizontalSlider_Progress_valueChanged(int value);
 
 private:
     void installWindowAgent();
     void loadStyleSheet(Theme theme);
     bool event(QEvent* event) override;
     void paintEvent(QPaintEvent* event) override;
+    void updateTimeLabel(qint64 current, qint64 total);
     Ui::MainWidget *ui;
     bool m_paintTransparentBackground{ true };
     std::shared_ptr<QMediaPlayer> m_mediaPlayer;

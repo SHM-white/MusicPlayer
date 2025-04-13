@@ -10,7 +10,7 @@ public:
 	QUrl url;
 	MusicItem(QListWidget *parent, const QUrl& url);
 	~MusicItem();
-	QMediaMetaData load(QMediaPlayer* player);
+	QFuture<QMediaMetaData> load(std::shared_ptr<QMediaPlayer>& player);
     QMediaMetaData mediaMetaData() const;
 private:
 	void updateText();

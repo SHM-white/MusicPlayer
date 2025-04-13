@@ -22,7 +22,9 @@ MainWidget::MainWidget(QWidget *parent)
     updateMusicList();
     connect(ui->listWidget_PlayList, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(changeMusic(QListWidgetItem*)));
     connect(ui->listWidget_PlayList, SIGNAL(itemEntered(QListWidgetItem*)), this, SLOT(changeMusic(QListWidgetItem*)));
-    connect(m_mediaPlayer.get(), SIGNAL(positionChanged(qint64)), ui->horizontalSlider_Progress, SLOT(setValue(qint64)));
+    connect(m_mediaPlayer.get(), SIGNAL(positionChanged(qint64)), this, SLOT(on_positionhanged(qint64)));
+    connect(ui->pushButton_Volume, SIGNAL(volumeChanged(int)), this, SLOT(on_volumeChanged(int)));
+    m_mediaPlayer->setAudioOutput(new QAudioOutput(this));
     
 }
 
@@ -66,18 +68,34 @@ static inline void emulateLeaveEvent(QWidget* widget) {
         }
     });
 }
+
 void MainWidget::changeMusic(QListWidgetItem* item)
 {
     auto* i = dynamic_cast<MusicItem*>(item);
-    m_currentMetaData = i->load(m_mediaPlayer.get());
-    ui->listWidget_PlayList->update();
-    auto duration = m_currentMetaData.value(QMediaMetaData::Duration);
-    if (duration.isValid()) {
-        auto a = duration.toInt();
-        ui->horizontalSlider_Progress->setMaximum(a);
-    }
-
+    auto metaData = i->load(m_mediaPlayer);
+    metaData.then([&](QMediaMetaData metaData) {
+        m_currentMetaData = metaData;
+        ui->listWidget_PlayList->update();
+        auto duration = m_currentMetaData.value(QMediaMetaData::Duration);
+        ui->horizontalSlider_Progress->setValue(0);
+        if (duration.isValid()) {
+            auto a = duration.toInt();
+            ui->horizontalSlider_Progress->setMaximum(a);
+            ui->playPauseButton->setIsPlaying(true);
+        }
+        else
+        {
+            ui->playPauseButton->setIsPlaying(false);
+        }
+        //on_playPauseButton_clicked();
+        });
 }
+
+void MainWidget::on_volumeChanged(int value)
+{
+    m_mediaPlayer->audioOutput()->setVolume(value);
+}
+
 void MainWidget::installWindowAgent()
 {
     // 1. Setup window agent
@@ -392,17 +410,35 @@ void MainWidget::paintEvent(QPaintEvent* event)
     QMainWindow::paintEvent(event);
 }
 
+void MainWidget::updateTimeLabel(qint64 current, qint64 total)
+{
+    QTime c(0, 0);
+    c = c.addMSecs(current);
+    QTime t(0, 0);
+    t = t.addMSecs(total);
+    ui->label_PlayTime->setText(c.toString("mm:ss") + "/" + t.toString("mm:ss"));
+}
+
 void MainWidget::updateMusicList() {
     ui->listWidget_PlayList->clear();
     for (const auto& i : m_musicList) {
         ui->listWidget_PlayList->addItem(new MusicItem{ui->listWidget_PlayList, i});
     }
 }
+
 void MainWidget::on_pushButton_ShowPlayList_clicked()
 {
     ui->listWidget_PlayList->setVisible(!ui->listWidget_PlayList->isVisible());
 }
 
+void MainWidget::on_positionChanged(qint64 value)
+{
+    if (ui->horizontalSlider_Progress->isSliderDown()) {
+        return;
+    }
+    ui->horizontalSlider_Progress->setValue(value);
+    updateTimeLabel(value, ui->horizontalSlider_Progress->maximum());
+}
 
 void MainWidget::on_playPauseButton_clicked()
 {
@@ -410,5 +446,14 @@ void MainWidget::on_playPauseButton_clicked()
         ui->playPauseButton->isPlaying() ? m_mediaPlayer->play() : m_mediaPlayer->pause();
     }
     return;
+}
+
+void MainWidget::on_horizontalSlider_Progress_valueChanged(int value)
+{
+    if (!ui->horizontalSlider_Progress->isSliderDown()) {
+        return;
+    }
+    m_mediaPlayer->setPosition(value);
+    updateTimeLabel(value, ui->horizontalSlider_Progress->maximum());
 }
 

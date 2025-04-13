@@ -20,7 +20,6 @@ protected:
 	void mousePressEvent(QMouseEvent* event) override {
 		if (event->button() == Qt::MouseButton::LeftButton) {
 			setIsPlaying(!isPlaying());
-			_updateText();
 			emit PlayPauseClicked();
 		}
 		QPushButton::mousePressEvent(event);
