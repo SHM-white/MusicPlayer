@@ -30,6 +30,9 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/qboxlayout.h>
 #include <QtWidgets/qtooltip.h>
+#include <QFuture>
+#include <QtConcurrent/qtconcurrentrun.h>
+#include <QtWidgets/qlistwidget.h>
 
 #include <qpainterpath.h>
 #include <qwidget.h>
@@ -44,6 +47,10 @@
 #include <qmessagebox.h>
 #include <qtimer.h>
 #include <qevent.h>
+#include <QtMultimedia/qmediaplayer.h>
+#include <qthread.h>
+#include <qurl.h>
+#include <qmediametadata.h>
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 #  include <QtGui/QActionGroup>
 #else
@@ -60,9 +67,14 @@
 #include <QWKCore/windowagentbase.h>
 
 
+namespace GlobalConfigs {
+	const QString CONFIG_FILE_PATH = QCoreApplication::applicationDirPath() + QStringLiteral("/config.cfg");
+}
+
 //Icons in Segoe Fluent Icons font
 //Needs set font to "Segoe Fluent Icons"
 namespace Icons {
+	const auto Font = QFont(QStringLiteral("Segoe Fluent Icons"));
 	enum Icons {
 		Play = 0xe768,
 		Pause = 0xe769,
@@ -101,4 +113,10 @@ namespace Icons {
 		Volume3 = 0xe995,
 		Mute = 0xe74f,
 	};
+	QChar inline Get(Icons icon) {
+		return QChar(icon);
+	}
+	void inline SetFont(QWidget* widget) {
+		widget->setFont(Font);
+	}
 };

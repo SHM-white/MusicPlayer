@@ -1,5 +1,6 @@
 ﻿#include "widget.h"
 #include "./ui_widget.h"
+#include "MusicItem.h"
 
 MainWidget::MainWidget(QWidget *parent)
     : QMainWindow(parent)
@@ -13,6 +14,15 @@ MainWidget::MainWidget(QWidget *parent)
     loadStyleSheet(Dark);
     setObjectName(QStringLiteral("main-window"));
     windowAgent->setWindowAttribute(QStringLiteral("dwm-blur"), true);
+    ui->pushButton_Previous->setFont(Icons::Font);
+    ui->pushButton_Next->setFont(Icons::Font);
+    ui->pushButton_Previous->setText(Icons::Get(Icons::Previous));
+    ui->pushButton_Next->setText(Icons::Get(Icons::Next));
+    m_mediaPlayer = std::make_shared<QMediaPlayer>(this);
+    updateMusicList();
+    connect(ui->listWidget_PlayList, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(changeMusic(QListWidgetItem*)));
+    connect(ui->listWidget_PlayList, SIGNAL(itemEntered(QListWidgetItem*)), this, SLOT(changeMusic(QListWidgetItem*)));
+
 }
 
 MainWidget::~MainWidget()
@@ -54,6 +64,11 @@ static inline void emulateLeaveEvent(QWidget* widget) {
             }
         }
     });
+}
+void MainWidget::changeMusic(QListWidgetItem* item)
+{
+    auto* i = dynamic_cast<MusicItem*>(item);
+    m_currentMetaData = i->load(m_mediaPlayer.get());
 }
 void MainWidget::installWindowAgent()
 {
@@ -129,12 +144,12 @@ void MainWidget::installWindowAgent()
                 const QString data = action->data().toString();
                 if (data == QStringLiteral("none")) {
                     setProperty("custom-style", false);
-                    paintTransparentBackground = false;
+                    m_paintTransparentBackground = false;
                 }
                 else if (!data.isEmpty()) {
                     windowAgent->setWindowAttribute(data, true);
                     setProperty("custom-style", true);
-                    paintTransparentBackground = true;
+                    m_paintTransparentBackground = true;
                 }
                 style()->polish(this);
                 update();
@@ -357,14 +372,26 @@ void MainWidget::paintEvent(QPaintEvent* event)
     QPainter painter(this);
     if(currentTheme == Dark)
     {
-        painter.setBrush(QBrush(QColor(0, 0, 0, paintTransparentBackground ? 128 : 255)));
+        painter.setBrush(QBrush(QColor(0, 0, 0, m_paintTransparentBackground ? 128 : 255)));
         painter.drawRect(newRect);
     }
     else
     {
-        painter.setBrush(QColor(240, 240, 240, paintTransparentBackground ? 128 : 255));
+        painter.setBrush(QColor(240, 240, 240, m_paintTransparentBackground ? 128 : 255));
         painter.drawRect(newRect);
     }
     painter.end();
     QMainWindow::paintEvent(event);
 }
+
+void MainWidget::updateMusicList() {
+    ui->listWidget_PlayList->clear();
+    for (const auto& i : m_musicList) {
+        ui->listWidget_PlayList->addItem(new MusicItem{ui->listWidget_PlayList, i});
+    }
+}
+void MainWidget::on_pushButton_ShowPlayList_clicked()
+{
+    ui->listWidget_PlayList->setVisible(!ui->listWidget_PlayList->isVisible());
+}
+

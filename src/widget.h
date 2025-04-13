@@ -33,12 +33,27 @@ public:
 Q_SIGNALS:
     void themeChanged();
 
+protected Q_SLOTS:
+    void updateMusicList(); 
+    void changeMusic(QListWidgetItem* item);
+private slots:
+    void on_pushButton_ShowPlayList_clicked();
+
 private:
     void installWindowAgent();
     void loadStyleSheet(Theme theme);
     bool event(QEvent* event) override;
     void paintEvent(QPaintEvent* event) override;
     Ui::MainWidget *ui;
-    bool paintTransparentBackground{ true };
+    bool m_paintTransparentBackground{ true };
+    std::shared_ptr<QMediaPlayer> m_mediaPlayer;
+    QMediaMetaData m_currentMetaData;
+#ifdef DEBUG
+    QStringList m_musicList{ "D:/Music/Music_9/Krimsonn - Stranger.MP3",
+    "D:/Music/Music_9/Manafest - Edge of My Life.mp3" };
+#else
+    QStringList m_musicList;
+#endif // DEBUG
+
 };
 #endif // WIDGET_H

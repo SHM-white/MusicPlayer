@@ -199,9 +199,15 @@ QListWidget {
     border: none;
     border-radius: 5px;
     color: #ECECEC;
-    font-size: 20px;
+    font-size: 15px;
     padding: 10px;
 }
+QListWidget::selection{
+    background-color: #0060C0;
+    border: none;
+    
+}
+
 QToolButton {
     background-color: transparent;
     border: none;
@@ -265,7 +271,28 @@ QPushButton#playPauseButton {
     border-color: transparent;
     background-color: transparent;
     color: #FFFFFF;
-    font-size: 20px;
+    font-size: 18px;
+    font-family: 'Segoe Fluent Icons';
+}
+QPushButton#pushButton_Previous {
+    border-color: transparent;
+    background-color: transparent;
+    color: #FFFFFF;
+    font-size: 18px;
+    font-family: 'Segoe Fluent Icons';
+}
+QPushButton#pushButton_Next {
+    border-color: transparent;
+    background-color: transparent;
+    color: #FFFFFF;
+    font-size: 18px;
+    font-family: 'Segoe Fluent Icons';
+}
+QPushButton#pushButton_Volume {
+    border-color: transparent;
+    background-color: transparent;
+    color: #FFFFFF;
+    font-size: 15px;
     font-family: 'Segoe Fluent Icons';
 }
 

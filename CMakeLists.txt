@@ -17,7 +17,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_PREFIX_PATH "E:/Qt/6.8.2/msvc2022_64")
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools Multimedia)
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/libs/QWindowKit)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/widgetframe)
@@ -38,6 +38,10 @@ set(PROJECT_SOURCES
         src/PlayPauseButton.cpp
         src/ChangeVolumeButton.h
         src/ChangeVolumeButton.cpp
+        src/ConfigManager.h
+        src/ConfigManager.cpp
+        src/MusicItem.h
+        src/MusicItem.cpp
         # ${TS_FILES}
         )
 # qt_create_translation(QM_FILES ${TS_FILES} ${PROJECT_SOURCES})
@@ -103,6 +107,7 @@ qt_add_resources(MusicPlayer "translations"
 target_link_libraries(MusicPlayer PRIVATE 
 Qt${QT_VERSION_MAJOR}::Widgets 
 QWindowKit::Widgets
+Qt6::Multimedia
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
