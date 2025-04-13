@@ -39,6 +39,8 @@ protected Q_SLOTS:
 private slots:
     void on_pushButton_ShowPlayList_clicked();
 
+    void on_playPauseButton_clicked();
+
 private:
     void installWindowAgent();
     void loadStyleSheet(Theme theme);

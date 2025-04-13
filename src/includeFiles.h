@@ -33,6 +33,9 @@
 #include <QFuture>
 #include <QtConcurrent/qtconcurrentrun.h>
 #include <QtWidgets/qlistwidget.h>
+#include <QListWidgetItem>
+#include <QLabel>
+#include <QPropertyAnimation>
 
 #include <qpainterpath.h>
 #include <qwidget.h>

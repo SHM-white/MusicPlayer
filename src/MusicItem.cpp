@@ -13,6 +13,7 @@ MusicItem::~MusicItem()
 QMediaMetaData MusicItem::load(QMediaPlayer* player)
 {
 	player->setSource(url);
+	
 	m_mediaMetaData = player->metaData();
 	updateText();
 	return mediaMetaData();

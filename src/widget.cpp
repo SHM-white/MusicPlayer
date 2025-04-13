@@ -22,7 +22,8 @@ MainWidget::MainWidget(QWidget *parent)
     updateMusicList();
     connect(ui->listWidget_PlayList, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(changeMusic(QListWidgetItem*)));
     connect(ui->listWidget_PlayList, SIGNAL(itemEntered(QListWidgetItem*)), this, SLOT(changeMusic(QListWidgetItem*)));
-
+    connect(m_mediaPlayer.get(), SIGNAL(positionChanged(qint64)), ui->horizontalSlider_Progress, SLOT(setValue(qint64)));
+    
 }
 
 MainWidget::~MainWidget()
@@ -69,6 +70,13 @@ void MainWidget::changeMusic(QListWidgetItem* item)
 {
     auto* i = dynamic_cast<MusicItem*>(item);
     m_currentMetaData = i->load(m_mediaPlayer.get());
+    ui->listWidget_PlayList->update();
+    auto duration = m_currentMetaData.value(QMediaMetaData::Duration);
+    if (duration.isValid()) {
+        auto a = duration.toInt();
+        ui->horizontalSlider_Progress->setMaximum(a);
+    }
+
 }
 void MainWidget::installWindowAgent()
 {
@@ -393,5 +401,14 @@ void MainWidget::updateMusicList() {
 void MainWidget::on_pushButton_ShowPlayList_clicked()
 {
     ui->listWidget_PlayList->setVisible(!ui->listWidget_PlayList->isVisible());
+}
+
+
+void MainWidget::on_playPauseButton_clicked()
+{
+    if (m_mediaPlayer->isAvailable()) {
+        ui->playPauseButton->isPlaying() ? m_mediaPlayer->play() : m_mediaPlayer->pause();
+    }
+    return;
 }
 

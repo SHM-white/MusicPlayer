@@ -33,7 +33,7 @@ public:
     void setVolume(int newVolume);
 	QChar getVolumeIcon() const;
 signals:
-    void volumeChanged();
+    void volumeChanged(int i);
 protected slots:
 	void sliderMoved(int value);
     void updateTooltip(int value);

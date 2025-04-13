@@ -14,11 +14,12 @@ public:
 
 Q_SIGNALS:
 	void PlayPauseClicked();
+	void IsPlayingChanged(bool);
 
 protected:
 	void mousePressEvent(QMouseEvent* event) override {
 		if (event->button() == Qt::MouseButton::LeftButton) {
-			_isPlaying = !_isPlaying;
+			setIsPlaying(!isPlaying());
 			_updateText();
 			emit PlayPauseClicked();
 		}

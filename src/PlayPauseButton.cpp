@@ -18,6 +18,7 @@ bool PlayPauseButton::isPlaying() const
 PlayPauseButton& PlayPauseButton::setIsPlaying(bool isPlaying)
 {
 	_isPlaying = isPlaying;
+	emit IsPlayingChanged(_isPlaying);
 	return *this;
 }
 

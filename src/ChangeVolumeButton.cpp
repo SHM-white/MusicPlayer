@@ -27,7 +27,7 @@ void ChangeVolumeButton::setVolume(int newVolume)
         return;
     m_volume = newVolume;
     _setVolumeIcon();
-    emit volumeChanged();
+    emit volumeChanged(m_volume);
 }
 void ChangeVolumeButton::sliderMoved(int value) {
     setVolume(value);
