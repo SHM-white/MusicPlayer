@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "BasicWidget.h"
+#include "ConfigManager.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -30,9 +31,11 @@ Q_SIGNALS:
 
 protected:
     void resizeEvent(QResizeEvent* event) override;
+    void dragEnterEvent(QDragEnterEvent *event) override;
+    void dropEvent(QDropEvent *event) override;
 
 protected Q_SLOTS:
-    void updateMusicList(); 
+    void updateMusicList(const QStringList& list);
     void changeMusic(QListWidgetItem* item);
     void on_volumeChanged(int value);
     void on_positionChanged(qint64 value);
@@ -42,6 +45,8 @@ private slots:
 
     void on_horizontalSlider_Progress_valueChanged(int value);
     void on_horizontalSlider_Progress_sliderReleased(); // New slot for slider release
+    void showContextMenu(const QPoint &pos);
+    void removeSelectedItem(QListWidgetItem *item);
 
 private:
     void installWindowAgent();
@@ -56,12 +61,7 @@ private:
     std::unique_ptr<QTimer> m_playTimer;
     QString m_currentMusicInfo{ QStringLiteral("...") };
     QListWidgetItem* lastMusic{ nullptr };
-#ifdef DEBUG
-    QStringList m_musicList{ "D:/Music/Music_9/Krimsonn - Stranger.MP3",
-    "D:/Music/Music_9/Manafest - Edge of My Life.mp3" };
-#else
     QStringList m_musicList;
-#endif // DEBUG
 
 };
 #endif // WIDGET_H

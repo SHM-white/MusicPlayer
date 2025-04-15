@@ -37,6 +37,8 @@
 #include <QListWidgetItem>
 #include <QLabel>
 #include <QPropertyAnimation>
+#include <QMimeData>
+#include <QFileInfo>
 
 #include <qpainterpath.h>
 #include <qwidget.h>

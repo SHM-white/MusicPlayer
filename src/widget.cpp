@@ -1,6 +1,8 @@
 ﻿#include "widget.h"
 #include "./ui_widget.h"
 #include "MusicItem.h"
+#include <QMenu>
+#include <QAction>
 
 MainWidget::MainWidget(QWidget *parent)
     : QMainWindow(parent)
@@ -17,28 +19,33 @@ MainWidget::MainWidget(QWidget *parent)
     ui->pushButton_Previous         ->setFont(Icons::Font);
     ui->pushButton_Next             ->setFont(Icons::Font);
     ui->pushButton_ShowPlayList     ->setFont(Icons::Font);
-    //ui->pushButton_LoopMode         ->setFont(Icons::Font);
     ui->pushButton_Maximize         ->setFont(Icons::Font);
     ui->pushButton_Like             ->setFont(Icons::Font);
     ui->pushButton_showFileDetails  ->setFont(Icons::Font);
     ui->pushButton_Previous         ->setText(Icons::Get(Icons::Previous));
     ui->pushButton_Next             ->setText(Icons::Get(Icons::Next));
     ui->pushButton_ShowPlayList     ->setText(Icons::Get(Icons::BulletedList));
-    //ui->pushButton_LoopMode         ->setText(Icons::Get(Icons::Shuffle));
     ui->pushButton_Maximize         ->setText(Icons::Get(Icons::FullScreen));
     ui->pushButton_Like             ->setText(Icons::Get(Icons::FavoriteStar));
     ui->pushButton_showFileDetails  ->setText(Icons::Get(Icons::More));
 
     m_mediaPlayer = std::make_shared<QMediaPlayer>(this);
     m_playTimer = std::make_unique<QTimer>(this);
-    updateMusicList();
     connect(ui->listWidget_PlayList, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(changeMusic(QListWidgetItem*)));
     connect(ui->listWidget_PlayList, SIGNAL(itemEntered(QListWidgetItem*)), this, SLOT(changeMusic(QListWidgetItem*)));
     connect(m_mediaPlayer.get(), SIGNAL(positionChanged(qint64)), this, SLOT(on_positionChanged(qint64)));
     connect(ui->pushButton_Volume, SIGNAL(volumeChanged(int)), this, SLOT(on_volumeChanged(int)));
-    //connect(m_playTimer.get(), SIGNAL(timeout(void)), this, SLOT(on_playPauseButton_clicked(void)));
     m_mediaPlayer->setAudioOutput(new QAudioOutput(this));
-    ui->playPauseButton->setEnabled(false);
+
+    setAcceptDrops(true);
+    ConfigManager::LoadMusicList()
+        .then([&](const QStringList& r) {
+        updateMusicList(r);
+            });
+
+    // Enable context menu for listWidget_PlayList
+    ui->listWidget_PlayList->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(ui->listWidget_PlayList, &QListWidget::customContextMenuRequested, this, &MainWidget::showContextMenu);
 }
 
 MainWidget::~MainWidget()
@@ -100,12 +107,10 @@ void MainWidget::changeMusic(QListWidgetItem* item)
         if (!metaData.isEmpty()) {
             auto a = duration.toInt();
             ui->horizontalSlider_Progress->setMaximum(a);
-            ui->playPauseButton->setEnabled(true);
             ui->playPauseButton->setIsPlaying(true);
             m_playTimer->singleShot(10, this, SLOT(on_playPauseButton_clicked(void)));
             m_currentMusicInfo = title.toString() + QStringLiteral(" - ") + artist.toString();
 
-            // Calculate available space for label_MusicName
             int availableWidth = std::max(50, ui->horizontalLayout_5->geometry().width() - 20); // Subtract a fixed value (e.g., 20)
             QFontMetrics fm{ ui->label_MusicName->font() };
             ui->label_MusicName->setText(fm.elidedText(m_currentMusicInfo, Qt::ElideRight, availableWidth));
@@ -373,16 +378,10 @@ void MainWidget::loadStyleSheet(Theme theme)
         qss.open(QIODevice::ReadOnly | QIODevice::Text)) {
         setStyleSheet(QString::fromUtf8(qss.readAll()));
         windowAgent->setWindowAttribute(QStringLiteral("none"), false);
-#ifdef DEBUG
-        //windowAgent->setWindowAttribute(theme != Dark ? QStringLiteral("dwm-blur") : QStringLiteral("acrylic-material"), false);
-        //windowAgent->setWindowAttribute(theme == Dark ? QStringLiteral("dwm-blur") : QStringLiteral("acrylic-material"), true);
-
-#endif // DEBUG
         setProperty("custom-style", true);
         style()->polish(this);
         Q_EMIT themeChanged(theme);
         update();
-        //repaint();
     }
 }
 
@@ -451,11 +450,12 @@ void MainWidget::updateTimeLabel(qint64 current, qint64 total)
     ui->label_PlayTime->setText(Utils::QTimeToQString(c) + "/" + Utils::QTimeToQString(t));
 }
 
-void MainWidget::updateMusicList() {
-    ui->listWidget_PlayList->clear();
-    for (const auto& i : m_musicList) {
+void MainWidget::updateMusicList(const QStringList& list) {
+    m_musicList.append(list);
+    for (const auto& i : list) {
         ui->listWidget_PlayList->addItem(new MusicItem{ui->listWidget_PlayList, i});
     }
+    ConfigManager::SaveLoadedMusicList(m_musicList);
 }
 
 void MainWidget::on_pushButton_ShowPlayList_clicked()
@@ -492,5 +492,49 @@ void MainWidget::on_horizontalSlider_Progress_sliderReleased()
     int value = ui->horizontalSlider_Progress->value();
     m_mediaPlayer->setPosition(value);
     updateTimeLabel(value, ui->horizontalSlider_Progress->maximum());
+}
+
+void MainWidget::dragEnterEvent(QDragEnterEvent *event)
+{
+    if (event->mimeData()->hasUrls()) {
+        event->acceptProposedAction();
+    }
+}
+
+void MainWidget::dropEvent(QDropEvent *event)
+{
+    const auto urls = event->mimeData()->urls();
+    QStringList list;
+    for (const QUrl &url : urls) {
+        QFileInfo fileInfo(url.toLocalFile());
+        if (fileInfo.exists() && fileInfo.isFile() && fileInfo.suffix().toLower().contains("mp3")) {
+            list.append(fileInfo.absoluteFilePath());
+        }
+    }
+    updateMusicList(list);
+}
+
+void MainWidget::showContextMenu(const QPoint &pos)
+{
+    QListWidgetItem *item = ui->listWidget_PlayList->itemAt(pos);
+    if (!item) return;
+
+    QMenu contextMenu(this);
+    QAction *deleteAction = contextMenu.addAction(tr("Delete"));
+    connect(deleteAction, &QAction::triggered, this, [this, item]() {
+        removeSelectedItem(item);
+    });
+
+    contextMenu.exec(ui->listWidget_PlayList->mapToGlobal(pos));
+}
+
+void MainWidget::removeSelectedItem(QListWidgetItem *item)
+{
+    int row = ui->listWidget_PlayList->row(item);
+    if (row >= 0) {
+        m_musicList.removeAt(row);
+        delete ui->listWidget_PlayList->takeItem(row);
+    }
+    ConfigManager::SaveLoadedMusicList(m_musicList);
 }
 
