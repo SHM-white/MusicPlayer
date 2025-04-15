@@ -37,12 +37,13 @@ protected Q_SLOTS:
     void updateMusicList(); 
     void changeMusic(QListWidgetItem* item);
     void on_volumeChanged(int value);
+    void on_positionChanged(qint64 value);
 private slots:
     void on_pushButton_ShowPlayList_clicked();
-    void on_positionChanged(qint64 value);
     void on_playPauseButton_clicked();
 
     void on_horizontalSlider_Progress_valueChanged(int value);
+    void on_horizontalSlider_Progress_sliderReleased(); // New slot for slider release
 
 private:
     void installWindowAgent();
@@ -54,6 +55,7 @@ private:
     bool m_paintTransparentBackground{ true };
     std::shared_ptr<QMediaPlayer> m_mediaPlayer;
     QMediaMetaData m_currentMetaData;
+    std::unique_ptr<QTimer> m_playTimer;
 #ifdef DEBUG
     QStringList m_musicList{ "D:/Music/Music_9/Krimsonn - Stranger.MP3",
     "D:/Music/Music_9/Manafest - Edge of My Life.mp3" };

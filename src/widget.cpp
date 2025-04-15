@@ -19,11 +19,13 @@ MainWidget::MainWidget(QWidget *parent)
     ui->pushButton_Previous->setText(Icons::Get(Icons::Previous));
     ui->pushButton_Next->setText(Icons::Get(Icons::Next));
     m_mediaPlayer = std::make_shared<QMediaPlayer>(this);
+    m_playTimer = std::make_unique<QTimer>(this);
     updateMusicList();
     connect(ui->listWidget_PlayList, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(changeMusic(QListWidgetItem*)));
     connect(ui->listWidget_PlayList, SIGNAL(itemEntered(QListWidgetItem*)), this, SLOT(changeMusic(QListWidgetItem*)));
-    connect(m_mediaPlayer.get(), SIGNAL(positionChanged(qint64)), this, SLOT(on_positionhanged(qint64)));
+    connect(m_mediaPlayer.get(), SIGNAL(positionChanged(qint64)), this, SLOT(on_positionChanged(qint64)));
     connect(ui->pushButton_Volume, SIGNAL(volumeChanged(int)), this, SLOT(on_volumeChanged(int)));
+    //connect(m_playTimer.get(), SIGNAL(timeout(void)), this, SLOT(on_playPauseButton_clicked(void)));
     m_mediaPlayer->setAudioOutput(new QAudioOutput(this));
     
 }
@@ -72,6 +74,8 @@ static inline void emulateLeaveEvent(QWidget* widget) {
 void MainWidget::changeMusic(QListWidgetItem* item)
 {
     auto* i = dynamic_cast<MusicItem*>(item);
+    ui->playPauseButton->setIsPlaying(false);
+    on_playPauseButton_clicked();
     auto metaData = i->load(m_mediaPlayer);
     metaData.then([&](QMediaMetaData metaData) {
         m_currentMetaData = metaData;
@@ -82,12 +86,12 @@ void MainWidget::changeMusic(QListWidgetItem* item)
             auto a = duration.toInt();
             ui->horizontalSlider_Progress->setMaximum(a);
             ui->playPauseButton->setIsPlaying(true);
+            m_playTimer->singleShot(10, this, SLOT(on_playPauseButton_clicked(void)));
+            auto title = m_currentMetaData.value(QMediaMetaData::AlbumTitle);
+            auto artist = m_currentMetaData.value(QMediaMetaData::AlbumArtist);
+            
         }
-        else
-        {
-            ui->playPauseButton->setIsPlaying(false);
-        }       
-        });
+    });
 }
 
 void MainWidget::on_volumeChanged(int value)
@@ -415,7 +419,7 @@ void MainWidget::updateTimeLabel(qint64 current, qint64 total)
     c = c.addMSecs(current);
     QTime t(0, 0);
     t = t.addMSecs(total);
-    ui->label_PlayTime->setText(c.toString("mm:ss") + "/" + t.toString("mm:ss"));
+    ui->label_PlayTime->setText(Utils::QTimeToQString(c) + "/" + Utils::QTimeToQString(t));
 }
 
 void MainWidget::updateMusicList() {
@@ -432,11 +436,10 @@ void MainWidget::on_pushButton_ShowPlayList_clicked()
 
 void MainWidget::on_positionChanged(qint64 value)
 {
-    if (ui->horizontalSlider_Progress->isSliderDown()) {
-        return;
+    if (!ui->horizontalSlider_Progress->isSliderDown()) {
+        ui->horizontalSlider_Progress->setValue(value);
+        updateTimeLabel(value, ui->horizontalSlider_Progress->maximum());
     }
-    ui->horizontalSlider_Progress->setValue(value);
-    updateTimeLabel(value, ui->horizontalSlider_Progress->maximum());
 }
 
 void MainWidget::on_playPauseButton_clicked()
@@ -449,9 +452,15 @@ void MainWidget::on_playPauseButton_clicked()
 
 void MainWidget::on_horizontalSlider_Progress_valueChanged(int value)
 {
-    if (!ui->horizontalSlider_Progress->isSliderDown()) {
-        return;
+    if (ui->horizontalSlider_Progress->isSliderDown()) {
+        m_mediaPlayer->setPosition(value);
+        updateTimeLabel(value, ui->horizontalSlider_Progress->maximum());
     }
+}
+
+void MainWidget::on_horizontalSlider_Progress_sliderReleased()
+{
+    int value = ui->horizontalSlider_Progress->value();
     m_mediaPlayer->setPosition(value);
     updateTimeLabel(value, ui->horizontalSlider_Progress->maximum());
 }

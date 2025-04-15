@@ -5,8 +5,8 @@
 
 // Asynchronous save function implementation
 QFuture<bool> ConfigManager::SaveLoadedMusicList(const QStringList& list) {
-	return QtConcurrent::run([list](){
-		QFile file{ GlobalConfigs::CONFIG_FILE_PATH };
+	return QtConcurrent::run([&](){
+		QFile file{ GlobalConfigs::LOCAL_PLAY_LIST };
 		if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
 			return false;
 		}
@@ -21,10 +21,10 @@ QFuture<bool> ConfigManager::SaveLoadedMusicList(const QStringList& list) {
 }
 
 // Asynchronous load function implementation
-QFuture<QStringList> ConfigManager::LoadMusicList() {
-	return QtConcurrent::run([](){
+QFuture<QStringList> ConfigManager::LoadMusicList(const QString& listPath) {
+	return QtConcurrent::run([&](){
 		QStringList list;
-		QFile file{ GlobalConfigs::CONFIG_FILE_PATH };
+		QFile file{ listPath };
 		if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
 			return list; // Return empty list if file cannot be opened
 		}

@@ -11,6 +11,6 @@ public:
 	static QFuture<bool> SaveLoadedMusicList(const QStringList& list);
 
 	// Asynchronous load function
-	static QFuture<QStringList> LoadMusicList();
+	static QFuture<QStringList> LoadMusicList(const QString& listPath = GlobalConfigs::LOCAL_PLAY_LIST);
 
 };

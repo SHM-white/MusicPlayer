@@ -56,6 +56,7 @@
 #include <qurl.h>
 #include <qmediametadata.h>
 #include <qaudiooutput.h>
+#include <qsettings.h>
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 #  include <QtGui/QActionGroup>
 #else
@@ -72,9 +73,18 @@
 #include <QWKCore/windowagentbase.h>
 
 
-namespace GlobalConfigs {
-	const QString CONFIG_FILE_PATH = QCoreApplication::applicationDirPath() + QStringLiteral("/config.cfg");
-}
+class Utils {
+public:
+	static inline QString QTimeToQString(const QTime& time) {
+		return (time < QTime(1, 0, 0, 0)) ? time.toString("mm:ss") : time.toString("hh:mm:ss");
+	}
+};
+
+class GlobalConfigs {
+public:
+	static inline const QString CONFIG_FILE_PATH = QCoreApplication::applicationDirPath() + QStringLiteral("/config.cfg");
+	static inline const QString LOCAL_PLAY_LIST = QCoreApplication::applicationDirPath() + QStringLiteral("/current.playlist");
+};
 
 //Icons in Segoe Fluent Icons font
 //Needs set font to "Segoe Fluent Icons"
