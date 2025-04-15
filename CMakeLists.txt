@@ -42,6 +42,13 @@ set(PROJECT_SOURCES
         src/ConfigManager.cpp
         src/MusicItem.h
         src/MusicItem.cpp
+        src/DisplayWidget.h
+        src/DisplayWidget.cpp
+        src/DisplayWidget.ui
+        src/ScrollingLabel.h
+        src/ScrollingLabel.cpp
+        src/LoopModeSwitcher.h
+        src/LoopModeSwitcher.cpp
         # ${TS_FILES}
         )
 # qt_create_translation(QM_FILES ${TS_FILES} ${PROJECT_SOURCES})

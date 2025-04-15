@@ -3,6 +3,7 @@
 #include <QPushButton>
 #include "includeFiles.h"
 #include "BasicWidget.h"
+#include "widget.h"
 
 class ChangeVolumeWidget : public BasicWidget {
 	Q_OBJECT
@@ -12,11 +13,23 @@ public:
 	~ChangeVolumeWidget();
 	QTimer _hideTimer;
 	QSlider* slider;
+    Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged FINAL)
+    QColor backgroundColor() const;
+    void setBackgroundColor(const QColor &newBackgroundColor);
+
+public slots:
+	void on_themeChanged(Theme t);
+
+signals:
+    void backgroundColorChanged();
+
 protected:
     void focusOutEvent(QFocusEvent* event) override;
 	void paintEvent(QPaintEvent* event) override;
 private:
 	QVBoxLayout* verticallayout;
+	Theme currentTheme{ Dark };
+    QColor m_backgroundColor;
 };
 
 class ChangeVolumeButton : public QPushButton

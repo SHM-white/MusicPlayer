@@ -14,10 +14,21 @@ MainWidget::MainWidget(QWidget *parent)
     loadStyleSheet(Dark);
     setObjectName(QStringLiteral("main-window"));
     windowAgent->setWindowAttribute(QStringLiteral("dwm-blur"), true);
-    ui->pushButton_Previous->setFont(Icons::Font);
-    ui->pushButton_Next->setFont(Icons::Font);
-    ui->pushButton_Previous->setText(Icons::Get(Icons::Previous));
-    ui->pushButton_Next->setText(Icons::Get(Icons::Next));
+    ui->pushButton_Previous         ->setFont(Icons::Font);
+    ui->pushButton_Next             ->setFont(Icons::Font);
+    ui->pushButton_ShowPlayList     ->setFont(Icons::Font);
+    //ui->pushButton_LoopMode         ->setFont(Icons::Font);
+    ui->pushButton_Maximize         ->setFont(Icons::Font);
+    ui->pushButton_Like             ->setFont(Icons::Font);
+    ui->pushButton_showFileDetails  ->setFont(Icons::Font);
+    ui->pushButton_Previous         ->setText(Icons::Get(Icons::Previous));
+    ui->pushButton_Next             ->setText(Icons::Get(Icons::Next));
+    ui->pushButton_ShowPlayList     ->setText(Icons::Get(Icons::BulletedList));
+    //ui->pushButton_LoopMode         ->setText(Icons::Get(Icons::Shuffle));
+    ui->pushButton_Maximize         ->setText(Icons::Get(Icons::FullScreen));
+    ui->pushButton_Like             ->setText(Icons::Get(Icons::FavoriteStar));
+    ui->pushButton_showFileDetails  ->setText(Icons::Get(Icons::More));
+
     m_mediaPlayer = std::make_shared<QMediaPlayer>(this);
     m_playTimer = std::make_unique<QTimer>(this);
     updateMusicList();
@@ -27,7 +38,7 @@ MainWidget::MainWidget(QWidget *parent)
     connect(ui->pushButton_Volume, SIGNAL(volumeChanged(int)), this, SLOT(on_volumeChanged(int)));
     //connect(m_playTimer.get(), SIGNAL(timeout(void)), this, SLOT(on_playPauseButton_clicked(void)));
     m_mediaPlayer->setAudioOutput(new QAudioOutput(this));
-    
+    ui->playPauseButton->setEnabled(false);
 }
 
 MainWidget::~MainWidget()
@@ -80,17 +91,26 @@ void MainWidget::changeMusic(QListWidgetItem* item)
     metaData.then([&](QMediaMetaData metaData) {
         m_currentMetaData = metaData;
         ui->listWidget_PlayList->update();
+
         auto duration = m_currentMetaData.value(QMediaMetaData::Duration);
+        auto title = m_currentMetaData.value(QMediaMetaData::AlbumTitle);
+        auto artist = m_currentMetaData.value(QMediaMetaData::AlbumArtist);
+
         ui->horizontalSlider_Progress->setValue(0);
-        if (duration.isValid()) {
+        if (!metaData.isEmpty()) {
             auto a = duration.toInt();
             ui->horizontalSlider_Progress->setMaximum(a);
+            ui->playPauseButton->setEnabled(true);
             ui->playPauseButton->setIsPlaying(true);
             m_playTimer->singleShot(10, this, SLOT(on_playPauseButton_clicked(void)));
-            auto title = m_currentMetaData.value(QMediaMetaData::AlbumTitle);
-            auto artist = m_currentMetaData.value(QMediaMetaData::AlbumArtist);
-            
+            m_currentMusicInfo = title.toString() + QStringLiteral(" - ") + artist.toString();
+
+            // Calculate available space for label_MusicName
+            int availableWidth = std::max(50, ui->horizontalLayout_5->geometry().width() - 20); // Subtract a fixed value (e.g., 20)
+            QFontMetrics fm{ ui->label_MusicName->font() };
+            ui->label_MusicName->setText(fm.elidedText(m_currentMusicInfo, Qt::ElideRight, availableWidth));
         }
+        lastMusic = item;
     });
 }
 
@@ -360,7 +380,7 @@ void MainWidget::loadStyleSheet(Theme theme)
 #endif // DEBUG
         setProperty("custom-style", true);
         style()->polish(this);
-        Q_EMIT themeChanged();
+        Q_EMIT themeChanged(theme);
         update();
         //repaint();
     }
@@ -411,6 +431,15 @@ void MainWidget::paintEvent(QPaintEvent* event)
     }
     painter.end();
     QMainWindow::paintEvent(event);
+}
+
+void MainWidget::resizeEvent(QResizeEvent* event)
+{
+    QMainWindow::resizeEvent(event);
+
+    int availableWidth = std::max(50, ui->horizontalLayout_5->geometry().width() - 20); // Subtract a fixed value (e.g., 20)
+    QFontMetrics fm{ ui->label_MusicName->font() };
+    ui->label_MusicName->setText(fm.elidedText(m_currentMusicInfo, Qt::ElideRight, availableWidth));
 }
 
 void MainWidget::updateTimeLabel(qint64 current, qint64 total)

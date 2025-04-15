@@ -4,9 +4,10 @@ ChangeVolumeButton::ChangeVolumeButton(QWidget *parent)
 	: QPushButton(parent)
 {
     volumeWidget = std::make_unique<ChangeVolumeWidget>(dynamic_cast<QWidget*>(this));
-    setFont(QFont(QStringLiteral("Segoe Fluent Icons")));
+    setFont(Icons::Font);
     //volumeWidget->setMouseTracking(true);
     volumeWidget->setGeometry(QRect(0, 0, 100, 10)); // Adjust the height here
+    connect(parent->parentWidget(), SIGNAL(themeChanged(Theme)), volumeWidget.get(), SLOT(on_themeChanged(Theme)));
     connect(volumeWidget->slider, SIGNAL(valueChanged(int)), this, SLOT(sliderMoved(int)));
     connect(volumeWidget->slider, SIGNAL(valueChanged(int)), this, SLOT(updateTooltip(int))); // Add this line
     _setVolumeIcon();
@@ -107,6 +108,7 @@ ChangeVolumeWidget::ChangeVolumeWidget(QWidget* parent)
     this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint );
     this->setMinimumHeight(30); // Set minimum height
     this->setMaximumHeight(30); // Set maximum height to ensure fixed height
+    this->setObjectName(QStringLiteral("volumeWidget"));
     slider = new QSlider(this);
     slider->setOrientation(Qt::Horizontal);
     slider->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed); // Adjust size policy
@@ -142,7 +144,23 @@ void ChangeVolumeWidget::paintEvent(QPaintEvent* event)
     QPainter painter(this);
     QPainterPath path;
     path.addRoundedRect(rect(), 5, 5);
-    painter.fillPath(path, QBrush(QColor(255, 255, 255, 200)));
+    painter.fillPath(path, QBrush(m_backgroundColor));
     painter.end();
 }
 
+void ChangeVolumeWidget::on_themeChanged(Theme t) {
+    currentTheme = t;
+    update();
+}
+QColor ChangeVolumeWidget::backgroundColor() const
+{
+    return m_backgroundColor;
+}
+
+void ChangeVolumeWidget::setBackgroundColor(const QColor &newBackgroundColor)
+{
+    if (m_backgroundColor == newBackgroundColor)
+        return;
+    m_backgroundColor = newBackgroundColor;
+    emit backgroundColorChanged();
+}

@@ -72,6 +72,10 @@
 #include <QWKCore/qwkglobal.h>
 #include <QWKCore/windowagentbase.h>
 
+enum Theme {
+	Dark,
+	Light,
+};
 
 class Utils {
 public:
@@ -127,6 +131,10 @@ namespace Icons {
 		Volume2 = 0xe994,
 		Volume3 = 0xe995,
 		Mute = 0xe74f,
+		BulletedList = 0xe8fd,
+		More = 0xe712,
+		FullScreen = 0xe740,
+		BackToWindow = 0xe73f,
 	};
 	QChar inline Get(Icons icon) {
 		return QChar(icon);

@@ -20,18 +20,16 @@ class MainWidget : public QMainWindow
     Q_OBJECT
 
 public:
-    enum Theme {
-        Dark,
-        Light,
-    };
-    Q_ENUM(Theme)
     MainWidget(QWidget *parent = nullptr);
     ~MainWidget();
     Theme currentTheme{};
     QWK::WidgetWindowAgent *windowAgent;
 
 Q_SIGNALS:
-    void themeChanged();
+    void themeChanged(Theme t);
+
+protected:
+    void resizeEvent(QResizeEvent* event) override;
 
 protected Q_SLOTS:
     void updateMusicList(); 
@@ -56,6 +54,8 @@ private:
     std::shared_ptr<QMediaPlayer> m_mediaPlayer;
     QMediaMetaData m_currentMetaData;
     std::unique_ptr<QTimer> m_playTimer;
+    QString m_currentMusicInfo{ QStringLiteral("...") };
+    QListWidgetItem* lastMusic{ nullptr };
 #ifdef DEBUG
     QStringList m_musicList{ "D:/Music/Music_9/Krimsonn - Stranger.MP3",
     "D:/Music/Music_9/Manafest - Edge of My Life.mp3" };

@@ -175,23 +175,24 @@ QWidget#clock-widget {
 
 QLabel {
     color: #ECECEC;
-    font-size: 20px;
+    font-size: 15px;
 }
 
 QPushButton {
-    background-color: #1E1E1E;
+    background-color: transparent;
     border: transparent;
     border-radius: 5px;
     padding: 10px;
+    font-size: 18px;
     color: #ECECEC;
 }
 
 QPushButton:hover {
-    background-color: #303030;
+    background-color: rgba(255, 255, 255, 10%);
 }
 
 QPushButton:pressed {
-    background-color: #0060C0;
+    background-color: rgba(255, 255, 255, 0.30);
 }
 
 QListWidget {
@@ -267,7 +268,7 @@ QSlider::sub-page:horizontal#horizontalSlider_Progress {
     border-radius: 5px;
 }
 
-QPushButton#playPauseButton {
+/* QPushButton#playPauseButton {
     border-color: transparent;
     background-color: transparent;
     color: #FFFFFF;
@@ -292,10 +293,10 @@ QPushButton#pushButton_Volume {
     border-color: transparent;
     background-color: transparent;
     color: #FFFFFF;
-    font-size: 15px;
+    font-size: 18px;
     font-family: 'Segoe Fluent Icons';
 }
-
+ */
 QSlider::groove:horizontal#VolumeSlider {
     background-color: #303030;
     height: 5px;
@@ -322,4 +323,12 @@ QSlider#VolumeSlider {
 QSlider::sub-page:horizontal#VolumeSlider {
     background-color: #0060C0;
     border-radius: 2.5px; /* 确保圆角与槽一致 */
+}
+
+QLabel#label_PlayTime {
+    font-size: 13px;
+}
+
+QWidget#volumeWidget {
+    qproperty-backgroundColor: rgba(0, 0, 0, 0.543);
 }
