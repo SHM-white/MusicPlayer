@@ -1,13 +1,11 @@
 ﻿/* Window bar */
 
 QWK--WindowBar[bar-active=true] {
-    background-color: rgba(19, 169, 255, 0.598); 
-    /*background-color: transparent; */
+    background-color: rgba(19, 169, 255, 0.598); /* Light theme equivalent */
 }
 
 QWK--WindowBar[bar-active=false] {
-    background-color: rgba(19, 169, 255, 0.598); 
-    /*background-color: transparent; */
+    background-color: rgba(19, 169, 255, 0.598); /* Light theme equivalent */
 }
 
 
@@ -16,7 +14,7 @@ QWK--WindowBar[bar-active=false] {
 QWK--WindowBar>QLabel#win-title-label {
     padding: 0;
     border: none;
-    color: #141414;
+    color: #141414; /* Light theme equivalent */
     background-color: transparent;
     min-height: 28px;
 }
@@ -40,7 +38,7 @@ QWK--WindowBar>QAbstractButton#pin-button {
 
 QWK--WindowBar>QAbstractButton#pin-button:hover,
 QWK--WindowBar>QAbstractButton#pin-button:pressed {
-    background-color: rgba(0, 0, 0, 15%);
+    background-color: rgba(0, 0, 0, 15%); /* Light theme equivalent */
 }
 
 QWK--WindowBar>QAbstractButton#min-button {
@@ -49,7 +47,7 @@ QWK--WindowBar>QAbstractButton#min-button {
 
 QWK--WindowBar>QAbstractButton#min-button:hover,
 QWK--WindowBar>QAbstractButton#min-button:pressed {
-    background-color: rgba(0, 0, 0, 15%);
+    background-color: rgba(0, 0, 0, 15%); /* Light theme equivalent */
 }
 
 QWK--WindowBar>QAbstractButton#max-button {
@@ -59,7 +57,7 @@ QWK--WindowBar>QAbstractButton#max-button {
 
 QWK--WindowBar>QAbstractButton#max-button:hover,
 QWK--WindowBar>QAbstractButton#max-button:pressed {
-    background-color: rgba(0, 0, 0, 15%);
+    background-color: rgba(0, 0, 0, 15%); /* Light theme equivalent */
 }
 
 QWK--WindowBar>QAbstractButton#close-button {
@@ -68,7 +66,7 @@ QWK--WindowBar>QAbstractButton#close-button {
 
 QWK--WindowBar>QAbstractButton#close-button:hover,
 QWK--WindowBar>QAbstractButton#close-button:pressed {
-    background-color: #e81123;
+    background-color: #e81123; /* Light theme equivalent */
 }
 
 
@@ -97,17 +95,17 @@ QMenuBar>QToolButton#qt_menubar_ext_button {
 
 QMenuBar>QToolButton#qt_menubar_ext_button:hover,
 QMenuBar>QToolButton#qt_menubar_ext_button:pressed {
-    background-color: rgba(255, 255, 255, 10%);
+            background-color: rgba(255, 255, 255, 10%); /* Light theme equivalent */
 }
 
 QMenuBar::item {
-    color: #141414;
+    color: #141414; /* Light theme equivalent */
     border: none;
     padding: 8px 12px;
 }
 
 QMenuBar::item:selected {
-    background-color: rgba(255, 255, 255, 10%);
+    background-color: rgba(255, 255, 255, 10%); /* Light theme equivalent */
 }
 
 
@@ -115,8 +113,8 @@ QMenuBar::item:selected {
 
 QMenu {
     padding: 4px;
-    background: white;
-    border: 1px solid #E0E0E0;
+    background: white; /* Light theme equivalent */
+    border: 1px solid #E0E0E0; /* Light theme equivalent */
 }
 
 QMenu::indicator {
@@ -131,21 +129,23 @@ QMenu::icon {
 
 QMenu::item {
     background: transparent;
-    color: #333333;
+    color: #333333; /* Light theme equivalent */
     padding: 6px 24px;
 }
 
 QMenu::item:selected {
-    background-color: rgba(0, 0, 0, 10%);
+    color: #141414; /* Light theme equivalent */
+    background-color: rgba(0, 0, 0, 10%); /* Light theme equivalent */
 }
 
 QMenu::item:disabled {
-    color: #CCCCCC;
+    color: #CCCCCC; /* Light theme equivalent */
+    background-color: transparent;
 }
 
 QMenu::separator {
     height: 2px;
-    background-color: #CCCCCC;
+    background-color: #CCCCCC; /* Light theme equivalent */
     margin: 6px 0;
 }
 
@@ -153,94 +153,151 @@ QMenu::separator {
 /* Window */
 
 MainWindow {
-    background-color: #F3F3F3;
+    background-color: #F3F3F3; /* Light theme equivalent */
 }
 
 MainWindow[custom-style=true] {
-    background-color: transparent;
+    background-color: transparent; /* Light theme equivalent */
+}
+
+QWidget#main-window {
+    color: rgba(0, 0, 0, 50%); /* Light theme equivalent */
 }
 
 QWidget#clock-widget {
     font-size: 75px;
-    color: #333333;
+    color: #333333; /* Light theme equivalent */
     font-weight: bold;
     background-color: transparent;
 }
 
-QSlider {
-    background-color: transparent;
-    border: none;
-    border-radius: 5px;
-    color: #ECECEC;
-    font-size: 20px;
-    padding: 10px;
-}
-
-QSlider::groove:horizontal {
-    background-color: #ededed;
-    height: 10px;
-    border-radius: 5px;
-}
-
-QSlider::handle:horizontal {
-    background-color: #FFFFFF;
-    border-color: #CCCCCC ;
-    border-width: 4px;
-    width: 20px;
-    height: 20px;
-    margin-top: -5px;
-    margin-bottom: -5px;
-    border-radius: 10px;
-}
-
-QSlider::sub-page:horizontal {
-    background-color: #0060C0;
-    border-radius: 5px;
-}
-
-
 QLabel {
-    color: #080808;
-    font-size: 20px;
+    color: #080808; /* Light theme equivalent */
+    font-size: 15px;
 }
 
 QPushButton {
-    background-color: #ffffff;
+    background-color: transparent; /* Light theme equivalent */
     border: transparent;
     border-radius: 5px;
     padding: 10px;
-    color: #080808;
+    font-size: 18px;
+    color: #080808; /* Light theme equivalent */
 }
 
 QPushButton:hover {
-    background-color: #ededed;
+    background-color: #ededed; /* Light theme equivalent */
 }
 
 QPushButton:pressed {
-    background-color: #9fcfff;
+    background-color: #c4c4c4; /* Light theme equivalent */
 }
 
 QListWidget {
-    background-color: rgba(255, 255, 255, 50%);
+    background-color: rgba(255, 255, 255, 50%); /* Light theme equivalent */
     border: none;
     border-radius: 5px;
-    color: #080808;
-    font-size: 20px;
+    color: #080808; /* Light theme equivalent */
+    font-size: 15px;
     padding: 10px;
 }
+
+QListWidget::selection {
+    background-color: #0060C0; /* Light theme equivalent */
+    border: none;
+}
+
 QToolButton {
     background-color: transparent;
     border: none;
     border-radius: 5px;
-    color: #080808;
+    color: #080808; /* Light theme equivalent */
     font-size: 20px;
     padding: 10px;
 }
 
 QToolButton:hover {
-    background-color: #dfdfdf;
+    background-color: #dfdfdf; /* Light theme equivalent */
 }
 
 QToolButton:pressed {
-    background-color: #0060C0;
+    background-color: #0060C0; /* Light theme equivalent */
+}
+
+QSlider#horizontalSlider_Progress {
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    color: #080808; /* Light theme equivalent */
+    font-size: 20px;
+    padding: 10px;
+}
+
+QSlider::groove:horizontal#horizontalSlider_Progress {
+    background-color: #ededed; /* Light theme equivalent */
+    height: 10px;
+    border-radius: 5px;
+}
+
+QSlider::handle:horizontal#horizontalSlider_Progress {
+    background-color: #FFFFFF; /* Light theme equivalent */
+    border: none;
+    width: 20px;
+    height: 20px;
+    margin-top: -5px;
+    margin-bottom: -5px;
+    margin-right: -8px;
+    border-radius: 10px;
+}
+
+QSlider::handle:horizontal:hover#horizontalSlider_Progress {
+    background-color: #FFFFFF; /* Light theme equivalent */
+    border: none;
+    width: 20px;
+    height: 20px;
+    margin-top: -5px;
+    margin-bottom: -5px;
+    margin-right: -8px;
+    border-radius: 10px;
+}
+
+QSlider::sub-page:horizontal#horizontalSlider_Progress {
+    background-color: #0060C0; /* Light theme equivalent */
+    border-radius: 5px;
+}
+
+QSlider::groove:horizontal#VolumeSlider {
+    background-color: #ededed; /* Light theme equivalent */
+    height: 5px;
+    border-radius: 2.5px;
+}
+
+QSlider::handle#VolumeSlider {
+    background-color: #FFFFFF; /* Light theme equivalent */
+    border: none;
+    width: 10px;
+    height: 10px;
+    margin-top: -2.5px;
+    margin-bottom: -2.5px;
+    border-radius: 5px;
+}
+
+QSlider#VolumeSlider {
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+QSlider::sub-page:horizontal#VolumeSlider {
+    background-color: #0060C0; /* Light theme equivalent */
+    border-radius: 2.5px;
+}
+
+QLabel#label_PlayTime {
+    font-size: 13px;
+}
+
+QWidget#volumeWidget {
+    qproperty-backgroundColor: rgba(255, 255, 255, 0.543); /* Light theme equivalent */
 }
