@@ -16,8 +16,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_PREFIX_PATH "E:/Qt/6.8.2/msvc2022_64")
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools Multimedia)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools Core5Compat Multimedia Svg)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools Multimedia Core5Compat Svg)
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/libs/QWindowKit)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/widgetframe)
@@ -115,6 +115,8 @@ target_link_libraries(MusicPlayer PRIVATE
 Qt${QT_VERSION_MAJOR}::Widgets 
 QWindowKit::Widgets
 Qt6::Multimedia
+Qt6::Core5Compat
+Qt6::Svg
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

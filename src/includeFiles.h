@@ -17,6 +17,7 @@
 //CPP standard headers
 #include <memory>
 #include <atomic>
+#include <random>
 
 //Qt headers
 #include <QtCore/QDebug>
@@ -39,6 +40,12 @@
 #include <QPropertyAnimation>
 #include <QMimeData>
 #include <QFileInfo>
+#include <QVBoxLayout>
+#include <QTextStream>
+#include <QTransform>
+#include <QTextBrowser>
+#include <QRegExp>
+#include <QSvgRenderer>
 
 #include <qpainterpath.h>
 #include <qwidget.h>
@@ -83,6 +90,14 @@ class Utils {
 public:
 	static inline QString QTimeToQString(const QTime& time) {
 		return (time < QTime(1, 0, 0, 0)) ? time.toString("mm:ss") : time.toString("hh:mm:ss");
+	}
+	static inline QPixmap loadSvgAsPixmap(const QString& resourcePath, const QSize& size) {
+		QSvgRenderer svgRenderer(resourcePath);
+		QPixmap pixmap(size);
+		pixmap.fill(Qt::transparent); // 确保背景透明
+		QPainter painter(&pixmap);
+		svgRenderer.render(&painter);
+		return pixmap;
 	}
 };
 

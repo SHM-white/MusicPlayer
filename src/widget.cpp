@@ -31,10 +31,13 @@ MainWidget::MainWidget(QWidget *parent)
 
     m_mediaPlayer = std::make_shared<QMediaPlayer>(this);
     m_playTimer = std::make_unique<QTimer>(this);
+    m_playbackTimer = std::make_unique<QTimer>(this);
     connect(ui->listWidget_PlayList, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(changeMusic(QListWidgetItem*)));
-    connect(ui->listWidget_PlayList, SIGNAL(itemEntered(QListWidgetItem*)), this, SLOT(changeMusic(QListWidgetItem*)));
+    //connect(ui->listWidget_PlayList, SIGNAL(itemEntered(QListWidgetItem*)), this, SLOT(changeMusic(QListWidgetItem*)));
     connect(m_mediaPlayer.get(), SIGNAL(positionChanged(qint64)), this, SLOT(on_positionChanged(qint64)));
     connect(ui->pushButton_Volume, SIGNAL(volumeChanged(int)), this, SLOT(on_volumeChanged(int)));
+    connect(ui->pushButton_LoopMode, SIGNAL(playModeSwitched(LoopModeSwitcher::Mode)), this, SLOT(on_loopModeSwitched(LoopModeSwitcher::Mode)));
+    connect(m_mediaPlayer.get(), SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)), this, SLOT(on_mediaStatusChanged(QMediaPlayer::MediaStatus)));
     m_mediaPlayer->setAudioOutput(new QAudioOutput(this));
 
     setAcceptDrops(true);
@@ -91,37 +94,58 @@ static inline void emulateLeaveEvent(QWidget* widget) {
 
 void MainWidget::changeMusic(QListWidgetItem* item)
 {
+    if (item == nullptr) {
+        return;
+    }
     auto* i = dynamic_cast<MusicItem*>(item);
+    m_playingMusicItem = item;
     ui->playPauseButton->setIsPlaying(false);
     on_playPauseButton_clicked();
+    ui->listWidget_PlayList->setDisabled(true);
+    ui->pushButton_Next->setDisabled(true);
+    ui->pushButton_Previous->setDisabled(true);
     auto metaData = i->load(m_mediaPlayer);
     metaData.then([&](QMediaMetaData metaData) {
-        m_currentMetaData = metaData;
+        static std::atomic_bool locker{ false };
+        locker.wait(true);
+        locker.store(true);
+        if (!metaData.isEmpty()) {
+            m_currentMetaData = metaData;
+        }
+        //QMetaObject::invokeMethod(this, [&]() {
         ui->listWidget_PlayList->update();
 
-        auto duration = m_currentMetaData.value(QMediaMetaData::Duration);
-        auto title = m_currentMetaData.value(QMediaMetaData::AlbumTitle);
-        auto artist = m_currentMetaData.value(QMediaMetaData::AlbumArtist);
+        auto duration = metaData.value(QMediaMetaData::Duration);
+        auto title = metaData.value(QMediaMetaData::AlbumTitle);
+        auto artist = metaData.value(QMediaMetaData::AlbumArtist);
 
         ui->horizontalSlider_Progress->setValue(0);
         if (!metaData.isEmpty()) {
             auto a = duration.toInt();
             ui->horizontalSlider_Progress->setMaximum(a);
             ui->playPauseButton->setIsPlaying(true);
-            m_playTimer->singleShot(10, this, SLOT(on_playPauseButton_clicked(void)));
-            m_currentMusicInfo = title.toString() + QStringLiteral(" - ") + artist.toString();
-
-            int availableWidth = std::max(50, ui->horizontalLayout_5->geometry().width() - 20); // Subtract a fixed value (e.g., 20)
+            m_playTimer->singleShot(3, this, SLOT(on_playPauseButton_clicked(void)));
+            if (title.isNull() && artist.isNull()) {
+                m_currentMusicInfo = dynamic_cast<MusicItem*>(m_playingMusicItem)->url.fileName();
+            }
+            else {
+                m_currentMusicInfo = title.toString() + QStringLiteral(" - ") + artist.toString();
+            }
+            int availableWidth = std::max(100, ui->horizontalLayout_5->geometry().width() - 20);
             QFontMetrics fm{ ui->label_MusicName->font() };
             ui->label_MusicName->setText(fm.elidedText(m_currentMusicInfo, Qt::ElideRight, availableWidth));
         }
-        lastMusic = item;
+        m_playbackTimer->singleShot(6, this, SLOT(on_enableListWidget(void)));
+        //}, Qt::QueuedConnection);
+        locker.store(false);
+        locker.notify_one();
+
     });
 }
 
 void MainWidget::on_volumeChanged(int value)
 {
-    m_mediaPlayer->audioOutput()->setVolume(value);
+    m_mediaPlayer->audioOutput()->setVolume((float)value / 100.0);
 }
 
 void MainWidget::installWindowAgent()
@@ -134,15 +158,15 @@ void MainWidget::installWindowAgent()
     auto menuBar = [this]() {
         auto menuBar = new QMenuBar(this);
 
-        // Virtual menu
-        auto file = new QMenu(tr("File(&F)"), menuBar);
-        file->addAction(new QAction(tr("New(&N)"), menuBar));
-        file->addAction(new QAction(tr("Open(&O)"), menuBar));
-        file->addSeparator();
+        //// Virtual menu
+        //auto file = new QMenu(tr("File(&F)"), menuBar);
+        //file->addAction(new QAction(tr("New(&N)"), menuBar));
+        //file->addAction(new QAction(tr("Open(&O)"), menuBar));
+        //file->addSeparator();
 
-        auto edit = new QMenu(tr("Edit(&E)"), menuBar);
-        edit->addAction(new QAction(tr("Undo(&U)"), menuBar));
-        edit->addAction(new QAction(tr("Redo(&R)"), menuBar));
+        //auto edit = new QMenu(tr("Edit(&E)"), menuBar);
+        //edit->addAction(new QAction(tr("Undo(&U)"), menuBar));
+        //edit->addAction(new QAction(tr("Redo(&R)"), menuBar));
 
         // Theme action
         auto darkAction = new QAction(tr("Enable dark theme"), menuBar);
@@ -269,8 +293,8 @@ void MainWidget::installWindowAgent()
         settings->addAction(noBlurAction);
 #endif
 
-        menuBar->addMenu(file);
-        menuBar->addMenu(edit);
+        //menuBar->addMenu(file);
+        //menuBar->addMenu(edit);
         menuBar->addMenu(settings);
         return menuBar;
         }();
@@ -436,7 +460,7 @@ void MainWidget::resizeEvent(QResizeEvent* event)
 {
     QMainWindow::resizeEvent(event);
 
-    int availableWidth = std::max(50, ui->horizontalLayout_5->geometry().width() - 20); // Subtract a fixed value (e.g., 20)
+    int availableWidth = std::max(100, ui->horizontalLayout_5->geometry().width() - 20); // Subtract a fixed value (e.g., 20)
     QFontMetrics fm{ ui->label_MusicName->font() };
     ui->label_MusicName->setText(fm.elidedText(m_currentMusicInfo, Qt::ElideRight, availableWidth));
 }
@@ -536,5 +560,114 @@ void MainWidget::removeSelectedItem(QListWidgetItem *item)
         delete ui->listWidget_PlayList->takeItem(row);
     }
     ConfigManager::SaveLoadedMusicList(m_musicList);
+}
+
+void MainWidget::on_loopModeSwitched(LoopModeSwitcher::Mode mode)
+{
+    m_loopMode = mode;
+    switch (mode)
+    {
+    case LoopModeSwitcher::ListLoop:
+        m_mediaPlayer->setLoops(QMediaPlayer::Once);
+        break;
+    case LoopModeSwitcher::SingleLoop:
+        m_mediaPlayer->setLoops(QMediaPlayer::Infinite);
+        break;
+    case LoopModeSwitcher::RandomPlay:
+        m_mediaPlayer->setLoops(QMediaPlayer::Once);
+        break;
+    default:
+        break;
+    }
+}
+
+void MainWidget::on_mediaStatusChanged(QMediaPlayer::MediaStatus status)
+{
+    if (status == QMediaPlayer::EndOfMedia) {
+        on_pushButton_Next_clicked();
+    }
+}
+
+void MainWidget::on_enableListWidget()
+{
+    ui->listWidget_PlayList->setEnabled(true);
+    ui->pushButton_Next->setEnabled(true);
+    ui->pushButton_Previous->setEnabled(true);
+    QString musicFilePath = dynamic_cast<MusicItem*>(m_playingMusicItem)->url.toString();
+    QPixmap albumCover = m_currentMetaData.value(QMediaMetaData::CoverArtImage).value<QPixmap>();
+    ui->widget_MusicDetail->updateMetaData(musicFilePath, albumCover);
+
+}
+
+
+void MainWidget::on_pushButton_Previous_clicked()
+{
+    int currentMusicRow = -1;
+    if (m_playingMusicItem != nullptr) {
+        currentMusicRow = ui->listWidget_PlayList->row(m_playingMusicItem);
+    }
+    switch (m_loopMode)
+    {
+    case LoopModeSwitcher::SingleLoop:
+    case LoopModeSwitcher::ListLoop:
+    {
+        if (m_playingMusicItem == nullptr) break;
+        auto nextMusic = (currentMusicRow - 1) < 0 ? ui->listWidget_PlayList->item(ui->listWidget_PlayList->count() - 1) : ui->listWidget_PlayList->item(currentMusicRow - 1);
+        if (nextMusic == nullptr) break;
+        ui->listWidget_PlayList->setCurrentItem(nextMusic);
+        changeMusic(nextMusic);
+    }
+        break;
+    case LoopModeSwitcher::RandomPlay:
+    {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<> distrib(0, ui->listWidget_PlayList->count() - 1);
+        int peddingMusicRow;
+        while ((peddingMusicRow = distrib(gen)) == currentMusicRow) {};
+        ui->listWidget_PlayList->setCurrentRow(peddingMusicRow);
+        changeMusic(ui->listWidget_PlayList->item(peddingMusicRow));
+    }
+        break;
+    default:
+        break;
+    }
+
+}
+
+
+void MainWidget::on_pushButton_Next_clicked()
+{
+    int currentMusicRow = -1;
+    if (m_playingMusicItem != nullptr) {
+        currentMusicRow = ui->listWidget_PlayList->row(m_playingMusicItem);
+    }
+    switch (m_loopMode)
+    {
+    case LoopModeSwitcher::SingleLoop:
+    case LoopModeSwitcher::ListLoop:
+    {
+        //if (m_playingMusicItem == nullptr) break;
+        auto nextMusic = (currentMusicRow + 1) >= ui->listWidget_PlayList->count() ? ui->listWidget_PlayList->item(0) : ui->listWidget_PlayList->item(currentMusicRow + 1);
+        if (nextMusic == nullptr) break;
+        ui->listWidget_PlayList->setCurrentItem(nextMusic);
+        changeMusic(nextMusic);
+    }
+        break;
+    case LoopModeSwitcher::RandomPlay:
+    {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<> distrib(0, ui->listWidget_PlayList->count() - 1);
+        int peddingMusicRow;
+        while ((peddingMusicRow = distrib(gen)) == currentMusicRow) {};
+        ui->listWidget_PlayList->setCurrentRow(peddingMusicRow);
+        changeMusic(ui->listWidget_PlayList->item(peddingMusicRow));
+    }
+        break;
+    default:
+        break;
+    }
+
 }
 

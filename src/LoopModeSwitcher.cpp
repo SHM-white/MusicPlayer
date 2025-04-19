@@ -1,7 +1,7 @@
 ﻿#include "LoopModeSwitcher.h"
 
 LoopModeSwitcher::LoopModeSwitcher(QWidget* parent)
-    : QPushButton(parent), mode(SingleLoop) {
+    : QPushButton(parent), mode(ListLoop) {
     Icons::SetFont(this);
     updateIcon();
     connect(this, SIGNAL(clicked()), this, SLOT(switchMode()));

@@ -4,6 +4,8 @@
 #include <QWidget>
 #include "BasicWidget.h"
 #include "ConfigManager.h"
+#include "LoopModeSwitcher.h"
+#include "DisplayWidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -47,6 +49,11 @@ private slots:
     void on_horizontalSlider_Progress_sliderReleased(); // New slot for slider release
     void showContextMenu(const QPoint &pos);
     void removeSelectedItem(QListWidgetItem *item);
+    void on_loopModeSwitched(LoopModeSwitcher::Mode mode);
+    void on_mediaStatusChanged(QMediaPlayer::MediaStatus status);
+    void on_enableListWidget();
+    void on_pushButton_Previous_clicked();
+    void on_pushButton_Next_clicked();
 
 private:
     void installWindowAgent();
@@ -60,8 +67,9 @@ private:
     QMediaMetaData m_currentMetaData;
     std::unique_ptr<QTimer> m_playTimer;
     QString m_currentMusicInfo{ QStringLiteral("...") };
-    QListWidgetItem* lastMusic{ nullptr };
+    QListWidgetItem* m_playingMusicItem{ nullptr };
     QStringList m_musicList;
-
+    LoopModeSwitcher::Mode m_loopMode = LoopModeSwitcher::Mode::ListLoop;
+    std::unique_ptr<QTimer> m_playbackTimer;
 };
 #endif // WIDGET_H

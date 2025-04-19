@@ -25,6 +25,6 @@ private slots:
     void switchMode();
 
 private:
-    Mode mode;
+    Mode mode{ ListLoop };
     void updateIcon();
 };
