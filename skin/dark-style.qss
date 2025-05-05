@@ -332,3 +332,13 @@ QLabel#label_PlayTime {
 QWidget#volumeWidget {
     qproperty-backgroundColor: rgba(0, 0, 0, 0.543);
 }
+
+QListView{
+    /*font-size: 100;*/
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(255, 255, 255, 30);
+    color: #FFFFFF;
+}
+QListView::item{
+    font-size: 20;
+}

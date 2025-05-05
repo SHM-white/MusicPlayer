@@ -92,6 +92,11 @@ static inline void emulateLeaveEvent(QWidget* widget) {
     });
 }
 
+void MainWidget::updateMusicNameLabel(const QString& musicInfo, int availableWidth) {
+    QFontMetrics fm{ ui->label_MusicName->font() };
+    ui->label_MusicName->setText(fm.elidedText(musicInfo, Qt::ElideRight, availableWidth));
+}
+
 void MainWidget::changeMusic(QListWidgetItem* item)
 {
     if (item == nullptr) {
@@ -112,7 +117,6 @@ void MainWidget::changeMusic(QListWidgetItem* item)
         if (!metaData.isEmpty()) {
             m_currentMetaData = metaData;
         }
-        //QMetaObject::invokeMethod(this, [&]() {
         ui->listWidget_PlayList->update();
 
         auto duration = metaData.value(QMediaMetaData::Duration);
@@ -132,14 +136,11 @@ void MainWidget::changeMusic(QListWidgetItem* item)
                 m_currentMusicInfo = title.toString() + QStringLiteral(" - ") + artist.toString();
             }
             int availableWidth = std::max(100, ui->horizontalLayout_5->geometry().width() - 20);
-            QFontMetrics fm{ ui->label_MusicName->font() };
-            ui->label_MusicName->setText(fm.elidedText(m_currentMusicInfo, Qt::ElideRight, availableWidth));
+            updateMusicNameLabel(m_currentMusicInfo, availableWidth);
         }
         m_playbackTimer->singleShot(6, this, SLOT(on_enableListWidget(void)));
-        //}, Qt::QueuedConnection);
         locker.store(false);
         locker.notify_one();
-
     });
 }
 
@@ -460,9 +461,8 @@ void MainWidget::resizeEvent(QResizeEvent* event)
 {
     QMainWindow::resizeEvent(event);
 
-    int availableWidth = std::max(100, ui->horizontalLayout_5->geometry().width() - 20); // Subtract a fixed value (e.g., 20)
-    QFontMetrics fm{ ui->label_MusicName->font() };
-    ui->label_MusicName->setText(fm.elidedText(m_currentMusicInfo, Qt::ElideRight, availableWidth));
+    int availableWidth = std::max(100, ui->horizontalLayout_5->geometry().width() - 20);
+    updateMusicNameLabel(m_currentMusicInfo, availableWidth);
 }
 
 void MainWidget::updateTimeLabel(qint64 current, qint64 total)
@@ -492,6 +492,7 @@ void MainWidget::on_positionChanged(qint64 value)
     if (!ui->horizontalSlider_Progress->isSliderDown()) {
         ui->horizontalSlider_Progress->setValue(value);
         updateTimeLabel(value, ui->horizontalSlider_Progress->maximum());
+        ui->widget_MusicDetail->updateHighlightedLyric(value);
     }
 }
 

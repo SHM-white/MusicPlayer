@@ -61,6 +61,7 @@ private:
     bool event(QEvent* event) override;
     void paintEvent(QPaintEvent* event) override;
     void updateTimeLabel(qint64 current, qint64 total);
+    void updateMusicNameLabel(const QString& musicInfo, int availableWidth);
     Ui::MainWidget *ui;
     bool m_paintTransparentBackground{ true };
     std::shared_ptr<QMediaPlayer> m_mediaPlayer;

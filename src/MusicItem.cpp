@@ -62,6 +62,6 @@ void MusicItem::updateText()
 	}
 	else
 	{
-		setText(url.fileName() + QStringLiteral("   ") + m_mediaMetaData.stringValue(QMediaMetaData::Key::Duration));
+		setText(url.fileName() + QStringLiteral(" - ") + m_mediaMetaData.stringValue(QMediaMetaData::Key::Duration));
 	}
 }

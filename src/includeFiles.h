@@ -47,6 +47,7 @@
 #include <QRegExp>
 #include <QSvgRenderer>
 
+#include <qstringlistmodel.h>
 #include <qpainterpath.h>
 #include <qwidget.h>
 #include <qpainter.h>
