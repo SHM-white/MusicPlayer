@@ -3,14 +3,14 @@
 
 #include "ui_Settings.h"
 #include "includeFiles.h" // For Theme enum
-
+#include "BasicWidget.h"
 QT_BEGIN_NAMESPACE
 namespace Ui {
     class MainWidget;
 }
 QT_END_NAMESPACE
 
-class Settings : public QWidget
+class Settings : public BasicWidget
 {
     Q_OBJECT
 
@@ -23,7 +23,6 @@ private slots:
 
 private:
     Ui::Settings* ui;
-	ApplicationSettings* m_settings;
 protected:
     void closeEvent(QCloseEvent* event) override;
 };

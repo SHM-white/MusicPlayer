@@ -6,6 +6,8 @@
 class ChangePlaybackSpeedWidget : public BasicWidget {
     Q_OBJECT
 
+    Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged FINAL)
+
 public:
     ChangePlaybackSpeedWidget(QWidget* parent);
     ~ChangePlaybackSpeedWidget();
@@ -13,12 +15,21 @@ public:
     QListWidget* speedList;
     QTimer _hideTimer;
 
+    QColor backgroundColor() const;
+    void setBackgroundColor(const QColor& color);
+
+    void adjustHeightBasedOnItems(); // Moved from private to public
+
+signals:
+    void backgroundColorChanged();
+
 protected:
     void focusOutEvent(QFocusEvent* event) override;
     void paintEvent(QPaintEvent* event) override;
 
 private:
     QVBoxLayout* layout;
+    QColor m_backgroundColor;
 };
 
 class ChangePlaybackSpeedButton : public QPushButton {

@@ -467,7 +467,7 @@ void MainWidget::updateMusicList(const QStringList& list) {
 
 void MainWidget::on_pushButton_ShowPlayList_clicked()
 {
-    ui->tabWidget->setVisible(!ui->listWidget_PlayList->isVisible());
+    ui->listWidget_PlayList->setVisible(!ui->listWidget_PlayList->isVisible());
 }
 
 void MainWidget::on_positionChanged(qint64 value)

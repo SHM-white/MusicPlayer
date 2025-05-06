@@ -2,11 +2,13 @@
 #include "ConfigManager.h"
 
 Settings::Settings(QWidget *parent)
-    : QWidget(parent), ui{new Ui::Settings}
+    : BasicWidget(parent), ui{new Ui::Settings}
 {
     ui->setupUi(this);
     this->setWindowFlags(Qt::Window);
     ui->spinBox_fontSize->setValue(GlobalConfigs::APPLICATION_SETTINGS.value("lyricsFontSize", 14).toInt());
+    ui->scrollAreaWidgetContents->setAttribute(Qt::WA_TranslucentBackground);
+    ui->scrollArea->setAttribute(Qt::WA_TranslucentBackground);
 }
 
 Settings::~Settings()

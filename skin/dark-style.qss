@@ -342,3 +342,22 @@ QListView{
 QListView::item{
     font-size: 20;
 }
+ChangePlaybackSpeedWidget {
+    qproperty-backgroundColor: rgba(0, 0, 0, 50);
+}
+
+Settings{
+    background-color: rgb(22, 22, 22);
+}
+
+QWidget#scrollAreaWidgetContents{
+	color: rgba(0, 0, 0, 0);
+}
+
+QSpinBox{
+    background-color: rgba(0, 0, 0, 0.705);
+    color: #FFFFFF;
+}
+QSpinBox::text{
+    margin: 2;
+}
