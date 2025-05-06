@@ -16,14 +16,25 @@ int main(int argc, char *argv[])
 
     // 加载翻译文件
     QTranslator translator;
-    if (translator.load(QLocale(), "MusicPlayer", "_", ":/i18n")) {
-        a.installTranslator(&translator);
-        qDebug() << "Translation loaded successfully.";
-    } else {
-        qDebug() << "Failed to load translation.";
+    const QStringList uiLanguages = QLocale::system().uiLanguages();
+    for (const QString& locale : uiLanguages) {
+        const QString baseName = "MusicPlayer_" + QLocale(locale).name();
+        if (translator.load(":/i18n/" + baseName)) {
+            a.installTranslator(&translator);
+			qDebug() << "Loaded translation file for locale:" << locale;
+            break;
+        }
+        else {
+			qDebug() << "Failed to load translation file for locale:" << locale;
+        }
     }
 
     MainWidget w;
     w.show();
+#ifdef DEBUG
+    qDebug() << "QApplication File Path : " << QApplication::applicationFilePath();
+    qDebug() << "QApplication Directory Path : " << QApplication::applicationDirPath();
+#endif // DEBUG
+
     return a.exec();
 }

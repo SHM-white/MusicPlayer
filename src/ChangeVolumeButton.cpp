@@ -7,7 +7,7 @@ ChangeVolumeButton::ChangeVolumeButton(QWidget *parent)
     setFont(Icons::Font);
     //volumeWidget->setMouseTracking(true);
     volumeWidget->setGeometry(QRect(0, 0, 100, 10)); // Adjust the height here
-    connect(parent->parentWidget(), SIGNAL(themeChanged(Theme)), volumeWidget.get(), SLOT(on_themeChanged(Theme)));
+    //connect(parent->parentWidget(), SIGNAL(themeChanged(Theme)), volumeWidget.get(), SLOT(on_themeChanged(Theme)));
     connect(volumeWidget->slider, SIGNAL(valueChanged(int)), this, SLOT(sliderMoved(int)));
     connect(volumeWidget->slider, SIGNAL(valueChanged(int)), this, SLOT(updateTooltip(int))); // Add this line
     _setVolumeIcon();

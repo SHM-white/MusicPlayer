@@ -32,8 +32,6 @@ set(PROJECT_SOURCES
         src/BasicWidget.cpp
         src/BasicWidget.h
         src/includeFiles.h
-        src/ProgressBar.h
-        src/ProgressBar.cpp
         src/PlayPauseButton.h
         src/PlayPauseButton.cpp
         src/ChangeVolumeButton.h
@@ -50,6 +48,9 @@ set(PROJECT_SOURCES
         src/LoopModeSwitcher.cpp
         src/LyricsDelegate.h
         src/LyricsDelegate.cpp
+        src/Settings.h
+        src/Settings.cpp
+        src/Settings.ui
         ${TS_FILES}
         )
 # qt_create_translation(QM_FILES ${TS_FILES} ${PROJECT_SOURCES})
@@ -85,7 +86,6 @@ else()
     endif()
 
     # 修复翻译文件生成路径
-    # qt_create_translation(QM_FILES ${TS_FILES} ${PROJECT_SOURCES})
 endif()
 
 # 添加翻译文件生成规则
@@ -119,6 +119,8 @@ Qt6::Multimedia
 Qt6::Core5Compat
 Qt6::Svg
 )
+
+# qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an

@@ -1,8 +1,8 @@
 ﻿#include "widget.h"
 #include "./ui_widget.h"
+
 #include "MusicItem.h"
-#include <QMenu>
-#include <QAction>
+#include "Settings.h"
 
 MainWidget::MainWidget(QWidget *parent)
     : QMainWindow(parent)
@@ -16,6 +16,8 @@ MainWidget::MainWidget(QWidget *parent)
     loadStyleSheet(Dark);
     setObjectName(QStringLiteral("main-window"));
     windowAgent->setWindowAttribute(QStringLiteral("dwm-blur"), true);
+
+	// Setup icons  
     ui->pushButton_Previous         ->setFont(Icons::Font);
     ui->pushButton_Next             ->setFont(Icons::Font);
     ui->pushButton_ShowPlayList     ->setFont(Icons::Font);
@@ -41,55 +43,24 @@ MainWidget::MainWidget(QWidget *parent)
     m_mediaPlayer->setAudioOutput(new QAudioOutput(this));
 
     setAcceptDrops(true);
-    ConfigManager::LoadMusicList()
-        .then([&](const QStringList& r) {
-        updateMusicList(r);
-            });
 
     // Enable context menu for listWidget_PlayList
     ui->listWidget_PlayList->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->listWidget_PlayList, &QListWidget::customContextMenuRequested, this, &MainWidget::showContextMenu);
+    // Load settings and music list
+    ConfigManager::LoadSettings(GlobalConfigs::CONFIG_FILE_PATH()).then([&](const ApplicationSettings& s) {
+        this->m_settings = s;
+        });
+    ConfigManager::LoadMusicList(GlobalConfigs::LOCAL_PLAY_LIST())
+        .then([&](const QStringList& r) {
+        updateMusicList(r);
+            });
+
 }
 
 MainWidget::~MainWidget()
 {
     delete ui;
-}
-
-static inline void emulateLeaveEvent(QWidget* widget) {
-    Q_ASSERT(widget);
-    if (!widget) {
-        return;
-    }
-    QTimer::singleShot(0, widget, [widget]() {
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
-        const QScreen* screen = widget->screen();
-#else
-        const QScreen* screen = widget->windowHandle()->screen();
-#endif
-        const QPoint globalPos = QCursor::pos(screen);
-        if (!QRect(widget->mapToGlobal(QPoint{ 0, 0 }), widget->size()).contains(globalPos)) {
-            QCoreApplication::postEvent(widget, new QEvent(QEvent::Leave));
-            if (widget->testAttribute(Qt::WA_Hover)) {
-                const QPoint localPos = widget->mapFromGlobal(globalPos);
-                const QPoint scenePos = widget->window()->mapFromGlobal(globalPos);
-                static constexpr const auto oldPos = QPoint{};
-                const Qt::KeyboardModifiers modifiers = QGuiApplication::keyboardModifiers();
-#if (QT_VERSION >= QT_VERSION_CHECK(6, 4, 0))
-                const auto event =
-                    new QHoverEvent(QEvent::HoverLeave, scenePos, globalPos, oldPos, modifiers);
-                Q_UNUSED(localPos);
-#elif (QT_VERSION >= QT_VERSION_CHECK(6, 3, 0))
-                const auto event = new QHoverEvent(QEvent::HoverLeave, localPos, globalPos, oldPos, modifiers);
-                Q_UNUSED(scenePos);
-#else
-                const auto event = new QHoverEvent(QEvent::HoverLeave, localPos, oldPos, modifiers);
-                Q_UNUSED(scenePos);
-#endif
-                QCoreApplication::postEvent(widget, event);
-            }
-        }
-    });
 }
 
 void MainWidget::updateMusicNameLabel(const QString& musicInfo, int availableWidth) {
@@ -177,6 +148,16 @@ void MainWidget::installWindowAgent()
             });
         connect(this, &MainWidget::themeChanged, darkAction, [this, darkAction]() {
             darkAction->setChecked(currentTheme == Dark); //
+            });
+
+		auto moreSettings = new QAction(tr("More Settings"), menuBar);
+        connect(moreSettings, &QAction::triggered, [this]() {
+            static Settings *settingsWidget = nullptr;
+            if (settingsWidget == nullptr) {
+				settingsWidget = new Settings(this);
+                
+            }
+            settingsWidget->show();
             });
 
 #ifdef Q_OS_WIN
@@ -279,6 +260,8 @@ void MainWidget::installWindowAgent()
 
         // Real menu
         auto settings = new QMenu(tr("Settings(&S)"), menuBar);
+		settings->addAction(moreSettings);
+        settings->addSeparator();
         settings->addAction(darkAction);
 
 #ifdef Q_OS_WIN

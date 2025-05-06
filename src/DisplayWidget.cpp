@@ -72,55 +72,56 @@ void DisplayWidget::updateMetaData(const QString &musicFilePath, const QPixmap &
 
 void DisplayWidget::loadLyrics(const QString &lyricsFilePath)
 {
-    parseLrcFile(lyricsFilePath);
+    // Create a QFutureWatcher to monitor the asynchronous task
+    QFutureWatcher<QVector<QPair<qint64, QString>>> *watcher = new QFutureWatcher<QVector<QPair<qint64, QString>>>(this);
 
-    if (lyricsData.isEmpty()) {
-        QStringListModel *model = new QStringListModel(this);
-        model->setStringList({"Lyrics not found."});
-        lyricsView->setModel(model);
-    } else {
-        QStringList lyricsList;
-        for (const auto &lyric : lyricsData) {
-            lyricsList.append(lyric.second);
-        }
-        QStringListModel *model = new QStringListModel(this);
-        model->setStringList(lyricsList);
-        lyricsView->setModel(model);
-    }
+    // Connect the finished signal to update the UI
+    connect(watcher, &QFutureWatcher<QVector<QPair<qint64, QString>>>::finished, this, [this, watcher]() {
+        lyricsData = watcher->result(); // Retrieve the parsed lyrics data
 
-    //// Ensure the timer is connected to updateHighlightedLyric
-    //if (!lyricUpdateTimer) {
-    //    lyricUpdateTimer = new QTimer(this);
-    //    connect(lyricUpdateTimer, &QTimer::timeout, this, [this]() {
-    //        // Replace with actual playback time retrieval logic
-    //        qint64 currentTime = /* Get current playback time in milliseconds */;
-    //        updateHighlightedLyric(currentTime);
-    //    });
-    //}
-    //lyricUpdateTimer->start(100); // Update every 100ms
-}
-
-void DisplayWidget::parseLrcFile(const QString& lyricsFilePath)
-{
-    lyricsData.clear();
-    QFile file(lyricsFilePath);
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QTextStream in(&file);
-        QRegularExpression regex(R"(\[(\d+):(\d+)\.(\d+)\](.*))"); // Matches [mm:ss.ms]lyric
-        while (!in.atEnd()) {
-            QString line = in.readLine();
-            QRegularExpressionMatch match = regex.match(line);
-            if (match.hasMatch()) {
-                qint64 minutes = match.captured(1).toInt();
-                qint64 seconds = match.captured(2).toInt();
-                qint64 milliseconds = match.captured(3).toInt();
-                qint64 timestamp = (minutes * 60 + seconds) * 1000 + milliseconds;
-                QString lyric = match.captured(4).trimmed();
-                lyricsData.append(qMakePair(timestamp, lyric));
+        if (lyricsData.isEmpty()) {
+            QStringListModel *model = new QStringListModel(this);
+            model->setStringList({"Lyrics not found."});
+            lyricsView->setModel(model);
+        } else {
+            QStringList lyricsList;
+            for (const auto &lyric : lyricsData) {
+                lyricsList.append(lyric.second);
             }
+            QStringListModel *model = new QStringListModel(this);
+            model->setStringList(lyricsList);
+            lyricsView->setModel(model);
         }
-        file.close();
-    }
+
+        watcher->deleteLater(); // Clean up the watcher
+    });
+
+    // Run the parsing logic asynchronously
+    QFuture<QVector<QPair<qint64, QString>>> future = QtConcurrent::run([lyricsFilePath]() {
+        QVector<QPair<qint64, QString>> parsedLyrics;
+        QFile file(lyricsFilePath);
+        if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            QTextStream in(&file);
+            QRegularExpression regex(R"(\[(\d+):(\d+)\.(\d+)\](.*))"); // Matches [mm:ss.ms]lyric
+            while (!in.atEnd()) {
+                QString line = in.readLine();
+                QRegularExpressionMatch match = regex.match(line);
+                if (match.hasMatch()) {
+                    qint64 minutes = match.captured(1).toInt();
+                    qint64 seconds = match.captured(2).toInt();
+                    qint64 milliseconds = match.captured(3).toInt();
+                    qint64 timestamp = (minutes * 60 + seconds) * 1000 + milliseconds;
+                    QString lyric = match.captured(4).trimmed();
+                    parsedLyrics.append(qMakePair(timestamp, lyric));
+                }
+            }
+            file.close();
+        }
+        return parsedLyrics;
+    });
+
+    // Set the future to the watcher
+    watcher->setFuture(future);
 }
 
 void DisplayWidget::updateHighlightedLyric(qint64 currentTime)

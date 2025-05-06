@@ -72,5 +72,7 @@ private:
     QStringList m_musicList;
     LoopModeSwitcher::Mode m_loopMode = LoopModeSwitcher::Mode::ListLoop;
     std::unique_ptr<QTimer> m_playbackTimer;
+    ApplicationSettings m_settings;
+
 };
 #endif // WIDGET_H

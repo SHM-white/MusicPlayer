@@ -2,15 +2,17 @@
 
 #include "includeFiles.h"
 
+using ApplicationSettings = QMap<QString, QVariant>;
+
 class ConfigManager
 {
 private:
 
 public:
-	// Asynchronous save function
+	//Asynchronous save and load functions
 	static QFuture<bool> SaveLoadedMusicList(const QStringList& list);
-
-	// Asynchronous load function
-	static QFuture<QStringList> LoadMusicList(const QString& listPath = GlobalConfigs::LOCAL_PLAY_LIST);
-
+	static QFuture<bool> SaveSettings(const QString& settingsPath, const QMap<QString, QVariant>& settings);
+	
+	static QFuture<QStringList> LoadMusicList(const QString& listPath);
+	static QFuture<ApplicationSettings> LoadSettings(const QString& settingsPath);
 };
