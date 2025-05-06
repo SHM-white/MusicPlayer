@@ -3,12 +3,14 @@
 
 #include "MusicItem.h"
 #include "Settings.h"
+#include <QKeyEvent> // Add this include for QKeyEvent
 
 MainWidget::MainWidget(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWidget)
 {
     ui->setupUi(this);
+    setFocusPolicy(Qt::StrongFocus); // Ensure MainWidget can capture keyboard events
     setAttribute(Qt::WA_DontCreateNativeAncestors);
     setAttribute(Qt::WA_TranslucentBackground);
     installWindowAgent();
@@ -22,13 +24,13 @@ MainWidget::MainWidget(QWidget *parent)
     ui->pushButton_Next             ->setFont(Icons::Font);
     ui->pushButton_ShowPlayList     ->setFont(Icons::Font);
     ui->pushButton_Maximize         ->setFont(Icons::Font);
-    ui->pushButton_Like             ->setFont(Icons::Font);
+    ui->pushButton_PlaySpeed        ->setFont(Icons::Font);
     ui->pushButton_showFileDetails  ->setFont(Icons::Font);
     ui->pushButton_Previous         ->setText(Icons::Get(Icons::Previous));
     ui->pushButton_Next             ->setText(Icons::Get(Icons::Next));
     ui->pushButton_ShowPlayList     ->setText(Icons::Get(Icons::BulletedList));
     ui->pushButton_Maximize         ->setText(Icons::Get(Icons::FullScreen));
-    ui->pushButton_Like             ->setText(Icons::Get(Icons::FavoriteStar));
+    ui->pushButton_PlaySpeed        ->setText(Icons::Get(Icons::Equalizer));
     ui->pushButton_showFileDetails  ->setText(Icons::Get(Icons::More));
 
     m_mediaPlayer = std::make_shared<QMediaPlayer>(this);
@@ -48,9 +50,7 @@ MainWidget::MainWidget(QWidget *parent)
     ui->listWidget_PlayList->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->listWidget_PlayList, &QListWidget::customContextMenuRequested, this, &MainWidget::showContextMenu);
     // Load settings and music list
-    ConfigManager::LoadSettings(GlobalConfigs::CONFIG_FILE_PATH()).then([&](const ApplicationSettings& s) {
-        this->m_settings = s;
-        });
+    GlobalConfigs::APPLICATION_SETTINGS = ConfigManager::LoadSettings(GlobalConfigs::CONFIG_FILE_PATH()).result();
     ConfigManager::LoadMusicList(GlobalConfigs::LOCAL_PLAY_LIST())
         .then([&](const QStringList& r) {
         updateMusicList(r);
@@ -467,7 +467,7 @@ void MainWidget::updateMusicList(const QStringList& list) {
 
 void MainWidget::on_pushButton_ShowPlayList_clicked()
 {
-    ui->listWidget_PlayList->setVisible(!ui->listWidget_PlayList->isVisible());
+    ui->tabWidget->setVisible(!ui->listWidget_PlayList->isVisible());
 }
 
 void MainWidget::on_positionChanged(qint64 value)
@@ -653,5 +653,17 @@ void MainWidget::on_pushButton_Next_clicked()
         break;
     }
 
+}
+
+void MainWidget::keyPressEvent(QKeyEvent* event)
+{
+    if (event->key() == Qt::Key_Space) {
+        // Toggle play/pause when spacebar is pressed
+        ui->playPauseButton->setIsPlaying(!ui->playPauseButton->isPlaying());
+        on_playPauseButton_clicked();
+        event->accept();
+    } else {
+        QMainWindow::keyPressEvent(event); // Pass unhandled events to the base class
+    }
 }
 

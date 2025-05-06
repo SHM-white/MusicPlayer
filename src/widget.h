@@ -35,6 +35,7 @@ protected:
     void resizeEvent(QResizeEvent* event) override;
     void dragEnterEvent(QDragEnterEvent *event) override;
     void dropEvent(QDropEvent *event) override;
+    void keyPressEvent(QKeyEvent* event) override;
 
 protected Q_SLOTS:
     void updateMusicList(const QStringList& list);
@@ -72,7 +73,6 @@ private:
     QStringList m_musicList;
     LoopModeSwitcher::Mode m_loopMode = LoopModeSwitcher::Mode::ListLoop;
     std::unique_ptr<QTimer> m_playbackTimer;
-    ApplicationSettings m_settings;
 
 };
 #endif // WIDGET_H

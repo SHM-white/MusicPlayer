@@ -51,6 +51,8 @@ set(PROJECT_SOURCES
         src/Settings.h
         src/Settings.cpp
         src/Settings.ui
+        src/ChangePlaybackSpeedButton.cpp
+        src/ChangePlaybackSpeedButton.h
         ${TS_FILES}
         )
 # qt_create_translation(QM_FILES ${TS_FILES} ${PROJECT_SOURCES})

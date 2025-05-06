@@ -51,7 +51,7 @@ QFuture<bool> ConfigManager::SaveSettings(const QString& settingsPath, const QMa
 		}
 		file.close();
 		return true;
-		});
+	});
 }
 
 QFuture<ApplicationSettings> ConfigManager::LoadSettings(const QString& settingsPath)
@@ -72,5 +72,5 @@ QFuture<ApplicationSettings> ConfigManager::LoadSettings(const QString& settings
 		}
 		file.close();
 		return settings;
-		});
+	});
 }

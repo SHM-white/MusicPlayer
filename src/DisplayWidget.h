@@ -23,7 +23,6 @@ public slots:
     void updateHighlightedLyric(qint64 currentTime); // New method for updating highlighted lyric
 
 private:
-    void parseLrcFile(const QString &lyricsFilePath); // New method for parsing LRC files
     void adjustLyricsMaxWidth(); // Adjust maximum width for lyrics
 
     QListView *lyricsView; // Replace QTextBrowser with QListView

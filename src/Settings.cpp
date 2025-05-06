@@ -1,19 +1,24 @@
 ﻿#include "Settings.h"
-#include <QWKWidgets/widgetwindowagent.h>
-#include <QLabel>
-#include <QPushButton>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include "widget.h" // For MainWidget
-
+#include "ConfigManager.h"
 
 Settings::Settings(QWidget *parent)
     : QWidget(parent), ui{new Ui::Settings}
 {
     ui->setupUi(this);
     this->setWindowFlags(Qt::Window);
+    ui->spinBox_fontSize->setValue(GlobalConfigs::APPLICATION_SETTINGS.value("lyricsFontSize", 14).toInt());
 }
 
 Settings::~Settings()
 {
+}
+void Settings::closeEvent(QCloseEvent* event)
+{
+	ConfigManager::SaveSettings(GlobalConfigs::CONFIG_FILE_PATH(), GlobalConfigs::APPLICATION_SETTINGS);
+    QWidget::closeEvent(event);
+}
+
+void Settings::on_spinBox_fontSize_valueChanged(int arg1)
+{
+    GlobalConfigs::APPLICATION_SETTINGS[QStringLiteral("lyricsFontSize")] = arg1;
 }

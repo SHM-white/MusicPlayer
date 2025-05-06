@@ -2,8 +2,6 @@
 
 #include "includeFiles.h"
 
-using ApplicationSettings = QMap<QString, QVariant>;
-
 class ConfigManager
 {
 private:

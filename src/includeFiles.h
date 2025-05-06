@@ -114,6 +114,7 @@ public:
 	static inline const QString LOCAL_PLAY_LIST() {
 		return QCoreApplication::applicationDirPath() + QStringLiteral("/local.playlist");
 	}
+	static inline QMap<QString, QVariant> APPLICATION_SETTINGS;
 };
 
 //Icons in Segoe Fluent Icons font
@@ -161,6 +162,7 @@ namespace Icons {
 		More = 0xe712,
 		FullScreen = 0xe740,
 		BackToWindow = 0xe73f,
+		Equalizer = 0xe9e9,
 	};
 	QChar inline Get(Icons icon) {
 		return QChar(icon);
@@ -205,3 +207,5 @@ static inline void emulateLeaveEvent(QWidget* widget) {
 		}
 		});
 }
+
+using ApplicationSettings = QMap<QString, QVariant>;

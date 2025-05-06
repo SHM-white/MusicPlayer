@@ -112,6 +112,8 @@ void DisplayWidget::loadLyrics(const QString &lyricsFilePath)
                     qint64 milliseconds = match.captured(3).toInt();
                     qint64 timestamp = (minutes * 60 + seconds) * 1000 + milliseconds;
                     QString lyric = match.captured(4).trimmed();
+                    lyric.replace("  ", "\n");
+                    lyric.replace("//", "");
                     parsedLyrics.append(qMakePair(timestamp, lyric));
                 }
             }

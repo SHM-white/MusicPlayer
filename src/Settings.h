@@ -17,9 +17,15 @@ class Settings : public QWidget
 public:
     explicit Settings(QWidget *parent = nullptr);
     ~Settings();
+    
+private slots:
+    void on_spinBox_fontSize_valueChanged(int arg1);
 
 private:
     Ui::Settings* ui;
+	ApplicationSettings* m_settings;
+protected:
+    void closeEvent(QCloseEvent* event) override;
 };
 
 #endif // SETTINGS_H
