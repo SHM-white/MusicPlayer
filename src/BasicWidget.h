@@ -12,7 +12,13 @@ public:
 	BasicWidget(QWidget *parent);
 	~BasicWidget();
 	void paintEvent(QPaintEvent* event) override;
-	void setBackgtoundColor(const QColor& color);
+    Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged FINAL)
+    QColor backgroundColor() const;
+    void setBackgroundColor(const QColor &newBackgroundColor);
+
+signals:
+    void backgroundColorChanged();
+
 private:
 	QColor m_backgroundColor;
 	bool m_enableDWM{ false };

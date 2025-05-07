@@ -42,8 +42,25 @@ MainWidget::MainWidget(QWidget *parent)
     connect(ui->pushButton_Volume, SIGNAL(volumeChanged(int)), this, SLOT(on_volumeChanged(int)));
     connect(ui->pushButton_LoopMode, SIGNAL(playModeSwitched(LoopModeSwitcher::Mode)), this, SLOT(on_loopModeSwitched(LoopModeSwitcher::Mode)));
     connect(m_mediaPlayer.get(), SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)), this, SLOT(on_mediaStatusChanged(QMediaPlayer::MediaStatus)));
+    connect(ui->widget_MusicDetail->lyricsView, &QListView::clicked, [this]() {
+        this->setFocus();
+        });
+    connect(ui->listWidget_PlayList, &QListWidget::itemClicked, [this]() {
+		auto timer = new QTimer(this);
+		timer->singleShot(100, [this, timer]() {
+			this->setFocus();
+			timer->deleteLater();
+			});
+        });
     m_mediaPlayer->setAudioOutput(new QAudioOutput(this));
-
+	m_autoFocusTimer = std::make_unique<QTimer>(this);
+	connect(m_autoFocusTimer.get(), &QTimer::timeout, [this]() {
+        if (this->isActiveWindow()) {
+			this->setFocus();
+        }
+		});
+    m_autoFocusTimer->setInterval(1000);
+    m_autoFocusTimer->start();
     setAcceptDrops(true);
 
     // Enable context menu for listWidget_PlayList
@@ -73,6 +90,7 @@ void MainWidget::changeMusic(QListWidgetItem* item)
     if (item == nullptr) {
         return;
     }
+    this->setFocus();
     auto* i = dynamic_cast<MusicItem*>(item);
     m_playingMusicItem = item;
     ui->playPauseButton->setIsPlaying(false);
@@ -467,7 +485,10 @@ void MainWidget::updateMusicList(const QStringList& list) {
 
 void MainWidget::on_pushButton_ShowPlayList_clicked()
 {
+    updateMusicNameLabel(m_currentMusicInfo, 100);
     ui->listWidget_PlayList->setVisible(!ui->listWidget_PlayList->isVisible());
+    int availableWidth = std::max(100, ui->horizontalLayout_5->geometry().width() - 20);
+    updateMusicNameLabel(m_currentMusicInfo, availableWidth);
 }
 
 void MainWidget::on_positionChanged(qint64 value)
@@ -657,13 +678,23 @@ void MainWidget::on_pushButton_Next_clicked()
 
 void MainWidget::keyPressEvent(QKeyEvent* event)
 {
-    if (event->key() == Qt::Key_Space) {
+    switch (event->key())
+    {
+    case Qt::Key_Space:
         // Toggle play/pause when spacebar is pressed
         ui->playPauseButton->setIsPlaying(!ui->playPauseButton->isPlaying());
         on_playPauseButton_clicked();
         event->accept();
-    } else {
+        break;
+	case Qt::Key_Left:
+        m_mediaPlayer->setPosition(std::max(m_mediaPlayer->position() - 5000, 0ll)); // Rewind 5 seconds
+        break;
+	case Qt::Key_Right:
+		m_mediaPlayer->setPosition(std::min(m_mediaPlayer->position() + 5000, m_mediaPlayer->duration())); // Forward 5 seconds
+		break;
+    default:
         QMainWindow::keyPressEvent(event); // Pass unhandled events to the base class
+        break;
     }
 }
 

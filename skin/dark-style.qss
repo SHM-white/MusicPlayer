@@ -346,18 +346,20 @@ ChangePlaybackSpeedWidget {
     qproperty-backgroundColor: rgba(0, 0, 0, 50);
 }
 
-Settings{
-    background-color: rgb(22, 22, 22);
+QWidget#Settings{
+    background-color: #1E1E1E;
+    qproperty-backgroundColor: #1E1E1E;
 }
 
 QWidget#scrollAreaWidgetContents{
-	color: rgba(0, 0, 0, 0);
+	background-color: #1E1E1E;
 }
 
 QSpinBox{
-    background-color: rgba(0, 0, 0, 0.705);
+    background-color: rgba(0, 0, 0, 0.5);
     color: #FFFFFF;
 }
 QSpinBox::text{
-    margin: 2;
+    margin: 4;
+    padding: 4;
 }

@@ -46,7 +46,15 @@ void BasicWidget::paintEvent(QPaintEvent * event)
 	painter.fillRect(this->rect(), m_backgroundColor);
 }
 
-void BasicWidget::setBackgtoundColor(const QColor& color)
+QColor BasicWidget::backgroundColor() const
 {
-	m_backgroundColor = color;
+    return m_backgroundColor;
+}
+
+void BasicWidget::setBackgroundColor(const QColor &newBackgroundColor)
+{
+    if (m_backgroundColor == newBackgroundColor)
+        return;
+    m_backgroundColor = newBackgroundColor;
+    emit backgroundColorChanged();
 }
