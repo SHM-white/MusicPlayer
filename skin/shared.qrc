@@ -10,5 +10,7 @@
         <file>window-bar/pin-fill.svg</file>
         <file>app/example.png</file>
         <file>app/DefaultMusicIcon.svg</file>
+        <file>app/MusicPlayer.ico</file>
+        <file>app/MusicPlayer.png</file>
     </qresource>
 </RCC>

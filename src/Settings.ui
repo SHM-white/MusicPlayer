@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Settings</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../skin/shared.qrc">
+    <normaloff>:/app/MusicPlayer.png</normaloff>:/app/MusicPlayer.png</iconset>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QScrollArea" name="scrollArea">
@@ -86,6 +90,8 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="../skin/shared.qrc"/>
+ </resources>
  <connections/>
 </ui>

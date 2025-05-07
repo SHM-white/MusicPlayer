@@ -1,12 +1,10 @@
 ﻿/* Window bar */
 
 QWK--WindowBar[bar-active=true] {
-    /*background-color: #3C3C3C;*/
     background-color: transparent;
 }
 
 QWK--WindowBar[bar-active=false] {
-    /*background-color: #505050;*/
     background-color: transparent;
 }
 
@@ -75,7 +73,7 @@ QWK--WindowBar>QAbstractButton#close-button:pressed {
 /* Icon button */
 
 QWK--WindowBar>QAbstractButton#icon-button {
-    qproperty-iconNormal: url(":/app/example.png");
+    qproperty-iconNormal: url(":/app/MusicPlayer.png");
     qproperty-iconSize: 18px 18px;
     min-width: 40px;
     border: none;
@@ -192,14 +190,11 @@ QListWidget {
     font-size: 15px;
     margin: 5px;
 }
-/* QListWidget::item{
-    margin-left: 5px;
-    margin-right: 5px;
-} */
 QListWidget::item:selected{
     background-color: rgba(120, 203, 255, 0.1);
     border: rgba(120, 203, 255, 0.2);
     border-radius: 7px;
+    color: #ECECEC;
 }
 QListWidget::item:hover{
     background-color: rgba(255, 255, 255, 5%);
@@ -213,14 +208,6 @@ QToolButton {
     color: #ECECEC;
     font-size: 20px;
     padding: 10px;
-}
-
-QToolButton:hover {
-    background-color: #303030;
-}
-
-QToolButton:pressed {
-    background-color: #0060C0;
 }
 
 QSlider#horizontalSlider_Progress {
@@ -265,35 +252,6 @@ QSlider::sub-page:horizontal#horizontalSlider_Progress {
     border-radius: 5px;
 }
 
-/* QPushButton#playPauseButton {
-    border-color: transparent;
-    background-color: transparent;
-    color: #FFFFFF;
-    font-size: 18px;
-    font-family: 'Segoe Fluent Icons';
-}
-QPushButton#pushButton_Previous {
-    border-color: transparent;
-    background-color: transparent;
-    color: #FFFFFF;
-    font-size: 18px;
-    font-family: 'Segoe Fluent Icons';
-}
-QPushButton#pushButton_Next {
-    border-color: transparent;
-    background-color: transparent;
-    color: #FFFFFF;
-    font-size: 18px;
-    font-family: 'Segoe Fluent Icons';
-}
-QPushButton#pushButton_Volume {
-    border-color: transparent;
-    background-color: transparent;
-    color: #FFFFFF;
-    font-size: 18px;
-    font-family: 'Segoe Fluent Icons';
-}
- */
 QSlider::groove:horizontal#VolumeSlider {
     background-color: #303030;
     height: 5px;
@@ -319,7 +277,7 @@ QSlider#VolumeSlider {
 
 QSlider::sub-page:horizontal#VolumeSlider {
     background-color: #0060C0;
-    border-radius: 2.5px; /* 确保圆角与槽一致 */
+    border-radius: 2px; /* 确保圆角与槽一致 */
 }
 
 QLabel#label_PlayTime {
@@ -333,7 +291,7 @@ QWidget#volumeWidget {
 QListView#lyricsView{
     /*font-size: 100;*/
     background-color: rgba(0, 0, 0, 0);
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
     color: #FFFFFF;
 }
 
@@ -354,7 +312,7 @@ QWidget#playbackSpeedWidget{
 QSpinBox{
     background-color: rgba(0, 0, 0, 0.7);
     color: #FFFFFF;
-    min-height: 50px;
+    min-height: 25px;
 }
 QSpinBox::text{
     margin: 4;
@@ -362,4 +320,5 @@ QSpinBox::text{
 }
 QMessageBox{
     background-color: #1E1E1E;
+    font-size: 12;
 }

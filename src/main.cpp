@@ -19,13 +19,13 @@ int main(int argc, char *argv[])
     const QStringList uiLanguages = QLocale::system().uiLanguages();
     for (const QString& locale : uiLanguages) {
         const QString baseName = "MusicPlayer_" + QLocale(locale).name();
-        if (translator.load(":/i18n/" + baseName)) {
+        if (translator.load(baseName + ".qm")) {
             a.installTranslator(&translator);
-			qDebug() << "Loaded translation file for locale:" << locale;
+			qDebug() << "Loaded translation file for locale:" << locale + " : " + baseName;
             break;
         }
         else {
-			qDebug() << "Failed to load translation file for locale:" << locale;
+			qDebug() << "Failed to load translation file for locale:" << locale + " : " + baseName;
         }
     }
 

@@ -4,116 +4,299 @@
 <context>
     <name>MainWidget</name>
     <message>
-        <location filename="../src/widget.ui" line="14"/>
+        <location filename="src/widget.ui" line="14"/>
+        <location filename="build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/MusicPlayer_autogen/include/ui_widget.h" line="252"/>
+        <location filename="build/Desktop_Qt_6_8_2_MSVC2022_64bit-Release/MusicPlayer_autogen/include/ui_widget.h" line="252"/>
         <source>MainWidget</source>
         <oldsource>Widget</oldsource>
         <translation>主窗口</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="45"/>
-        <location filename="../src/widget.ui" line="52"/>
-        <location filename="../src/widget.ui" line="59"/>
-        <location filename="../src/widget.ui" line="66"/>
-        <location filename="../src/widget.ui" line="101"/>
+        <location filename="src/widget.ui" line="55"/>
+        <location filename="build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/MusicPlayer_autogen/include/ui_widget.h" line="253"/>
+        <location filename="build/Desktop_Qt_6_8_2_MSVC2022_64bit-Release/MusicPlayer_autogen/include/ui_widget.h" line="253"/>
+        <source>00:00/00:00</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="src/widget.ui" line="77"/>
+        <location filename="build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/MusicPlayer_autogen/include/ui_widget.h" line="254"/>
+        <location filename="build/Desktop_Qt_6_8_2_MSVC2022_64bit-Release/MusicPlayer_autogen/include/ui_widget.h" line="254"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="73"/>
-        <location filename="../src/widget.ui" line="94"/>
-        <source>TextLabel</source>
+        <location filename="src/widget.ui" line="107"/>
+        <location filename="build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/MusicPlayer_autogen/include/ui_widget.h" line="255"/>
+        <location filename="build/Desktop_Qt_6_8_2_MSVC2022_64bit-Release/MusicPlayer_autogen/include/ui_widget.h" line="255"/>
+        <source>*</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/widget.ui" line="80"/>
-        <location filename="../src/widget.ui" line="87"/>
-        <source>PushButton</source>
+        <location filename="src/widget.ui" line="120"/>
+        <location filename="build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/MusicPlayer_autogen/include/ui_widget.h" line="256"/>
+        <location filename="build/Desktop_Qt_6_8_2_MSVC2022_64bit-Release/MusicPlayer_autogen/include/ui_widget.h" line="256"/>
+        <source>&lt;-</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="12"/>
+        <location filename="src/widget.ui" line="143"/>
+        <location filename="build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/MusicPlayer_autogen/include/ui_widget.h" line="257"/>
+        <location filename="build/Desktop_Qt_6_8_2_MSVC2022_64bit-Release/MusicPlayer_autogen/include/ui_widget.h" line="257"/>
+        <source>-&gt;</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="src/widget.cpp" line="17"/>
         <source>Music Player</source>
         <translation>音乐播放器</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="69"/>
         <source>File(&amp;F)</source>
-        <translation>文件</translation>
+        <translation type="vanished">文件</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="70"/>
         <source>New(&amp;N)</source>
-        <translation>新建</translation>
+        <translation type="vanished">新建</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="71"/>
         <source>Open(&amp;O)</source>
-        <translation>打开</translation>
+        <translation type="vanished">打开</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="74"/>
         <source>Edit(&amp;E)</source>
-        <translation>编辑</translation>
+        <translation type="vanished">编辑</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="75"/>
         <source>Undo(&amp;U)</source>
-        <translation>撤销</translation>
+        <translation type="vanished">撤销</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="76"/>
         <source>Redo(&amp;R)</source>
-        <translation>重做</translation>
+        <translation type="vanished">重做</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="79"/>
+        <location filename="src/widget.cpp" line="172"/>
         <source>Enable dark theme</source>
         <translation>启用深色模式</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="89"/>
+        <location filename="src/widget.cpp" line="181"/>
+        <source>More Settings</source>
+        <translation>更多设置</translation>
+    </message>
+    <message>
+        <location filename="src/widget.cpp" line="192"/>
         <source>None</source>
         <translation>关闭窗口模糊</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="94"/>
+        <location filename="src/widget.cpp" line="197"/>
         <source>Enable DWM blur</source>
         <translation>启用DWM模糊</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="99"/>
+        <location filename="src/widget.cpp" line="202"/>
         <source>Enable acrylic material</source>
         <translation>启用亚克力材质模糊</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="104"/>
+        <location filename="src/widget.cpp" line="207"/>
         <source>Enable mica</source>
         <translation>启用Mica材质</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="108"/>
+        <location filename="src/widget.cpp" line="211"/>
         <source>Enable mica alt</source>
         <translation>启用Mica Alt材质</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="144"/>
+        <location filename="src/widget.cpp" line="247"/>
         <source>Dark blur</source>
         <translation>深色模糊</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="156"/>
+        <location filename="src/widget.cpp" line="259"/>
         <source>Light blur</source>
         <translation>浅色模糊</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="168"/>
+        <location filename="src/widget.cpp" line="271"/>
         <source>No blur</source>
         <translation>关闭模糊效果</translation>
     </message>
     <message>
-        <location filename="../src/widget.cpp" line="187"/>
+        <location filename="src/widget.cpp" line="290"/>
         <source>Settings(&amp;S)</source>
         <translation>设置</translation>
+    </message>
+    <message>
+        <location filename="src/widget.cpp" line="562"/>
+        <source>Delete</source>
+        <translation>删除</translation>
+    </message>
+    <message>
+        <location filename="src/widget.cpp" line="827"/>
+        <source>File Details</source>
+        <translation>文件详细信息</translation>
+    </message>
+</context>
+<context>
+    <name>MainWindow</name>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="63"/>
+        <source>Example MainWindow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="144"/>
+        <source>File(&amp;F)</source>
+        <translation type="unfinished">文件</translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="145"/>
+        <source>New(&amp;N)</source>
+        <translation type="unfinished">新建</translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="146"/>
+        <source>Open(&amp;O)</source>
+        <translation type="unfinished">打开</translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="149"/>
+        <source>Edit(&amp;E)</source>
+        <translation type="unfinished">编辑</translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="150"/>
+        <source>Undo(&amp;U)</source>
+        <translation type="unfinished">撤销</translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="151"/>
+        <source>Redo(&amp;R)</source>
+        <translation type="unfinished">重做</translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="154"/>
+        <source>Enable dark theme</source>
+        <translation type="unfinished">启用深色模式</translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="164"/>
+        <source>None</source>
+        <translation type="unfinished">关闭窗口模糊</translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="169"/>
+        <source>Enable DWM blur</source>
+        <translation type="unfinished">启用DWM模糊</translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="173"/>
+        <source>Enable acrylic material</source>
+        <translation type="unfinished">启用亚克力材质模糊</translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="177"/>
+        <source>Enable mica</source>
+        <translation type="unfinished">启用Mica材质</translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="181"/>
+        <source>Enable mica alt</source>
+        <translation type="unfinished">启用Mica Alt材质</translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="218"/>
+        <source>Dark blur</source>
+        <translation type="unfinished">深色模糊</translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="230"/>
+        <source>Light blur</source>
+        <translation type="unfinished">浅色模糊</translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="242"/>
+        <source>No blur</source>
+        <translation type="unfinished">关闭模糊效果</translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="261"/>
+        <source>Settings(&amp;S)</source>
+        <translation type="unfinished">设置</translation>
+    </message>
+</context>
+<context>
+    <name>Settings</name>
+    <message>
+        <location filename="src/Settings.ui" line="14"/>
+        <location filename="build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/MusicPlayer_autogen/include/ui_Settings.h" line="102"/>
+        <location filename="build/Desktop_Qt_6_8_2_MSVC2022_64bit-Release/MusicPlayer_autogen/include/ui_Settings.h" line="102"/>
+        <source>Settings</source>
+        <translation>设置</translation>
+    </message>
+    <message>
+        <location filename="src/Settings.ui" line="41"/>
+        <location filename="build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/MusicPlayer_autogen/include/ui_Settings.h" line="103"/>
+        <location filename="build/Desktop_Qt_6_8_2_MSVC2022_64bit-Release/MusicPlayer_autogen/include/ui_Settings.h" line="103"/>
+        <source>FontSize</source>
+        <translation>歌词字体大小</translation>
+    </message>
+</context>
+<context>
+    <name>main</name>
+    <message>
+        <location filename="libs/QWindowKit/examples/qml/main.qml" line="12"/>
+        <source>Hello, world!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/qml/main.qml" line="158"/>
+        <source>Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/qml/main.qml" line="166"/>
+        <source>Light</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/qml/main.qml" line="172"/>
+        <source>Dark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/qml/main.qml" line="181"/>
+        <source>Special effect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/qml/main.qml" line="190"/>
+        <source>None</source>
+        <translation type="unfinished">关闭窗口模糊</translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/qml/main.qml" line="204"/>
+        <source>DWM blur</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/qml/main.qml" line="217"/>
+        <source>Acrylic material</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/qml/main.qml" line="230"/>
+        <source>Mica</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="libs/QWindowKit/examples/qml/main.qml" line="243"/>
+        <source>Mica Alt</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

@@ -40,7 +40,7 @@ public:
 	ChangeVolumeButton(QWidget *parent);
 	~ChangeVolumeButton();
 
-    Q_PROPERTY(int volume READ volume WRITE setVolume NOTIFY volumeChanged FINAL);
+    Q_PROPERTY(int volume READ volume WRITE setVolume NOTIFY volumeChanged FINAL)
 
     int volume() const;
     void setVolume(int newVolume);

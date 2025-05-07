@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>MainWidget</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../skin/shared.qrc">
+    <normaloff>:/app/MusicPlayer.png</normaloff>:/app/MusicPlayer.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
@@ -280,6 +284,8 @@
    <header location="global">ChangePlaybackSpeedButton.h</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../skin/shared.qrc"/>
+ </resources>
  <connections/>
 </ui>
