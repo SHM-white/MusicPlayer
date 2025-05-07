@@ -5,11 +5,9 @@ ChangeVolumeButton::ChangeVolumeButton(QWidget *parent)
 {
     volumeWidget = std::make_unique<ChangeVolumeWidget>(dynamic_cast<QWidget*>(this));
     setFont(Icons::Font);
-    //volumeWidget->setMouseTracking(true);
-    volumeWidget->setGeometry(QRect(0, 0, 100, 10)); // Adjust the height here
-    //connect(parent->parentWidget(), SIGNAL(themeChanged(Theme)), volumeWidget.get(), SLOT(on_themeChanged(Theme)));
+    volumeWidget->setGeometry(QRect(0, 0, 100, 10)); 
     connect(volumeWidget->slider, SIGNAL(valueChanged(int)), this, SLOT(sliderMoved(int)));
-    connect(volumeWidget->slider, SIGNAL(valueChanged(int)), this, SLOT(updateTooltip(int))); // Add this line
+    connect(volumeWidget->slider, SIGNAL(valueChanged(int)), this, SLOT(updateTooltip(int)));
     _setVolumeIcon();
 }
 
@@ -105,8 +103,7 @@ ChangeVolumeWidget::ChangeVolumeWidget(QWidget* parent)
 {
     this->hide(); 
     this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint );
-    this->setMinimumHeight(30); // Set minimum height
-    this->setMaximumHeight(30); // Set maximum height to ensure fixed height
+    this->setFixedHeight(30); 
     this->setObjectName(QStringLiteral("volumeWidget"));
     slider = new QSlider(this);
     slider->setOrientation(Qt::Horizontal);
@@ -127,15 +124,15 @@ ChangeVolumeWidget::~ChangeVolumeWidget()
 void ChangeVolumeWidget::focusOutEvent(QFocusEvent* event)
 {
     if (event->reason() == Qt::FocusReason::MouseFocusReason && slider->underMouse()) {
-        BasicWidget::focusOutEvent(event); // Call the base class implementation
+        BasicWidget::focusOutEvent(event);
         setFocus();
-        return; // Do not hide if the focus is moving to the slider
+        return; 
     }
-    this->hide(); // Hide the widget when it loses focus
+    this->hide(); 
     _hideTimer.setInterval(50);
     _hideTimer.setSingleShot(true);
     _hideTimer.start();
-    BasicWidget::focusOutEvent(event); // Call the base class implementation
+    BasicWidget::focusOutEvent(event); 
 }
 
 void ChangeVolumeWidget::paintEvent(QPaintEvent* event)

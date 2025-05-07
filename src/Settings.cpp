@@ -8,8 +8,6 @@ Settings::Settings(QWidget *parent)
 	this->setObjectName("Settings");
     this->setWindowFlags(Qt::Window);
     ui->spinBox_fontSize->setValue(GlobalConfigs::APPLICATION_SETTINGS.value("lyricsFontSize", 14).toInt());
-    //ui->scrollAreaWidgetContents->setAttribute(Qt::WA_TranslucentBackground);
-    //ui->scrollAreaWidgetContents->setAutoFillBackground(false);
     ui->scrollArea->setAttribute(Qt::WA_TranslucentBackground);
 }
 

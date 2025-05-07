@@ -12,10 +12,7 @@ public:
 
     QListWidget* speedList;
     QTimer _hideTimer;
-
-
-    void adjustHeightBasedOnItems(); // Moved from private to public
-
+    void adjustHeightBasedOnItems(); 
 signals:
     void backgroundColorChanged();
 

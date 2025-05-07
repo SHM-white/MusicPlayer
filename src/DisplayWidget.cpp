@@ -5,39 +5,18 @@ DisplayWidget::DisplayWidget(QWidget *parent)
     : QWidget(parent), currentLyricIndex(-1)
 {
     QHBoxLayout *mainLayout = new QHBoxLayout(this);
-
-    //QVBoxLayout *leftLayout = new QVBoxLayout();
     QVBoxLayout *rightLayout = new QVBoxLayout();
 
-    //vinylLabel = new QLabel(this);
-    //albumCoverLabel = new QLabel(this);
     lyricsView = new QListView(this); // Initialize QListView
-
-    //vinylLabel->setAlignment(Qt::AlignCenter);
-    //albumCoverLabel->setAlignment(Qt::AlignCenter);
-
     lyricsView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
     lyricsView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     lyricsDelegate = new LyricsDelegate(this); // Initialize custom delegate
     lyricsView->setItemDelegate(lyricsDelegate);
 	lyricsView->setObjectName("lyricsView");
-    //leftLayout->addWidget(vinylLabel);
-    //leftLayout->addWidget(albumCoverLabel);
-
     rightLayout->addWidget(lyricsView);
-
-    //mainLayout->addLayout(leftLayout);
     mainLayout->addLayout(rightLayout);
 
-    //rotationTimer = new QTimer(this);
-    //connect(rotationTimer, &QTimer::timeout, [this]() {
-    //    rotationAngle = (rotationAngle + 5) % 360;
-    //    if (!vinylLabel->pixmap().isNull()) {
-    //        QPixmap pixmap = vinylLabel->pixmap().transformed(QTransform().rotate(rotationAngle));
-    //        vinylLabel->setPixmap(pixmap);
-    //    }
-    //});
     QTimer* tmp = new QTimer(this);
 	tmp->singleShot(10, [this, tmp]() {
 		// Set the maximum width for lyrics
@@ -140,16 +119,6 @@ void DisplayWidget::updateHighlightedLyric(qint64 currentTime)
         lyricsView->scrollTo(lyricsView->model()->index(currentLyricIndex, 0), QAbstractItemView::PositionAtCenter);
     }
 }
-
-//void DisplayWidget::startVinylRotation()
-//{
-//    rotationTimer->start(100); // Rotate every 100ms
-//}
-//
-//void DisplayWidget::stopVinylRotation()
-//{
-//    rotationTimer->stop();
-//}
 
 void DisplayWidget::adjustLyricsMaxWidth()
 {
