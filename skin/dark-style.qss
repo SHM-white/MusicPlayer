@@ -162,17 +162,6 @@ MainWindow[custom-style=true] {
     background-color: rgba(0, 0, 0, 0.705);
 }
 
-QWidget#main-window{
-    color: rgba(255, 255, 255, 50%);
-}
-
-QWidget#clock-widget {
-    font-size: 75px;
-    color: #FEFEFE;
-    font-weight: bold;
-    background-color: transparent;
-}
-
 QLabel {
     color: #ECECEC;
     font-size: 15px;
@@ -201,12 +190,20 @@ QListWidget {
     border-radius: 5px;
     color: #ECECEC;
     font-size: 15px;
-    padding: 10px;
+    margin: 5px;
 }
-QListWidget::selection{
-    background-color: #0060C0;
-    border: none;
-    
+/* QListWidget::item{
+    margin-left: 5px;
+    margin-right: 5px;
+} */
+QListWidget::item:selected{
+    background-color: rgba(120, 203, 255, 0.1);
+    border: rgba(120, 203, 255, 0.2);
+    border-radius: 7px;
+}
+QListWidget::item:hover{
+    background-color: rgba(255, 255, 255, 5%);
+    border-radius: 7px;
 }
 
 QToolButton {
@@ -330,20 +327,14 @@ QLabel#label_PlayTime {
 }
 
 QWidget#volumeWidget {
-    qproperty-backgroundColor: rgba(0, 0, 0, 0.543);
+    qproperty-backgroundColor: rgba(0, 0, 0, 0.5);
 }
 
-QListView{
+QListView#lyricsView{
     /*font-size: 100;*/
     background-color: rgba(0, 0, 0, 0);
-    border-color: rgba(255, 255, 255, 30);
+    border-color: rgba(255, 255, 255, 0.2);
     color: #FFFFFF;
-}
-QListView::item{
-    font-size: 20;
-}
-ChangePlaybackSpeedWidget {
-    qproperty-backgroundColor: rgba(0, 0, 0, 50);
 }
 
 QWidget#Settings{
@@ -355,11 +346,20 @@ QWidget#scrollAreaWidgetContents{
 	background-color: #1E1E1E;
 }
 
+QWidget#playbackSpeedWidget{
+    qproperty-backgroundColor: rgba(30, 30, 30, 0.8);
+
+}
+
 QSpinBox{
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
     color: #FFFFFF;
+    min-height: 50px;
 }
 QSpinBox::text{
     margin: 4;
     padding: 4;
+}
+QMessageBox{
+    background-color: #1E1E1E;
 }

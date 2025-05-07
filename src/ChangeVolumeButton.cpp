@@ -95,8 +95,7 @@ void ChangeVolumeButton::mousePressEvent(QMouseEvent* event) {
         volumeWidget->slider->setValue(volume());
         _ignoreNextShow = true; // Ignore the next focus out event
     }
-    else
-    {
+    else {
         volumeWidget->hide();
     }
 }
@@ -152,15 +151,15 @@ void ChangeVolumeWidget::on_themeChanged(Theme t) {
     currentTheme = t;
     update();
 }
-QColor ChangeVolumeWidget::backgroundColor() const
-{
-    return m_backgroundColor;
-}
-
-void ChangeVolumeWidget::setBackgroundColor(const QColor &newBackgroundColor)
-{
-    if (m_backgroundColor == newBackgroundColor)
-        return;
-    m_backgroundColor = newBackgroundColor;
-    emit backgroundColorChanged();
-}
+//QColor ChangeVolumeWidget::backgroundColor() const
+//{
+//    return m_backgroundColor;
+//}
+//
+//void ChangeVolumeWidget::setBackgroundColor(const QColor &newBackgroundColor)
+//{
+//    if (m_backgroundColor == newBackgroundColor)
+//        return;
+//    m_backgroundColor = newBackgroundColor;
+//    emit backgroundColorChanged();
+//}

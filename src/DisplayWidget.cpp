@@ -21,7 +21,7 @@ DisplayWidget::DisplayWidget(QWidget *parent)
 
     lyricsDelegate = new LyricsDelegate(this); // Initialize custom delegate
     lyricsView->setItemDelegate(lyricsDelegate);
-
+	lyricsView->setObjectName("lyricsView");
     //leftLayout->addWidget(vinylLabel);
     //leftLayout->addWidget(albumCoverLabel);
 
@@ -44,6 +44,8 @@ DisplayWidget::DisplayWidget(QWidget *parent)
 		adjustLyricsMaxWidth();
         tmp->deleteLater();
 		});
+
+    connect(lyricsView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(handleLyricDoubleClicked(QModelIndex)));
 }
 
 void DisplayWidget::resizeEvent(QResizeEvent *event)
@@ -58,16 +60,10 @@ DisplayWidget::~DisplayWidget()
 
 void DisplayWidget::updateMetaData(const QString &musicFilePath, const QPixmap &albumCover)
 {
-    // Set album cover
-    //albumCoverLabel->setPixmap(albumCover.isNull() ? Utils::loadSvgAsPixmap(QStringLiteral(":/app/DefaultMusicIcon.svg"), QSize(256, 256)) : albumCover.scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-
     // Load lyrics
     QString lyricsFilePath = musicFilePath;
     lyricsFilePath.replace(QRegularExpression("\\.\\w+$"), ".lrc"); // Use QRegularExpression instead of QRegExp
     loadLyrics(lyricsFilePath);
-
-    // Start vinyl rotation
-    //startVinylRotation();
 }
 
 void DisplayWidget::loadLyrics(const QString &lyricsFilePath)
@@ -159,6 +155,16 @@ void DisplayWidget::adjustLyricsMaxWidth()
 {
     if (!lyricsView) return;
 
-    int maxWidth = lyricsView->viewport()->width() - 10; // Calculate max width
+    int maxWidth = lyricsView->viewport()->width(); // Set max width to match lyricsView's width
     lyricsDelegate->setMaxWidth(maxWidth); // Update delegate with new max width
+    lyricsView->setModel(lyricsView->model());
+    lyricsView->update();
+}
+
+void DisplayWidget::handleLyricDoubleClicked(const QModelIndex &index)
+{
+    if (!lyricsData.isEmpty() && index.isValid() && index.row() < lyricsData.size()) {
+        qint64 timestamp = lyricsData[index.row()].first;
+        emit requestJumpToTimestamp(timestamp); // Emit the jump signal with the timestamp
+    }
 }

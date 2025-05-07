@@ -17,11 +17,17 @@ public:
     void loadLyrics(const QString &lyricsFilePath);
     QListView* lyricsView; // Replace QTextBrowser with QListView
 
+signals:
+    void requestJumpToTimestamp(qint64 timestamp); // Signal to request a jump to a specific timestamp
+
 protected:
     void resizeEvent(QResizeEvent *event) override; // Override resizeEvent
 
 public slots:
     void updateHighlightedLyric(qint64 currentTime); // New method for updating highlighted lyric
+
+private slots:
+    void handleLyricDoubleClicked(const QModelIndex &index); // Slot to handle double-click events
 
 private:
     void adjustLyricsMaxWidth(); // Adjust maximum width for lyrics

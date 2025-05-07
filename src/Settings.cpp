@@ -15,6 +15,7 @@ Settings::Settings(QWidget *parent)
 
 Settings::~Settings()
 {
+    delete ui;
 }
 void Settings::closeEvent(QCloseEvent* event)
 {

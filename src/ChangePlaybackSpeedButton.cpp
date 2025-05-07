@@ -4,20 +4,15 @@
 #include <QStyleOptionViewItem>
 
 ChangePlaybackSpeedWidget::ChangePlaybackSpeedWidget(QWidget* parent)
-    : BasicWidget(parent), m_backgroundColor(Qt::white) {
+    : BasicWidget(parent) {
     this->hide();
     this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
-
+	this->setObjectName("playbackSpeedWidget");
     speedList = new QListWidget(this);
     speedList->setSpacing(10); // Increase spacing between items
     layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(speedList);
-
-    connect(speedList, &QListWidget::itemClicked, this, [parent, this](QListWidgetItem* item) {
-        emit static_cast<ChangePlaybackSpeedButton*>(parent)->speedChanged(item->data(Qt::UserRole).toDouble());
-        this->hide();
-    });
 
     adjustHeightBasedOnItems();
 }
@@ -29,6 +24,9 @@ ChangePlaybackSpeedWidget::~ChangePlaybackSpeedWidget() {
 
 void ChangePlaybackSpeedWidget::focusOutEvent(QFocusEvent* event) {
     this->hide();
+    _hideTimer.setInterval(50);
+    _hideTimer.setSingleShot(true);
+    _hideTimer.start();
     BasicWidget::focusOutEvent(event);
 }
 
@@ -40,28 +38,26 @@ void ChangePlaybackSpeedWidget::paintEvent(QPaintEvent* event) {
     painter.end();
 }
 
-QColor ChangePlaybackSpeedWidget::backgroundColor() const {
-    return m_backgroundColor;
-}
 
-void ChangePlaybackSpeedWidget::setBackgroundColor(const QColor& color) {
-    if (m_backgroundColor != color) {
-        m_backgroundColor = color;
-        emit backgroundColorChanged();
-        update();
-    }
-}
 
 void ChangePlaybackSpeedWidget::adjustHeightBasedOnItems() {
     int itemCount = speedList->count();
     int itemHeight = 40; // Approximate height of each item including spacing
-    int totalHeight = itemCount * itemHeight + 20; // Add some padding
+    int totalHeight = itemCount * itemHeight + 30; // Add some padding
     this->setFixedHeight(totalHeight);
+    this->setFixedWidth(100);
 }
 
 ChangePlaybackSpeedButton::ChangePlaybackSpeedButton(QWidget* parent)
     : QPushButton(parent) {
     speedWidget = std::make_unique<ChangePlaybackSpeedWidget>(this);
+	connect(speedWidget->speedList, &QListWidget::itemClicked, [this](QListWidgetItem* item) {
+		if (item) {
+			double speed = item->data(Qt::UserRole).toDouble();
+			setCurrentSpeed(speed);
+			speedWidget->hide();
+		}
+		});
     setupSpeedOptions();
 }
 
@@ -69,6 +65,11 @@ ChangePlaybackSpeedButton::~ChangePlaybackSpeedButton() {}
 
 void ChangePlaybackSpeedButton::mousePressEvent(QMouseEvent* event) {
     if (speedWidget->isHidden()) {
+        if (speedWidget->_hideTimer.remainingTime() > 0 && _ignoreNextShow)
+        {
+            _ignoreNextShow = false;
+            return;
+        }
         QPoint globalPos = this->mapToGlobal(QPoint(0, 0));
         QRect buttonRect = this->geometry();
         int x = globalPos.x() + (buttonRect.width() - speedWidget->width()) / 2;
@@ -89,5 +90,19 @@ void ChangePlaybackSpeedButton::setupSpeedOptions() {
         item->setData(Qt::UserRole, speed);
         speedWidget->speedList->addItem(item);
     }
+	speedWidget->speedList->setCurrentRow((int)speeds.indexOf(1.0, 0));
     speedWidget->adjustHeightBasedOnItems();
+}
+
+double ChangePlaybackSpeedButton::currentSpeed() const
+{
+    return m_currentSpeed;
+}
+
+void ChangePlaybackSpeedButton::setCurrentSpeed(double newCurrentSpeed)
+{
+    if (qFuzzyCompare(m_currentSpeed, newCurrentSpeed))
+        return;
+    m_currentSpeed = newCurrentSpeed;
+    emit currentSpeedChanged(newCurrentSpeed);
 }

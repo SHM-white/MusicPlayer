@@ -56,6 +56,10 @@ private slots:
     void on_pushButton_Previous_clicked();
     void on_pushButton_Next_clicked();
 
+    void on_pushButton_Maximize_clicked();
+
+    void on_pushButton_showFileDetails_clicked();
+
 private:
     void installWindowAgent();
     void loadStyleSheet(Theme theme);

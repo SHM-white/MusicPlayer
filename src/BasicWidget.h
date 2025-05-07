@@ -13,15 +13,21 @@ public:
 	~BasicWidget();
 	void paintEvent(QPaintEvent* event) override;
     Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged FINAL)
+    Q_PROPERTY(bool enableDWM READ enableDWM WRITE setEnableDWM NOTIFY enableDWMChanged FINAL)
     QColor backgroundColor() const;
     void setBackgroundColor(const QColor &newBackgroundColor);
 
+    bool enableDWM() const;
+    void setEnableDWM(bool newEnableDWM);
+
 signals:
     void backgroundColorChanged();
+    void enableDWMChanged(bool status);
 
-private:
+protected:
 	QColor m_backgroundColor;
 	bool m_enableDWM{ false };
+private:
 };
 
 #ifdef _WIN32

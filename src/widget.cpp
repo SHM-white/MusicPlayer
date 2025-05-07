@@ -37,7 +37,6 @@ MainWidget::MainWidget(QWidget *parent)
     m_playTimer = std::make_unique<QTimer>(this);
     m_playbackTimer = std::make_unique<QTimer>(this);
     connect(ui->listWidget_PlayList, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(changeMusic(QListWidgetItem*)));
-    //connect(ui->listWidget_PlayList, SIGNAL(itemEntered(QListWidgetItem*)), this, SLOT(changeMusic(QListWidgetItem*)));
     connect(m_mediaPlayer.get(), SIGNAL(positionChanged(qint64)), this, SLOT(on_positionChanged(qint64)));
     connect(ui->pushButton_Volume, SIGNAL(volumeChanged(int)), this, SLOT(on_volumeChanged(int)));
     connect(ui->pushButton_LoopMode, SIGNAL(playModeSwitched(LoopModeSwitcher::Mode)), this, SLOT(on_loopModeSwitched(LoopModeSwitcher::Mode)));
@@ -66,8 +65,17 @@ MainWidget::MainWidget(QWidget *parent)
     // Enable context menu for listWidget_PlayList
     ui->listWidget_PlayList->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->listWidget_PlayList, &QListWidget::customContextMenuRequested, this, &MainWidget::showContextMenu);
+	connect(ui->pushButton_PlaySpeed, &ChangePlaybackSpeedButton::currentSpeedChanged, [this](double speed) {
+		m_mediaPlayer->setPlaybackRate(speed);
+        this->setFocus();
+		});
+	connect(ui->widget_MusicDetail, &DisplayWidget::requestJumpToTimestamp, [this](qint64 timestamp) {
+		m_mediaPlayer->setPosition(timestamp);
+        this->setFocus();
+		});
     // Load settings and music list
     GlobalConfigs::APPLICATION_SETTINGS = ConfigManager::LoadSettings(GlobalConfigs::CONFIG_FILE_PATH()).result();
+	ui->pushButton_Volume->setVolume(GlobalConfigs::APPLICATION_SETTINGS.value("volume", 100).toInt());
     ConfigManager::LoadMusicList(GlobalConfigs::LOCAL_PLAY_LIST())
         .then([&](const QStringList& r) {
         updateMusicList(r);
@@ -77,6 +85,7 @@ MainWidget::MainWidget(QWidget *parent)
 
 MainWidget::~MainWidget()
 {
+	ConfigManager::SaveSettings(GlobalConfigs::CONFIG_FILE_PATH(), GlobalConfigs::APPLICATION_SETTINGS);
     delete ui;
 }
 
@@ -136,6 +145,7 @@ void MainWidget::changeMusic(QListWidgetItem* item)
 void MainWidget::on_volumeChanged(int value)
 {
     m_mediaPlayer->audioOutput()->setVolume((float)value / 100.0);
+    GlobalConfigs::APPLICATION_SETTINGS["volume"] = value;
 }
 
 void MainWidget::installWindowAgent()
@@ -696,5 +706,126 @@ void MainWidget::keyPressEvent(QKeyEvent* event)
         QMainWindow::keyPressEvent(event); // Pass unhandled events to the base class
         break;
     }
+}
+
+
+void MainWidget::on_pushButton_Maximize_clicked()
+{
+    if (this->isFullScreen()) {
+        this->showNormal();
+    } else {
+        this->showFullScreen();
+    }
+}
+
+
+void MainWidget::on_pushButton_showFileDetails_clicked()
+{
+	if (m_currentMetaData.isEmpty()) return;
+	auto task = QtConcurrent::run([this](const QMediaMetaData data) {
+        QString details;
+		auto KeyToQString = [](QMediaMetaData::Key key) {
+            switch (key)
+            {
+            case QMediaMetaData::Title:
+				return QStringLiteral("Title");
+                break;
+            case QMediaMetaData::Author:
+				return QStringLiteral("Author");
+                break;
+            case QMediaMetaData::Comment:
+				return QStringLiteral("Comment");
+                break;
+            case QMediaMetaData::Description:
+				return QStringLiteral("Description");
+                break;
+            case QMediaMetaData::Genre:
+				return QStringLiteral("Genre");
+                break;
+            case QMediaMetaData::Date:
+				return QStringLiteral("Date");
+                break;
+            case QMediaMetaData::Language:
+				return QStringLiteral("Language");
+                break;
+            case QMediaMetaData::Publisher:
+				return QStringLiteral("Publisher");
+                break;
+            case QMediaMetaData::Copyright:
+				return QStringLiteral("Copyright");
+                break;
+            case QMediaMetaData::Url:
+				return QStringLiteral("Url");
+                break;
+            case QMediaMetaData::Duration:
+				return QStringLiteral("Duration");
+                break;
+            case QMediaMetaData::MediaType:
+				return QStringLiteral("MediaType");
+                break;
+            case QMediaMetaData::FileFormat:
+				return QStringLiteral("FileFormat");
+                break;
+            case QMediaMetaData::AudioBitRate:
+				return QStringLiteral("AudioBitRate");
+                break;
+            case QMediaMetaData::AudioCodec:
+				return QStringLiteral("AudioCodec");
+                break;
+            case QMediaMetaData::VideoBitRate:
+				return QStringLiteral("VideoBitRate");
+                break;
+            case QMediaMetaData::VideoCodec:
+				return QStringLiteral("VideoCodec");
+                break;
+            case QMediaMetaData::VideoFrameRate:
+				return QStringLiteral("VideoFrameRate");
+                break;
+            case QMediaMetaData::AlbumTitle:
+				return QStringLiteral("AlbumTitle");
+                break;
+            case QMediaMetaData::AlbumArtist:
+				return QStringLiteral("AlbumArtist");
+                break;
+            case QMediaMetaData::ContributingArtist:
+				return QStringLiteral("ContributingArtist");
+                break;
+            case QMediaMetaData::TrackNumber:
+				return QStringLiteral("TrackNumber");
+                break;
+            case QMediaMetaData::Composer:
+				return QStringLiteral("Composer");
+                break;
+            case QMediaMetaData::LeadPerformer:
+				return QStringLiteral("LeadPerformer");
+                break;
+            case QMediaMetaData::ThumbnailImage:
+				return QStringLiteral("ThumbnailImage");
+                break;
+            case QMediaMetaData::CoverArtImage:
+				return QStringLiteral("CoverArtImage");
+                break;
+            case QMediaMetaData::Orientation:
+				return QStringLiteral("Orientation");
+                break;
+            case QMediaMetaData::Resolution:
+				return QStringLiteral("Resolution");
+                break;
+            case QMediaMetaData::HasHdrContent:
+				return QStringLiteral("HasHdrContent");
+                break;
+            default:
+				return QStringLiteral("Other");
+                break;
+            }
+			};
+        for (auto& i : data.keys()) {
+            details += KeyToQString(i) + ": " + data.value(i).toString() + "\n";
+        }
+        QMetaObject::invokeMethod(this, [this, details]() {
+            // Show the details in a message box
+            QMessageBox::information(this, tr("File Details"), details);
+			}, Qt::QueuedConnection);
+        }, m_currentMetaData);
 }
 
