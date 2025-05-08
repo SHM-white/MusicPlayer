@@ -61,19 +61,19 @@ jobs:
         path: ${{github.workspace}}/build/
         # The desired behavior if no files are found using the provided path.
 
-#    - name: Run lupdate
-#      run: cmake --build ${{github.workspace}}/build --target lupdate_task || echo "lupdate failed, ignoring."
+    - name: Run lupdate
+      run: cmake --build ${{github.workspace}}/build --target lupdate_task || echo "lupdate failed, ignoring."
 
-#    - name: Run lrelease
-#      run: cmake --build ${{github.workspace}}/build --target lrelease_task || echo "lrelease failed, ignoring."
+    - name: Run lrelease
+      run: cmake --build ${{github.workspace}}/build --target lrelease_task || cmake --build ${{github.workspace}}/build --target lrelease_task || cmake --build ${{github.workspace}}/build --target lrelease_task || echo "lrelease failed, ignoring." || true
 
-    # - name: Upload qm file
-    #   uses: actions/upload-artifact@v4.6.2
-    #   with:
-    #     # Artifact name
-    #     name: Translation file # optional, default is artifact
-    #     # A file, directory or wildcard pattern that describes what to upload
-    #     path: ${{github.workspace}}/MusicPlayer_zh_CN.qm
-    #     # The desired behavior if no files are found using the provided path.
+    - name: Upload qm file
+      uses: actions/upload-artifact@v4.6.2
+      with:
+        # Artifact name
+        name: Translation file # optional, default is artifact
+        # A file, directory or wildcard pattern that describes what to upload
+        path: ${{github.workspace}}/MusicPlayer_zh_CN.qm
+        # The desired behavior if no files are found using the provided path.
 
 
