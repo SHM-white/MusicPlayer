@@ -88,8 +88,8 @@ else()
     qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
 
-add_custom_target(lupdate_task ALL DEPENDS ${TS_FILES} COMMAND true)
-add_custom_target(lrelease_task ALL DEPENDS ${QM_FILES} COMMAND true)
+add_custom_target(lupdate_task ALL DEPENDS ${TS_FILES} COMMAND true || echo "lupdate failed, ignoring.")
+add_custom_target(lrelease_task ALL DEPENDS ${QM_FILES} COMMAND true || echo "lrelease failed, ignoring.")
 
 target_link_libraries(MusicPlayer PRIVATE 
 Qt${QT_VERSION_MAJOR}::Widgets 
