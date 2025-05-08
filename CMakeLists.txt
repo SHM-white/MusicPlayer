@@ -88,8 +88,16 @@ else()
     qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
 
-add_custom_target(lupdate_task ALL DEPENDS ${TS_FILES})
-add_custom_target(lrelease_task ALL DEPENDS ${QM_FILES})
+# 修改 lrelease_task 的定义，确保依赖关系正确
+add_custom_target(lupdate_task ALL
+    COMMAND ${Qt_LUPDATE_EXECUTABLE} ${PROJECT_SOURCES} -ts ${TS_FILES}
+    DEPENDS ${PROJECT_SOURCES}
+)
+
+add_custom_target(lrelease_task ALL
+    COMMAND ${Qt_LRELEASE_EXECUTABLE} ${TS_FILES} -qm ${QM_FILES}
+    DEPENDS lupdate_task ${TS_FILES}
+)
 
 target_link_libraries(MusicPlayer PRIVATE 
 Qt${QT_VERSION_MAJOR}::Widgets 
