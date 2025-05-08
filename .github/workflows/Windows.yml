@@ -50,7 +50,7 @@ jobs:
       run: ls ${{ github.workspace }}/qt/Qt/6.8.3/msvc2022_64/bin
 
     - name: Deploy
-      run: ${{ github.workspace }}/qt/Qt/6.8.3/msvc2022_64/bin/windeployqt ${{github.workspace}}/build/MusicPlayer.exe
+      run: ${{ github.workspace }}/qt/Qt/6.8.3/msvc2022_64/bin/windeployqt ${{github.workspace}}/build/Release/MusicPlayer.exe
 
     - name: Upload build
       uses: actions/upload-artifact@v4.6.2
