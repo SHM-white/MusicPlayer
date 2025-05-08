@@ -702,6 +702,13 @@ void MainWidget::keyPressEvent(QKeyEvent* event)
 	case Qt::Key_Right:
 		m_mediaPlayer->setPosition(std::min(m_mediaPlayer->position() + 5000, m_mediaPlayer->duration())); // Forward 5 seconds
 		break;
+    case Qt::Key_Delete:
+		// Delete the selected item when Delete key is pressed
+		if (ui->listWidget_PlayList->currentItem()) {
+			removeSelectedItem(ui->listWidget_PlayList->currentItem());
+		}
+		event->accept();
+		break;
     default:
         QMainWindow::keyPressEvent(event); // Pass unhandled events to the base class
         break;
