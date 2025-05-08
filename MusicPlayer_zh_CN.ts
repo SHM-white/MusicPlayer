@@ -122,7 +122,7 @@
     <message>
         <location filename="src/widget.cpp" line="290"/>
         <source>Settings(&amp;S)</source>
-        <translation>设置</translation>
+        <translation>设置(&amp;S)</translation>
     </message>
     <message>
         <location filename="src/widget.cpp" line="566"/>
@@ -145,87 +145,87 @@
     <message>
         <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="63"/>
         <source>Example MainWindow</source>
-        <translation type="unfinished"></translation>
+        <translation>082420122</translation>
     </message>
     <message>
         <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="144"/>
         <source>File(&amp;F)</source>
-        <translation type="unfinished">文件</translation>
+        <translation>文件</translation>
     </message>
     <message>
         <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="145"/>
         <source>New(&amp;N)</source>
-        <translation type="unfinished">新建</translation>
+        <translation>新建</translation>
     </message>
     <message>
         <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="146"/>
         <source>Open(&amp;O)</source>
-        <translation type="unfinished">打开</translation>
+        <translation>打开</translation>
     </message>
     <message>
         <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="149"/>
         <source>Edit(&amp;E)</source>
-        <translation type="unfinished">编辑</translation>
+        <translation>编辑</translation>
     </message>
     <message>
         <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="150"/>
         <source>Undo(&amp;U)</source>
-        <translation type="unfinished">撤销</translation>
+        <translation>撤销</translation>
     </message>
     <message>
         <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="151"/>
         <source>Redo(&amp;R)</source>
-        <translation type="unfinished">重做</translation>
+        <translation>重做</translation>
     </message>
     <message>
         <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="154"/>
         <source>Enable dark theme</source>
-        <translation type="unfinished">启用深色模式</translation>
+        <translation>启用深色模式</translation>
     </message>
     <message>
         <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="164"/>
         <source>None</source>
-        <translation type="unfinished">关闭窗口模糊</translation>
+        <translation>关闭窗口模糊</translation>
     </message>
     <message>
         <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="169"/>
         <source>Enable DWM blur</source>
-        <translation type="unfinished">启用DWM模糊</translation>
+        <translation>启用DWM模糊</translation>
     </message>
     <message>
         <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="173"/>
         <source>Enable acrylic material</source>
-        <translation type="unfinished">启用亚克力材质模糊</translation>
+        <translation>启用亚克力材质模糊</translation>
     </message>
     <message>
         <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="177"/>
         <source>Enable mica</source>
-        <translation type="unfinished">启用Mica材质</translation>
+        <translation>启用Mica材质</translation>
     </message>
     <message>
         <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="181"/>
         <source>Enable mica alt</source>
-        <translation type="unfinished">启用Mica Alt材质</translation>
+        <translation>启用Mica Alt材质</translation>
     </message>
     <message>
         <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="218"/>
         <source>Dark blur</source>
-        <translation type="unfinished">深色模糊</translation>
+        <translation>深色模糊</translation>
     </message>
     <message>
         <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="230"/>
         <source>Light blur</source>
-        <translation type="unfinished">浅色模糊</translation>
+        <translation>浅色模糊</translation>
     </message>
     <message>
         <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="242"/>
         <source>No blur</source>
-        <translation type="unfinished">关闭模糊效果</translation>
+        <translation>关闭模糊效果</translation>
     </message>
     <message>
         <location filename="libs/QWindowKit/examples/mainwindow/mainwindow.cpp" line="261"/>
         <source>Settings(&amp;S)</source>
-        <translation type="unfinished">设置</translation>
+        <translation>设置</translation>
     </message>
 </context>
 <context>
@@ -248,52 +248,55 @@
     <message>
         <location filename="libs/QWindowKit/examples/qml/main.qml" line="12"/>
         <source>Hello, world!</source>
-        <translation type="unfinished"></translation>
+        <translation>082420122!</translation>
     </message>
     <message>
         <location filename="libs/QWindowKit/examples/qml/main.qml" line="158"/>
         <source>Theme</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>082420122</translatorcomment>
+        <translation>082420122</translation>
     </message>
     <message>
         <location filename="libs/QWindowKit/examples/qml/main.qml" line="166"/>
         <source>Light</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="libs/QWindowKit/examples/qml/main.qml" line="172"/>
         <source>Dark</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>082420122</translatorcomment>
+        <translation>082420122</translation>
     </message>
     <message>
         <location filename="libs/QWindowKit/examples/qml/main.qml" line="181"/>
         <source>Special effect</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="libs/QWindowKit/examples/qml/main.qml" line="190"/>
         <source>None</source>
-        <translation type="unfinished">关闭窗口模糊</translation>
+        <translation>关闭窗口模糊</translation>
     </message>
     <message>
         <location filename="libs/QWindowKit/examples/qml/main.qml" line="204"/>
         <source>DWM blur</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>082420122</translatorcomment>
+        <translation>082420122</translation>
     </message>
     <message>
         <location filename="libs/QWindowKit/examples/qml/main.qml" line="217"/>
         <source>Acrylic material</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="libs/QWindowKit/examples/qml/main.qml" line="230"/>
         <source>Mica</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="libs/QWindowKit/examples/qml/main.qml" line="243"/>
         <source>Mica Alt</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 </TS>

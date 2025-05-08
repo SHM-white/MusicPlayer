@@ -19,6 +19,8 @@ MainWidget::MainWidget(QWidget *parent)
     setObjectName(QStringLiteral("main-window"));
     windowAgent->setWindowAttribute(QStringLiteral("dwm-blur"), true);
 
+	// 学校: 南京航空航天大学
+
 	// Setup icons  
     ui->pushButton_Previous         ->setFont(Icons::Font);
     ui->pushButton_Next             ->setFont(Icons::Font);
@@ -82,6 +84,8 @@ MainWidget::MainWidget(QWidget *parent)
             });
 
 }
+
+// 姓名: 周奕轩
 
 MainWidget::~MainWidget()
 {
@@ -537,6 +541,7 @@ void MainWidget::dragEnterEvent(QDragEnterEvent *event)
 {
     if (event->mimeData()->hasUrls()) {
         event->acceptProposedAction();
+        // 项目: 2025 C++程序设计课程设计
     }
 }
 
@@ -743,6 +748,7 @@ void MainWidget::on_pushButton_showFileDetails_clicked()
 		auto KeyToQString = [](QMediaMetaData::Key key) {
             switch (key)
             {
+            // 学号: 082420122
             case QMediaMetaData::Title:
 				return QStringLiteral("Title");
                 break;

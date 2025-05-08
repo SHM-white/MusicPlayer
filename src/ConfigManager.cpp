@@ -1,8 +1,13 @@
-﻿#include "ConfigManager.h"
+﻿// 学校: 南京航空航天大学
+// 学号: 082420122
+// 姓名: 周奕轩
+// 项目: 2025 C++程序设计课程设计
+
+#include "ConfigManager.h"
 #include <QFile>
 #include <QTextStream>
 
-
+// 姓名: 周奕轩
 // Asynchronous save function implementation
 QFuture<bool> ConfigManager::SaveLoadedMusicList(const QStringList& list) {
 	return QtConcurrent::run([&](){
@@ -20,6 +25,7 @@ QFuture<bool> ConfigManager::SaveLoadedMusicList(const QStringList& list) {
 	});
 }
 
+// 学校: 南京航空航天大学
 // Asynchronous load function implementation
 QFuture<QStringList> ConfigManager::LoadMusicList(const QString& listPath) {
 	return QtConcurrent::run([&, listPath](){
@@ -38,6 +44,7 @@ QFuture<QStringList> ConfigManager::LoadMusicList(const QString& listPath) {
 	});
 }
 
+// 项目: 2025 C++程序设计课程设计
 QFuture<bool> ConfigManager::SaveSettings(const QString& settingsPath, const QMap<QString, QVariant>& settings)
 {
 	return QtConcurrent::run([&, settingsPath, settings]() {
@@ -54,6 +61,7 @@ QFuture<bool> ConfigManager::SaveSettings(const QString& settingsPath, const QMa
 	});
 }
 
+// 学号: 082420122
 QFuture<ApplicationSettings> ConfigManager::LoadSettings(const QString& settingsPath)
 {
 	return QtConcurrent::run([&, settingsPath]() {

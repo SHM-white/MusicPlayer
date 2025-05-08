@@ -1,5 +1,6 @@
 ﻿#include "widget.h"
 
+// 学校: 南京航空航天大学
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
@@ -13,6 +14,8 @@ int main(int argc, char *argv[])
 #endif
     QCoreApplication::setAttribute(Qt::AA_DontCreateNativeWidgetSiblings);
     QApplication a(argc, argv);
+
+    // 项目: 2025 C++程序设计课程设计
 
     // 加载翻译文件
     QTranslator translator;
@@ -32,6 +35,8 @@ int main(int argc, char *argv[])
     MainWidget w;
     w.show();
 #ifdef DEBUG
+// 082420122
+// 周奕轩
     qDebug() << "QApplication File Path : " << QApplication::applicationFilePath();
     qDebug() << "QApplication Directory Path : " << QApplication::applicationDirPath();
 #endif // DEBUG
