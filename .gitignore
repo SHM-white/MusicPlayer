@@ -38,6 +38,8 @@ Thumbs.db
 # qtcreator generated files
 *.pro.user*
 CMakeLists.txt.user*
+CMakePresets.json
+CMakeUserPresets.json
 
 # xemacs temporary files
 *.flc
@@ -77,3 +79,5 @@ build
 out
 
 *.bak
+/CMakePresets.json
+/CMakeUserPresets.json

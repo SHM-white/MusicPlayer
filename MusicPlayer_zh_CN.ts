@@ -5,44 +5,38 @@
     <name>MainWidget</name>
     <message>
         <location filename="src/widget.ui" line="14"/>
-        <location filename="build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/MusicPlayer_autogen/include/ui_widget.h" line="252"/>
-        <location filename="build/Desktop_Qt_6_8_2_MSVC2022_64bit-Release/MusicPlayer_autogen/include/ui_widget.h" line="252"/>
+        <location filename="out/build/debug/MusicPlayer_autogen/include/ui_widget.h" line="252"/>
         <source>MainWidget</source>
         <oldsource>Widget</oldsource>
         <translation>主窗口</translation>
     </message>
     <message>
         <location filename="src/widget.ui" line="55"/>
-        <location filename="build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/MusicPlayer_autogen/include/ui_widget.h" line="253"/>
-        <location filename="build/Desktop_Qt_6_8_2_MSVC2022_64bit-Release/MusicPlayer_autogen/include/ui_widget.h" line="253"/>
+        <location filename="out/build/debug/MusicPlayer_autogen/include/ui_widget.h" line="253"/>
         <source>00:00/00:00</source>
         <translation></translation>
     </message>
     <message>
         <location filename="src/widget.ui" line="77"/>
-        <location filename="build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/MusicPlayer_autogen/include/ui_widget.h" line="254"/>
-        <location filename="build/Desktop_Qt_6_8_2_MSVC2022_64bit-Release/MusicPlayer_autogen/include/ui_widget.h" line="254"/>
+        <location filename="out/build/debug/MusicPlayer_autogen/include/ui_widget.h" line="254"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
         <location filename="src/widget.ui" line="107"/>
-        <location filename="build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/MusicPlayer_autogen/include/ui_widget.h" line="255"/>
-        <location filename="build/Desktop_Qt_6_8_2_MSVC2022_64bit-Release/MusicPlayer_autogen/include/ui_widget.h" line="255"/>
+        <location filename="out/build/debug/MusicPlayer_autogen/include/ui_widget.h" line="255"/>
         <source>*</source>
         <translation></translation>
     </message>
     <message>
         <location filename="src/widget.ui" line="120"/>
-        <location filename="build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/MusicPlayer_autogen/include/ui_widget.h" line="256"/>
-        <location filename="build/Desktop_Qt_6_8_2_MSVC2022_64bit-Release/MusicPlayer_autogen/include/ui_widget.h" line="256"/>
+        <location filename="out/build/debug/MusicPlayer_autogen/include/ui_widget.h" line="256"/>
         <source>&lt;-</source>
         <translation></translation>
     </message>
     <message>
         <location filename="src/widget.ui" line="143"/>
-        <location filename="build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/MusicPlayer_autogen/include/ui_widget.h" line="257"/>
-        <location filename="build/Desktop_Qt_6_8_2_MSVC2022_64bit-Release/MusicPlayer_autogen/include/ui_widget.h" line="257"/>
+        <location filename="out/build/debug/MusicPlayer_autogen/include/ui_widget.h" line="257"/>
         <source>-&gt;</source>
         <translation></translation>
     </message>
@@ -131,12 +125,17 @@
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="src/widget.cpp" line="562"/>
+        <location filename="src/widget.cpp" line="566"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="src/widget.cpp" line="827"/>
+        <location filename="src/widget.cpp" line="567"/>
+        <source>Delete All</source>
+        <translation>删除所有</translation>
+    </message>
+    <message>
+        <location filename="src/widget.cpp" line="843"/>
         <source>File Details</source>
         <translation>文件详细信息</translation>
     </message>
@@ -233,15 +232,13 @@
     <name>Settings</name>
     <message>
         <location filename="src/Settings.ui" line="14"/>
-        <location filename="build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/MusicPlayer_autogen/include/ui_Settings.h" line="102"/>
-        <location filename="build/Desktop_Qt_6_8_2_MSVC2022_64bit-Release/MusicPlayer_autogen/include/ui_Settings.h" line="102"/>
+        <location filename="out/build/debug/MusicPlayer_autogen/include/ui_Settings.h" line="102"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
         <location filename="src/Settings.ui" line="41"/>
-        <location filename="build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/MusicPlayer_autogen/include/ui_Settings.h" line="103"/>
-        <location filename="build/Desktop_Qt_6_8_2_MSVC2022_64bit-Release/MusicPlayer_autogen/include/ui_Settings.h" line="103"/>
+        <location filename="out/build/debug/MusicPlayer_autogen/include/ui_Settings.h" line="103"/>
         <source>FontSize</source>
         <translation>歌词字体大小</translation>
     </message>

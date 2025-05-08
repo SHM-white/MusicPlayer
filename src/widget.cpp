@@ -544,9 +544,13 @@ void MainWidget::dropEvent(QDropEvent *event)
 {
     const auto urls = event->mimeData()->urls();
     QStringList list;
+    auto isAudioFile = [](const QFileInfo& fileInfo) {
+        static const QStringList audioFileTypes = { "mp3", "flac", "wav", "ogg", "aac", "wma" };
+        return fileInfo.exists() && fileInfo.isFile() && (audioFileTypes.contains(fileInfo.suffix().toLower()));
+        };
     for (const QUrl &url : urls) {
         QFileInfo fileInfo(url.toLocalFile());
-        if (fileInfo.exists() && fileInfo.isFile() && fileInfo.suffix().toLower().contains("mp3")) {
+        if (isAudioFile(fileInfo)) {
             list.append(fileInfo.absoluteFilePath());
         }
     }
@@ -560,10 +564,15 @@ void MainWidget::showContextMenu(const QPoint &pos)
 
     QMenu contextMenu(this);
     QAction *deleteAction = contextMenu.addAction(tr("Delete"));
+    QAction* deleteAllAction = contextMenu.addAction(tr("Delete All"));
     connect(deleteAction, &QAction::triggered, this, [this, item]() {
         removeSelectedItem(item);
     });
-
+	connect(deleteAllAction, &QAction::triggered, this, [this]() {
+		m_musicList.clear();
+		ui->listWidget_PlayList->clear();
+		ConfigManager::SaveLoadedMusicList(m_musicList);
+		});
     contextMenu.exec(ui->listWidget_PlayList->mapToGlobal(pos));
 }
 
