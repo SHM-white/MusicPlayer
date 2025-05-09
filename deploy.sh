@@ -6,6 +6,8 @@ wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/1-al
 mv linuxdeploy-x86_64.AppImage linuxdeploy
 sudo chmod +x ./linuxdeploy
 sudo chmod +x ./linuxdeploy-plugin-qt-x86_64.AppImage
+sudo apt update
+sudo apt install libxcb-cursor0
 cp build/MusicPlayer AppDir/usr/bin/
 ldd AppDir/usr/bin/MusicPlayer
 ./linuxdeploy --appdir AppDir --executable AppDir/usr/bin/MusicPlayer --desktop-file AppDir/usr/share/applications/MusicPlayer.desktop --output appimage --library /usr/lib/x86_64-linux-gnu/libstdc++.so.6 --plugin qt
