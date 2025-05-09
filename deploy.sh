@@ -1,11 +1,7 @@
 export QMAKE=$1
 
-mkdir AppDir
-mkdir AppDir/usr
 mkdir AppDir/usr/bin
 mkdir AppDir/usr/lib
-mkdir AppDir/usr/share
-mkdir AppDir/usr/share/applications
 
 if(exist)
 wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
