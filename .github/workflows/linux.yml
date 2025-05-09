@@ -69,7 +69,7 @@ jobs:
     - name: Deploy dependences
       run: |
         sudo chmod +x ./deploy.sh
-        sudo ./deploy.sh ${{github.workspace}}/qt/Qt/6.8.3/gcc_64/bin/qmake
+        sudo ./deploy.sh ${{github.workspace}}/qt/Qt/6.8.2/gcc_64/bin/qmake
         
 
     - name: Upload deployed file
