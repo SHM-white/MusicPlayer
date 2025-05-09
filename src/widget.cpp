@@ -82,7 +82,19 @@ MainWidget::MainWidget(QWidget *parent)
         .then([&](const QStringList& r) {
         updateMusicList(r);
             });
-
+    if (QApplication::arguments().size() > 1) {
+        int musicCount = m_musicList.size();
+		QStringList fileNames;
+		for (int i = 1; i < QApplication::arguments().size(); ++i) {
+			auto fileName = QApplication::arguments().at(i);
+			fileName.replace("\\", "/");
+			fileName.replace("\"", "");
+			fileName.replace("'", "");
+			fileNames.append(fileName);
+		}
+		updateMusicList(fileNames);
+		changeMusic(ui->listWidget_PlayList->item(musicCount));
+    }
 }
 
 // 姓名: 周奕轩
@@ -163,9 +175,16 @@ void MainWidget::installWindowAgent()
         auto menuBar = new QMenuBar(this);
 
         //// Virtual menu
-        //auto file = new QMenu(tr("File(&F)"), menuBar);
+        auto file = new QMenu(tr("File(&F)"), menuBar);
         //file->addAction(new QAction(tr("New(&N)"), menuBar));
-        //file->addAction(new QAction(tr("Open(&O)"), menuBar));
+        auto openAction = new QAction(tr("Open(&O)"), menuBar);
+		connect(openAction, &QAction::triggered, this, [this]() {
+			auto fileName = QFileDialog::getOpenFileNames(this, tr("Open File"), QString(), tr("Audio Files (*.mp3 *.wav *.flac *.ogg *.wma *.aac)"));
+			if (!fileName.isEmpty()) {
+				updateMusicList(fileName);
+			}
+			});
+        file->addAction(openAction);
         //file->addSeparator();
 
         //auto edit = new QMenu(tr("Edit(&E)"), menuBar);
@@ -309,7 +328,7 @@ void MainWidget::installWindowAgent()
         settings->addAction(noBlurAction);
 #endif
 
-        //menuBar->addMenu(file);
+        menuBar->addMenu(file);
         //menuBar->addMenu(edit);
         menuBar->addMenu(settings);
         return menuBar;
