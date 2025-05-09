@@ -67,7 +67,10 @@ jobs:
         # The desired behavior if no files are found using the provided path.
 
     - name: Deploy dependences
-      run: ./deploy.sh ${{github.workspace}}/qt/Qt/6.8.2/gcc_64/bin/qmake
+      run: |
+        sudo chmod +x ./deploy.sh
+        sudo ./deploy.sh ${{github.workspace}}/qt/Qt/6.8.3/gcc_64/bin/qmake
+        
 
     - name: Upload deployed file
       uses: actions/upload-artifact@v4.6.2
