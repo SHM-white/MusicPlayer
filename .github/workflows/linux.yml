@@ -39,7 +39,7 @@ jobs:
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_PREFIX_PATH="${{ github.workspace }}/qt/6.8.3/msvc2022_64/bin"
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_PREFIX_PATH="${{ github.workspace }}/qt/6.8.3/gcc_64"
 
     - name: Build
       # Build your program with the given configuration
@@ -64,5 +64,17 @@ jobs:
         name: Translation file # optional, default is artifact
         # A file, directory or wildcard pattern that describes what to upload
         path: ${{github.workspace}}/MusicPlayer_zh_CN.qm
+        # The desired behavior if no files are found using the provided path.
+
+    - name: Deploy dependences
+      run: ./deploy.sh ${{github.workspace}}/qt/Qt/6.8.3/gcc_64/bin/qmake
+
+    - name: Upload deployed file
+      uses: actions/upload-artifact@v4.6.2
+      with:
+        # Artifact name
+        name: Deployed # optional, default is artifact
+        # A file, directory or wildcard pattern that describes what to upload
+        path: ${{github.workspace}}/MusicPlayer-x86_64.AppImage
         # The desired behavior if no files are found using the provided path.
 

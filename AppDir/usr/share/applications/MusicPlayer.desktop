@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=MusicPlayer
+Exec=MusicPlayer
+Terminal=false
+Icon=icons
+Categories=Utility
