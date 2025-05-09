@@ -10,4 +10,4 @@ sudo apt update
 sudo apt install libxcb-cursor0
 cp build/MusicPlayer AppDir/usr/bin/
 ldd AppDir/usr/bin/MusicPlayer
-./linuxdeploy --appdir AppDir --executable AppDir/usr/bin/MusicPlayer --desktop-file AppDir/usr/share/applications/MusicPlayer.desktop --output appimage --library /usr/lib/x86_64-linux-gnu/libstdc++.so.6 --plugin qt
+./linuxdeploy --appdir AppDir --executable AppDir/usr/bin/MusicPlayer --desktop-file AppDir/usr/share/applications/MusicPlayer.desktop --output appimage --library /usr/lib/x86_64-linux-gnu/libstdc++.so.6 --library /usr/lib/x86_64-linux-gnu/libc.so.6 --plugin qt
