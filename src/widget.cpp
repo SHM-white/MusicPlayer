@@ -115,6 +115,12 @@ void MainWidget::changeMusic(QListWidgetItem* item)
     if (item == nullptr) {
         return;
     }
+	if (std::find(m_playedMusics.begin(), m_playedMusics.end(), item) == m_playedMusics.end()) {
+        while (m_playedMusics.size() > m_musicList.size() / 4) {
+            m_playedMusics.erase(m_playedMusics.begin());
+        }
+		m_playedMusics.push_back(item);
+	}
     this->setFocus();
     auto* i = dynamic_cast<MusicItem*>(item);
     m_playingMusicItem = item;
@@ -672,7 +678,7 @@ void MainWidget::on_pushButton_Previous_clicked()
         std::mt19937 gen(rd());
         std::uniform_int_distribution<> distrib(0, ui->listWidget_PlayList->count() - 1);
         int peddingMusicRow;
-        while ((peddingMusicRow = distrib(gen)) == currentMusicRow) {};
+        while ((peddingMusicRow = distrib(gen)) == currentMusicRow || (std::find(m_playedMusics.begin(), m_playedMusics.end(), ui->listWidget_PlayList->item(peddingMusicRow)) != m_playedMusics.end())) {};
         ui->listWidget_PlayList->setCurrentRow(peddingMusicRow);
         changeMusic(ui->listWidget_PlayList->item(peddingMusicRow));
     }
@@ -708,7 +714,7 @@ void MainWidget::on_pushButton_Next_clicked()
         std::mt19937 gen(rd());
         std::uniform_int_distribution<> distrib(0, ui->listWidget_PlayList->count() - 1);
         int peddingMusicRow;
-        while ((peddingMusicRow = distrib(gen)) == currentMusicRow) {};
+        while ((peddingMusicRow = distrib(gen)) == currentMusicRow || (std::find(m_playedMusics.begin(), m_playedMusics.end(), ui->listWidget_PlayList->item(peddingMusicRow)) != m_playedMusics.end())) {};
         ui->listWidget_PlayList->setCurrentRow(peddingMusicRow);
         changeMusic(ui->listWidget_PlayList->item(peddingMusicRow));
     }

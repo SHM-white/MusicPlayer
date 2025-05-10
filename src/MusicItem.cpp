@@ -18,7 +18,7 @@ QFuture<QMediaMetaData> MusicItem::load(std::shared_ptr<QMediaPlayer>& player)
         locker.wait(true); // 等待其他线程释放锁
         locker.store(true); // 加锁
 
-        if (url.isEmpty()) {
+        if (url.isEmpty() || !mediaMetaData().isEmpty()) {
             locker.store(false); // 解锁
             locker.notify_one();
             return mediaMetaData();
