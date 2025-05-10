@@ -10,9 +10,13 @@
 // 姓名: 周奕轩
 // Asynchronous save function implementation
 QFuture<bool> ConfigManager::SaveLoadedMusicList(const QStringList& list) {
-	return QtConcurrent::run([&](){
+	return QtConcurrent::run([&](const QStringList& list){
+		static std::atomic_bool locker{ false };
+		locker.wait(true);
 		QFile file{ GlobalConfigs::LOCAL_PLAY_LIST()};
 		if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+			locker.store(false);
+			locker.notify_one(); 
 			return false;
 		}
 
@@ -21,17 +25,23 @@ QFuture<bool> ConfigManager::SaveLoadedMusicList(const QStringList& list) {
 			out << item << '\n';
 		}
 		file.close();
+		locker.store(false);
+		locker.notify_one();
 		return true;
-	});
+	}, list);
 }
 
 // 学校: 南京航空航天大学
 // Asynchronous load function implementation
 QFuture<QStringList> ConfigManager::LoadMusicList(const QString& listPath) {
 	return QtConcurrent::run([&, listPath](){
+		static std::atomic_bool locker{ false };
+		locker.wait(true);
 		QStringList list;
 		QFile file{ listPath };
 		if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+			locker.store(false);
+			locker.notify_one();
 			return list; // Return empty list if file cannot be opened
 		}
 
@@ -40,6 +50,8 @@ QFuture<QStringList> ConfigManager::LoadMusicList(const QString& listPath) {
 			list.append(in.readLine());
 		}
 		file.close();
+		locker.store(false);
+		locker.notify_one();
 		return list;
 	});
 }

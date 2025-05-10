@@ -116,7 +116,7 @@ void MainWidget::changeMusic(QListWidgetItem* item)
         return;
     }
 	if (std::find(m_playedMusics.begin(), m_playedMusics.end(), item) == m_playedMusics.end()) {
-        while (m_playedMusics.size() > m_musicList.size() / 4) {
+        while (m_playedMusics.size() > std::min(m_musicList.size() / 4, 100ll)) {
             m_playedMusics.erase(m_playedMusics.begin());
         }
 		m_playedMusics.push_back(item);
@@ -515,11 +515,29 @@ void MainWidget::updateTimeLabel(qint64 current, qint64 total)
 }
 
 void MainWidget::updateMusicList(const QStringList& list) {
-    m_musicList.append(list);
-    for (const auto& i : list) {
-        ui->listWidget_PlayList->addItem(new MusicItem{ui->listWidget_PlayList, i});
-    }
-    ConfigManager::SaveLoadedMusicList(m_musicList);
+    // 将操作放入后台线程
+    QtConcurrent::run([this, list]() {
+		static std::atomic_bool locker{ false };
+		locker.wait(true);
+        QStringList newMusicList = m_musicList;
+        newMusicList.append(list);
+
+        // 更新 UI 必须在主线程中完成
+        QMetaObject::invokeMethod(this, [this, list]() {
+            for (const auto& i : list) {
+                ui->listWidget_PlayList->addItem(new MusicItem{ ui->listWidget_PlayList, i });
+            }
+            }, Qt::QueuedConnection);
+
+        // 更新成员变量
+        QMetaObject::invokeMethod(this, [this, newMusicList]() {
+            m_musicList = newMusicList;
+            ConfigManager::SaveLoadedMusicList(newMusicList);
+            }, Qt::QueuedConnection);
+		locker.store(false);
+		locker.notify_one();
+        });
+
 }
 
 void MainWidget::on_pushButton_ShowPlayList_clicked()
