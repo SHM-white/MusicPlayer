@@ -6,6 +6,7 @@
 #include "ConfigManager.h"
 #include "LoopModeSwitcher.h"
 #include "DisplayWidget.h"
+#include "includeFiles.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

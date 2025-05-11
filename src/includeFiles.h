@@ -50,6 +50,8 @@
 #include <QAction>
 #include <QtConcurrent/QtConcurrent>
 #include <QFutureWatcher>
+#include <QMediaDevices>
+#include <QAudioDevice>
 
 #include <qstringlistmodel.h>
 #include <qpainterpath.h>

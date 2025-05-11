@@ -53,7 +53,9 @@ MainWidget::MainWidget(QWidget *parent)
 			timer->deleteLater();
 			});
         });
-    m_mediaPlayer->setAudioOutput(new QAudioOutput(this));
+    auto audioOutput = new QAudioOutput(this);
+    audioOutput->setDevice(QMediaDevices::defaultAudioOutput());
+    m_mediaPlayer->setAudioOutput(audioOutput);
 	m_autoFocusTimer = std::make_unique<QTimer>(this);
 	connect(m_autoFocusTimer.get(), &QTimer::timeout, [this]() {
         if (this->isActiveWindow()) {
