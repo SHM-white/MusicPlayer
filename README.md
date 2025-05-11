@@ -1,5 +1,9 @@
 # MusicPlayer
 
+```Bash
+ git clone --recursive https://github.com/SHM-white/MusicPlayer.git
+```
+
 使用Qt C++编写的音乐播放器，支持播放本地音频，兼容`.lrc`格式歌词文件，作为播放器的基本功能基本完善。
 
 [![Linux x64](https://github.com/SHM-white/MusicPlayer/actions/workflows/linux.yml/badge.svg)](https://github.com/SHM-white/MusicPlayer/actions/workflows/linux.yml)
