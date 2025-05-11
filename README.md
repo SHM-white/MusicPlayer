@@ -57,5 +57,3 @@
 - [QWindowKit](https://github.com/stdware/qwindowkit) - Cross-platform window customization framework for Qt Widgets and Qt Quick.
 
 ## [使用Github Actions自动构建](https://github.com/SHM-white/MusicPlayer/actions)
-
-由于该项目是作为课程设计期末作业，时间有限，且行数早已达标，故未添加更多功能。
