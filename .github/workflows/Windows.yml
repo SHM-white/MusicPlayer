@@ -29,7 +29,7 @@ jobs:
       uses: jurplel/install-qt-action@v3
       with:
         aqtversion: '==3.1.*'
-        version: '6.8.3'
+        version: '6.8.2'
         host: 'windows'
         dir: '${{ github.workspace }}/qt/'
         target: 'desktop'
@@ -40,17 +40,17 @@ jobs:
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_PREFIX_PATH="${{ github.workspace }}/qt/6.8.3/msvc2022_64"
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_PREFIX_PATH="${{ github.workspace }}/qt/6.8.2/msvc2022_64"
 
     - name: Build
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} || cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} || cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} || echo "ignoring"
 
     - name: Check dir
-      run: ls ${{ github.workspace }}/qt/Qt/6.8.3/msvc2022_64/bin
+      run: ls ${{ github.workspace }}/qt/Qt/6.8.2/msvc2022_64/bin
 
     - name: Deploy
-      run: ${{ github.workspace }}/qt/Qt/6.8.3/msvc2022_64/bin/windeployqt ${{github.workspace}}/build/Release/MusicPlayer.exe
+      run: ${{ github.workspace }}/qt/Qt/6.8.2/msvc2022_64/bin/windeployqt ${{github.workspace}}/build/Release/MusicPlayer.exe
 
     - name: Upload build
       uses: actions/upload-artifact@v4.6.2
@@ -58,7 +58,7 @@ jobs:
         # Artifact name
         name: Windows-x64 # optional, default is artifact
         # A file, directory or wildcard pattern that describes what to upload
-        path: ${{github.workspace}}/build/
+        path: ${{github.workspace}}/build/Release/
         # The desired behavior if no files are found using the provided path.
 
     - name: Run lupdate
