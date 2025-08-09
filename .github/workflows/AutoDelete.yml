@@ -13,9 +13,12 @@ jobs:
       contents: read
     steps:
       - name: Delete workflow runs for remote repo
-        uses: Mattraks/delete-workflow-runs@v2
+        uses: Mattraks/delete-workflow-runs@v2.0.6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          repository: '***/***'
-          retain_days: 1
-          keep_minimum_runs: 3
+          # Authentication token
+          token:  ${{ github.token }}
+          # Name of the repository
+          repository: ${{ github.repository }}
+
+          
+                
